@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "mkdir -p .agent-log && jq -c '{ts:(now|todate), tool:.tool_name, input:.tool_input, result:\"ok\", session:.session_id, source:\"claude-code\"}' >> .agent-log/session.jsonl",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -e '(.tool_input.file_path // \"\") | endswith(\".env\") or endswith(\".env.local\")' >/dev/null && jq -n '{hookSpecificOutput:{hookEventName:\"PreToolUse\",permissionDecision:\"deny\",permissionDecisionReason:\"Політика курсу: .env і .env.local редагує людина, не агент.\"}}' || exit 0",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

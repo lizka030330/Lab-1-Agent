@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Типи, лінт, тести, збірка
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Встановлення залежностей
+        run: npm ci
+
+      - name: Перевірка типів
+        run: npm run typecheck
+
+      - name: Лінт
+        run: npm run lint
+
+      - name: Юніт-тести
+        run: npm test
+
+      - name: Збірка
+        run: npm run build
+
+  e2e:
+    name: Playwright (не блокує)
+    runs-on: ubuntu-latest
+    needs: verify
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Встановлення залежностей
+        run: npm ci
+
+      - name: Встановлення браузерів Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: E2E-тести
+        run: npm run e2e
+
+      - name: Скріншоти та звіт як артефакти
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-artifacts
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 7
+          if-no-files-found: ignore
