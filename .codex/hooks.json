@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node scripts/agent-log-hook.mjs codex",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
