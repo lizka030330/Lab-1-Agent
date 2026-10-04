@@ -22,6 +22,9 @@
   "dependencies": {
     "@ai-sdk/google": "^4.0.87",
     "@ai-sdk/openai-compatible": "^3.0.62",
+    "@langfuse/otel": "^5.11.1",
+    "@langfuse/vercel-ai-sdk": "^5.11.1",
+    "@opentelemetry/sdk-node": "^0.222.0",
     "ai": "^7.0.127",
     "next": "^16.3.4",
     "ollama-ai-provider-v2": "^4.0.1",

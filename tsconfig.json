@@ -35,6 +35,8 @@
   "include": [
     "next-env.d.ts",
     "next.config.ts",
+    "instrumentation.ts",
+    "instrumentation.node.ts",
     "vitest.config.ts",
     "playwright.config.ts",
     "app/**/*.ts",
