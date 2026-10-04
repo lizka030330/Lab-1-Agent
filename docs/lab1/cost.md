@@ -130,3 +130,24 @@ A task is considered done when `npm run typecheck`, `npm run lint` and `npm test
 ```
 
 ## 4. Три прогони (крок 11)
+
+Той самий вхід для всіх трьох: `scripts/measure-loop.ts` — однакові системний промпт, задача `/api/health`, інструменти `list_files` і `read_file`, `maxSteps` 12, бюджет 150 000 токенів, схема виходу `Proposal`.
+
+| прогін | провайдер | модель | вхідні | кешовані | вихідні | оцінка входу до виклику | похибка % | $ фактично | $ за прайсом models.ts | затримка, мс | дата |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| хмара | google · Gemini API free tier (Chat Completions) | gemini-3.8-flash | заплановано | | | — | — | | | | |
+| шлюз | OpenRouter (Chat Completions) | nvidia/nemotron-3.5-lightning:free | 9613 | 0 | 2373 | — | — | 0.000000 | 0.000000 (шлюзу немає в models.ts; :free-модель — ціна 0 зі сторінки моделі на OpenRouter) | 99600 | 2026-10-04 |
+| локально | ollama (Messages) | qwen3:4b-instruct | 2669 | 1910 | 260 | — | — | 0.000000 | 0.000000 | 11374 | 2026-10-04 |
+
+Команди:
+- `npx tsx --env-file=.env.local scripts/measure-loop.ts gemini 1`
+- `npx tsx --env-file=.env.local scripts/measure-loop.ts openrouter 1` (OPENROUTER_MODEL=nvidia/nemotron-3.5-lightning:free)
+- `OLLAMA_MODEL=qwen3:4b-instruct npx tsx --env-file=.env.local scripts/measure-loop.ts ollama-messages 1`
+
+Сесії в `.agent-log/agent-loop.jsonl`: шлюз — `agent-loop-openrouter-2026-10-04T19-29-53-214Z` (`done`, 9 кроків); локально — `agent-loop-ollama-messages-2026-10-04T19-33-41-002Z` (`done`, 4 кроки).
+
+Примітки:
+- Хмарний прогін 04.10 не виконано: денна квота безкоштовного рівня Gemini (20 запитів) вичерпана, HTTP 429; повтор після оновлення квоти.
+- Шлюз: перші спроби з `google/gemma-4-31b-it:free` (провайдер Google AI Studio) і `qwen/qwen3.8-27b:free` (провайдер ModelRun) завершилися HTTP 429 «temporarily rate-limited upstream», `limit_source: upstream_provider_shared_pool` — безкоштовні моделі шлюзу ділять спільний ліміт з усіма користувачами. `qwen3.8-27b` до обриву встигла зробити 10 викликів інструментів (session `agent-loop-openrouter-2026-10-04T19-28-18-409Z`). Скрипт зупинявся на першій помилці HTTP.
+- Кеш: локальна Ollama повторно використала 1910 з 2669 вхідних токенів (префікс історії між кроками); OpenRouter для цієї моделі кешованих токенів не повернув (0).
+- Якість пропозицій на тому самому вході різна: модель шлюзу запропонувала правильний `app/api/health/route.ts` (відносний `import type`, `export const dynamic = 'force-dynamic'`, тип відповіді з контракту), але повернула й контрактні файли `tests/health.test.ts` і `src/health.ts` (вміст без змін); локальна модель повернула лише незмінений `src/health.ts`, без маршруту — схему пройшла, задачу не розв'язала.

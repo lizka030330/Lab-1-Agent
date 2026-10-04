@@ -5,6 +5,7 @@
  *   npx tsx --env-file=.env.local scripts/measure-loop.ts ollama-messages 10
  *   npx tsx --env-file=.env.local scripts/measure-loop.ts ollama-chat 1
  *   npx tsx --env-file=.env.local scripts/measure-loop.ts gemini 1
+ *   npx tsx --env-file=.env.local scripts/measure-loop.ts openrouter 1
  *
  * Кожен виклик інструмента дописується в .agent-log/agent-loop.jsonl.
  * Числа кожного прогону переносьте в таблицю docs/lab1/comparison.md.
@@ -57,6 +58,23 @@ function pick(kind: string): { model: Model; spec: ModelSpec; form: string } {
       },
     };
   }
+  if (kind === 'openrouter') {
+    const key = process.env.OPENROUTER_API_KEY;
+    const id = process.env.OPENROUTER_MODEL;
+    if (!key || !id) throw new Error('OPENROUTER_API_KEY або OPENROUTER_MODEL порожні: заповніть .env.local');
+    // Шлюзу немає в models.ts: для :free-моделі ціни 0; для платної впишіть ціни за 1 млн токенів зі сторінки моделі на OpenRouter.
+    // provider: 'openai' — бо форма API OpenAI-сумісна; окремого значення для шлюзу в типі Provider немає.
+    const spec: ModelSpec = { id, provider: 'openai', inputPerMTok: 0, outputPerMTok: 0, pricingUrl: 'https://openrouter.ai/models' };
+    return {
+      spec,
+      form: 'chat-completions',
+      model: chatCompletionsModel({
+        url: 'https://openrouter.ai/api/v1/chat/completions',
+        model: id,
+        headers: { authorization: `Bearer ${key}` },
+      }),
+    };
+  }
   const spec = MODELS.local;
   if (kind === 'ollama-messages') {
     return { spec, form: 'messages', model: messagesModel({ url: `${spec.baseUrl}/v1/messages`, model: spec.id }) };
@@ -64,7 +82,7 @@ function pick(kind: string): { model: Model; spec: ModelSpec; form: string } {
   if (kind === 'ollama-chat') {
     return { spec, form: 'chat-completions', model: chatCompletionsModel({ url: `${spec.baseUrl}/v1/chat/completions`, model: spec.id }) };
   }
-  throw new Error(`Невідомий провайдер «${kind}». Є: ollama-messages, ollama-chat, gemini`);
+  throw new Error(`Невідомий провайдер «${kind}». Є: ollama-messages, ollama-chat, gemini, openrouter`);
 }
 
 const [kind = 'ollama-messages', runsArg = '1'] = process.argv.slice(2);
