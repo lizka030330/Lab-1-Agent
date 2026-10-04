@@ -104,7 +104,7 @@ function envOr(name: string, fallback: string): string {
 // Ollama сортується за завантаженнями за весь час, тому вгорі списку
 // опиняються старі покоління моделей.
 const LOCAL_BASE_URL: string = envOr('OLLAMA_BASE_URL', 'http://localhost:11434');
-const LOCAL_CHAT_ID: string = envOr('OLLAMA_MODEL', 'qwen3.5:4b');
+const LOCAL_CHAT_ID: string = envOr('OLLAMA_MODEL', 'qwen3:4b-instruct');
 const LOCAL_EMBED_ID: string = envOr('OLLAMA_EMBED_MODEL', 'nomic-embed-text');
 
 const LOCAL_LIMITS = [
