@@ -135,19 +135,21 @@ A task is considered done when `npm run typecheck`, `npm run lint` and `npm test
 
 | прогін | провайдер | модель | вхідні | кешовані | вихідні | оцінка входу до виклику | похибка % | $ фактично | $ за прайсом models.ts | затримка, мс | дата |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| хмара | google · Gemini API free tier (Chat Completions) | gemini-3.8-flash | заплановано | | | — | — | | | | |
+| хмара | google · Gemini API free tier (Chat Completions) | gemini-3.5-flash-lite | 11887 | 0 | 224 | — | — | 0.000000 | 0.004126 | 211738 | 2026-10-05 |
 | шлюз | OpenRouter (Chat Completions) | nvidia/nemotron-3.5-lightning:free | 9613 | 0 | 2373 | — | — | 0.000000 | 0.000000 (шлюзу немає в models.ts; :free-модель — ціна 0 зі сторінки моделі на OpenRouter) | 99600 | 2026-10-04 |
 | локально | ollama (Messages) | qwen3:4b-instruct | 2669 | 1910 | 260 | — | — | 0.000000 | 0.000000 | 11374 | 2026-10-04 |
 
 Команди:
-- `npx tsx --env-file=.env.local scripts/measure-loop.ts gemini 1`
+- `GEMINI_MODEL=gemini-3.5-flash-lite npx tsx --env-file=.env.local scripts/measure-loop.ts gemini 1`
 - `npx tsx --env-file=.env.local scripts/measure-loop.ts openrouter 1` (OPENROUTER_MODEL=nvidia/nemotron-3.5-lightning:free)
 - `OLLAMA_MODEL=qwen3:4b-instruct npx tsx --env-file=.env.local scripts/measure-loop.ts ollama-messages 1`
 
-Сесії в `.agent-log/agent-loop.jsonl`: шлюз — `agent-loop-openrouter-2026-10-04T19-29-53-214Z` (`done`, 9 кроків); локально — `agent-loop-ollama-messages-2026-10-04T19-33-41-002Z` (`done`, 4 кроки).
+Сесії в `.agent-log/agent-loop.jsonl`: хмара — `agent-loop-gemini-2026-10-05T11-43-45-343Z` (`max-steps`, 12 кроків); шлюз — `agent-loop-openrouter-2026-10-04T19-29-53-214Z` (`done`, 9 кроків); локально — `agent-loop-ollama-messages-2026-10-04T19-33-41-002Z` (`done`, 4 кроки).
 
 Примітки:
-- Хмарний прогін 04.10 не виконано: денна квота безкоштовного рівня Gemini (20 запитів) вичерпана, HTTP 429; повтор після оновлення квоти.
+- Хмара: 04.10 — денна квота безкоштовного рівня `gemini-3.8-flash` (20 запитів) вичерпана, HTTP 429; 05.10 — три спроби поспіль на `gemini-3.8-flash` завершилися HTTP 503 «high demand» (перевантаження на боці Google; ключ перевірено прямим запитом до `gemini-3.5-flash-lite` — працює). Тому хмарний прогін зроблено на `gemini-3.5-flash-lite` (та сама хмара Google, ціни $0.30/$2.50 за 1M з `src/models.ts`); модель обирається змінною `GEMINI_MODEL` у скрипті, решту входу не змінено.
+- Хмара зупинилась на `max-steps`: модель робила один виклик інструмента за крок — 6 × `list_files` (`.`, `tests`, `src`, `app`, `app/api`, `app/api/health`), потім 6 × `read_file` (тест, контракт, наявний `route.ts`, `package.json`, `tsconfig.json` і вдруге `src/health.ts`) — і не встигла видати фінальний JSON. Звідси мало вихідних токенів (224) і найбільший вхід: кожен крок пересилає всю історію з прочитаними файлами. Ліміт кроків спрацював як запобіжник; `maxSteps` для неї не підвищувала, щоб вхід трьох прогонів лишився однаковим.
 - Шлюз: перші спроби з `google/gemma-4-31b-it:free` (провайдер Google AI Studio) і `qwen/qwen3.8-27b:free` (провайдер ModelRun) завершилися HTTP 429 «temporarily rate-limited upstream», `limit_source: upstream_provider_shared_pool` — безкоштовні моделі шлюзу ділять спільний ліміт з усіма користувачами. `qwen3.8-27b` до обриву встигла зробити 10 викликів інструментів (session `agent-loop-openrouter-2026-10-04T19-28-18-409Z`). Скрипт зупинявся на першій помилці HTTP.
-- Кеш: локальна Ollama повторно використала 1910 з 2669 вхідних токенів (префікс історії між кроками); OpenRouter для цієї моделі кешованих токенів не повернув (0).
-- Якість пропозицій на тому самому вході різна: модель шлюзу запропонувала правильний `app/api/health/route.ts` (відносний `import type`, `export const dynamic = 'force-dynamic'`, тип відповіді з контракту), але повернула й контрактні файли `tests/health.test.ts` і `src/health.ts` (вміст без змін); локальна модель повернула лише незмінений `src/health.ts`, без маршруту — схему пройшла, задачу не розв'язала.
+- Кеш: локальна Ollama повторно використала 1910 з 2669 вхідних токенів (префікс історії між кроками); Gemini (через OpenAI-сумісний ендпоінт) і OpenRouter кешованих токенів не повернули (0).
+- Вартість: лише хмара має ненульову ціну за прайсом — $0.004126 за 11 887 вхідних і 224 вихідних токени; на безкоштовних рівнях фактичний рахунок усіх трьох — $0.
+- Якість пропозицій на тому самому вході різна: модель шлюзу запропонувала правильний `app/api/health/route.ts` (відносний `import type`, `export const dynamic = 'force-dynamic'`, тип відповіді з контракту), але повернула й контрактні файли `tests/health.test.ts` і `src/health.ts` (вміст без змін); локальна модель повернула лише незмінений `src/health.ts`, без маршруту — схему пройшла, задачу не розв'язала; хмарна (flash-lite) відповіді не дала.

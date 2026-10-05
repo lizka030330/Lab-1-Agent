@@ -5,6 +5,7 @@
  *   npx tsx --env-file=.env.local scripts/measure-loop.ts ollama-messages 10
  *   npx tsx --env-file=.env.local scripts/measure-loop.ts ollama-chat 1
  *   npx tsx --env-file=.env.local scripts/measure-loop.ts gemini 1
+ *   GEMINI_MODEL=gemini-3.5-flash-lite npx tsx --env-file=.env.local scripts/measure-loop.ts gemini 1
  *   npx tsx --env-file=.env.local scripts/measure-loop.ts openrouter 1
  *
  * Кожен виклик інструмента дописується в .agent-log/agent-loop.jsonl.
@@ -43,7 +44,9 @@ function pick(kind: string): { model: Model; spec: ModelSpec; form: string } {
   if (kind === 'gemini') {
     const key = process.env.GEMINI_API_KEY;
     if (!key) throw new Error('GEMINI_API_KEY порожній: заповніть .env.local');
-    const spec = CATALOG['gemini-3.8-flash'];
+    // GEMINI_MODEL=gemini-3.5-flash-lite — запасна модель, коли gemini-3.8-flash відповідає HTTP 503 (перевантаження).
+    const geminiId = process.env.GEMINI_MODEL === 'gemini-3.5-flash-lite' ? 'gemini-3.5-flash-lite' : 'gemini-3.8-flash';
+    const spec = CATALOG[geminiId];
     const base = chatCompletionsModel({
       url: 'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions',
       model: spec.id,
