@@ -48,7 +48,7 @@
 | [comparison.md](comparison.md) | агент кодування vs власний цикл (хмара/локально), 10 прогонів валідації, власний цикл vs AI SDK |
 | [model-decision.md](model-decision.md) | заміна моделі ролі `local`: qwen3:4b → qwen3:4b-instruct з числами «до/після» |
 | [intro-draft.md](intro-draft.md) | чернетка «Вступу» курсової — ЗАПОВНИТИ |
-| [traces/](traces/) | скріншоти трас Langfuse — ЗАПОВНИТИ |
+| [traces/](traces/) | скріншоти трас Langfuse: список трас (`trace-0.png`) і три траси з токенами, вартістю та викликом `getTime` (`trace-1.png`…`trace-3.png`) |
 
 ## Журнали дій агентів
 
@@ -68,7 +68,7 @@
 ## CI
 
 - Зелений прогін `main`: ЗАПОВНИТИ (посилання на останній прогін `main` перед здачею).
-- Самоперевірка брам: навмисна помилка типу в тимчасовій гілці `tmp/gate-check` → job «Типи, лінт, тести, збірка» червоний, Playwright пропущено: https://github.com/lizka030330/Lab-1-Agent/actions/runs/37229384110 (гілку після перевірки видалено).
+- Самоперевірка брам: навмисна помилка типу в тимчасовій гілці `tmp/gate-check` → job «Типи, лінт, тести, збірка» червоний, Playwright пропущено: https://github.com/lizka030330/Lab-1-Agent/actions/runs/37229384110 (гілку після перевірки видалено). Preview-деплой цієї гілки у Vercel теж завершився статусом Error — зламаний код не зібрався й там.
 - «Поганий патч» від викладача (червоний прогін на пул-реквесті): ЗАПОВНИТИ.
 
 ## Деплой і траси
@@ -81,4 +81,6 @@
         printf '{"prompt":"%s"}' "$p" | curl -s -X POST "$URL" -H 'Content-Type: application/json; charset=utf-8' --data-binary @-; echo
       done
 
-- Траси: Langfuse Cloud (EU), функція `lab01-agent`; скріншоти — `docs/lab1/traces/` — ЗАПОВНИТИ.
+- Траси: Langfuse Cloud (EU), функція `lab01-agent`; скріншоти — `docs/lab1/traces/` (список і три траси 05.10 о 03:43–03:45: дерево `invoke_agent` → `step` → `chat` / `getTime`, токени й вартість за прайсом $0.00).
+- Модель деплою: перемикач `LLM_PROVIDER` у `app/api/agent/route.ts`. Через вичерпану денну квоту Gemini (HTTP 429) траси знято з `nvidia/nemotron-3.5-lightning:free` через OpenRouter (запасний варіант із методички); для неї й для `gemini-3.8-flash` у Langfuse додано визначення моделей із цінами (0 і $0.75/$3.75 за 1M), бо без них вартість у трасах була порожньою.
+- Знайдена помилка: з кодом методички траси не з'являлися — `registerTelemetry()` в `instrumentation.node.ts` не діяв у маршруті (окремий бандл), тож інтеграцію Langfuse передано в `telemetry.integrations` агента (коміт `8006fcd`).
