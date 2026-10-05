@@ -67,6 +67,7 @@
 ## CI
 
 - Зелений прогін `main` (коміт `3046318`: «Типи, лінт, тести, збірка» і Playwright зелені): https://github.com/lizka030330/Lab-1-Agent/actions/runs/37299008777
+- Зелений job «Playwright (не блокує)» (браузерний тест, крок 06; скриншот — `docs/lab1/e2e-home.png`, артефакт `playwright-artifacts`): https://github.com/lizka030330/Lab-1-Agent/actions/runs/36908984322
 - Самоперевірка брам: навмисна помилка типу в тимчасовій гілці `tmp/gate-check` → job «Типи, лінт, тести, збірка» червоний, Playwright пропущено: https://github.com/lizka030330/Lab-1-Agent/actions/runs/37229384110 (гілку після перевірки видалено). Preview-деплой цієї гілки у Vercel теж завершився статусом Error — зламаний код не зібрався й там.
 
 ## Деплой і траси
