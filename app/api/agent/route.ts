@@ -1,6 +1,7 @@
 import { after } from 'next/server';
-import { ToolLoopAgent, tool, isStepCount } from 'ai';
+import { ToolLoopAgent, tool, isStepCount, type LanguageModel } from 'ai';
 import { google } from '@ai-sdk/google';
+import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import { LangfuseVercelAiSdkIntegration } from '@langfuse/vercel-ai-sdk';
 import { z } from 'zod';
 import { langfuseSpanProcessor } from '@/src/otel/langfuse';
@@ -8,8 +9,21 @@ import { CATALOG } from '@/src/models';
 
 export const maxDuration = 60; // Hobby: максимум 300 с
 
+/**
+ * Модель за змінною LLM_PROVIDER: 'openrouter' — безкоштовна модель шлюзу (запасний варіант
+ * з методички, коли денна квота Gemini вичерпана); інакше — gemini-3.8-flash.
+ */
+function pickModel(): LanguageModel {
+  const key = process.env.OPENROUTER_API_KEY;
+  const id = process.env.OPENROUTER_MODEL;
+  if (process.env.LLM_PROVIDER === 'openrouter' && key && id) {
+    return createOpenAICompatible({ name: 'openrouter', baseURL: 'https://openrouter.ai/api/v1', apiKey: key })(id);
+  }
+  return google(CATALOG['gemini-3.8-flash'].id); // дешева Flash-модель із безкоштовним рівнем
+}
+
 const agent = new ToolLoopAgent({
-  model: google(CATALOG['gemini-3.8-flash'].id), // дешева Flash-модель із безкоштовним рівнем
+  model: pickModel(),
   instructions: 'Для поточного часу використовуй інструмент getTime.',
   tools: {
     getTime: tool({
