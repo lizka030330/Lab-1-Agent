@@ -54,7 +54,7 @@
 
 - `.agent-log/opencode.jsonl`, `.agent-log/codex.jsonl` — сесії агентів кодування (формат: `ts`, `tool`, `input`, `result`, `session`, `source`).
 - `.agent-log/agent-loop.jsonl` — власний цикл. Прогін «до» заміни моделі (qwen3:4b, `max-steps`): [#L4](https://github.com/lizka030330/Lab-1-Agent/blob/1bd6cdf/.agent-log/agent-loop.jsonl#L4); 10 прогонів «після» (10 з 10 валідних): [#L8–L37](https://github.com/lizka030330/Lab-1-Agent/blob/1bd6cdf/.agent-log/agent-loop.jsonl#L8-L37).
-- Рядки `result: "denied"` (заборона `.env`, крок 05): ЗАПОВНИТИ permalink.
+- Рядки `result: "denied"` (заборона `.env`, крок 05, записані плагіном `guard-env.js`): переадресація в оболонці [#L41](https://github.com/lizka030330/Lab-1-Agent/blob/ad060d2/.agent-log/opencode.jsonl#L41), підпроцес `node -e` [#L43](https://github.com/lizka030330/Lab-1-Agent/blob/ad060d2/.agent-log/opencode.jsonl#L43), читання `.env` [#L44](https://github.com/lizka030330/Lab-1-Agent/blob/ad060d2/.agent-log/opencode.jsonl#L44), обхідний шлях `./.env` [#L51](https://github.com/lizka030330/Lab-1-Agent/blob/ad060d2/.agent-log/opencode.jsonl#L51), інструмент `edit` [#L52](https://github.com/lizka030330/Lab-1-Agent/blob/ad060d2/.agent-log/opencode.jsonl#L52).
 
 ## Гілки
 

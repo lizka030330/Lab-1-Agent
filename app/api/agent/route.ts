@@ -1,6 +1,7 @@
 import { after } from 'next/server';
 import { ToolLoopAgent, tool, isStepCount } from 'ai';
 import { google } from '@ai-sdk/google';
+import { LangfuseVercelAiSdkIntegration } from '@langfuse/vercel-ai-sdk';
 import { z } from 'zod';
 import { langfuseSpanProcessor } from '@/src/otel/langfuse';
 import { CATALOG } from '@/src/models';
@@ -18,7 +19,13 @@ const agent = new ToolLoopAgent({
     }),
   },
   stopWhen: isStepCount(3), // мінімальний запобіжник: не більше трьох кроків на запит
-  telemetry: { functionId: 'lab01-agent' },
+  // Інтеграцію передаємо прямо тут: instrumentation і route — окремі бандли з окремими копіями `ai`,
+  // тому registerTelemetry() з instrumentation.node.ts маршрут не бачить і телеметрія лишалась вимкненою.
+  telemetry: {
+    functionId: 'lab01-agent',
+    isEnabled: true,
+    integrations: [new LangfuseVercelAiSdkIntegration()],
+  },
 });
 
 export async function POST(req: Request) {
