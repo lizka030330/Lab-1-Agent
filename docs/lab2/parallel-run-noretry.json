@@ -1,0 +1,1348 @@
+{
+  "w1": {
+    "runAt": "2026-10-31T15:49:51.282Z",
+    "budget": {
+      "maxBranches": 1,
+      "maxTokens": 60000,
+      "maxWallMs": 300000
+    },
+    "model": "gemini-3.5-flash-lite",
+    "embedder": "ollama:embeddinggemma-2:270m",
+    "wallMs": 18637,
+    "sumBranchMs": 17531,
+    "sumEmbedMs": 2285,
+    "sumModelMs": 15133,
+    "inputTokens": 26580,
+    "outputTokens": 880,
+    "priceUsd": 0.010174,
+    "ollamaMs": {
+      "sumTotalDuration": 2166.8,
+      "sumLoadDuration": 1264.6,
+      "sumPromptEvalDuration": 0,
+      "sumPromptEvalCount": 500,
+      "sumEvalCount": 0
+    },
+    "done": 21,
+    "failed": [
+      "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions → HTTP 429: [{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-l",
+      "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions → HTTP 429: [{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-l",
+      "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions → HTTP 429: [{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-l",
+      "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions → HTTP 429: [{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-l"
+    ],
+    "notStarted": 0,
+    "stoppedEarly": false,
+    "branches": [
+      {
+        "id": "q-01",
+        "refusedBeforeModel": false,
+        "inputTokens": 1736,
+        "outputTokens": 30,
+        "ms": 2372,
+        "embedMs": 1349,
+        "modelMs": 1004,
+        "ollama": {
+          "total_duration": 1303840291,
+          "load_duration": 1224905375,
+          "prompt_eval_count": 18
+        }
+      },
+      {
+        "id": "q-02",
+        "refusedBeforeModel": false,
+        "inputTokens": 1915,
+        "outputTokens": 58,
+        "ms": 1087,
+        "embedMs": 57,
+        "modelMs": 1025,
+        "ollama": {
+          "total_duration": 47674500,
+          "load_duration": 1964292,
+          "prompt_eval_count": 21
+        }
+      },
+      {
+        "id": "q-03",
+        "refusedBeforeModel": false,
+        "inputTokens": 2240,
+        "outputTokens": 40,
+        "ms": 906,
+        "embedMs": 66,
+        "modelMs": 835,
+        "ollama": {
+          "total_duration": 60175458,
+          "load_duration": 3735416,
+          "prompt_eval_count": 26
+        }
+      },
+      {
+        "id": "q-04",
+        "refusedBeforeModel": false,
+        "inputTokens": 1722,
+        "outputTokens": 77,
+        "ms": 1205,
+        "embedMs": 54,
+        "modelMs": 1144,
+        "ollama": {
+          "total_duration": 50707917,
+          "load_duration": 1699500,
+          "prompt_eval_count": 34
+        }
+      },
+      {
+        "id": "q-05",
+        "refusedBeforeModel": false,
+        "inputTokens": 1606,
+        "outputTokens": 52,
+        "ms": 967,
+        "embedMs": 62,
+        "modelMs": 896,
+        "ollama": {
+          "total_duration": 58746750,
+          "load_duration": 2539083,
+          "prompt_eval_count": 32
+        }
+      },
+      {
+        "id": "q-06",
+        "refusedBeforeModel": false,
+        "inputTokens": 1351,
+        "outputTokens": 44,
+        "ms": 909,
+        "embedMs": 41,
+        "modelMs": 866,
+        "ollama": {
+          "total_duration": 39461084,
+          "load_duration": 1490459,
+          "prompt_eval_count": 18
+        }
+      },
+      {
+        "id": "q-07",
+        "refusedBeforeModel": false,
+        "inputTokens": 1598,
+        "outputTokens": 59,
+        "ms": 1071,
+        "embedMs": 45,
+        "modelMs": 1025,
+        "ollama": {
+          "total_duration": 42370541,
+          "load_duration": 1794250,
+          "prompt_eval_count": 23
+        }
+      },
+      {
+        "id": "q-08",
+        "refusedBeforeModel": false,
+        "inputTokens": 1709,
+        "outputTokens": 74,
+        "ms": 980,
+        "embedMs": 57,
+        "modelMs": 917,
+        "ollama": {
+          "total_duration": 53373709,
+          "load_duration": 1938709,
+          "prompt_eval_count": 22
+        }
+      },
+      {
+        "id": "q-09",
+        "refusedBeforeModel": false,
+        "inputTokens": 1205,
+        "outputTokens": 95,
+        "ms": 860,
+        "embedMs": 52,
+        "modelMs": 805,
+        "ollama": {
+          "total_duration": 49823333,
+          "load_duration": 2394958,
+          "prompt_eval_count": 40
+        }
+      },
+      {
+        "id": "q-10",
+        "refusedBeforeModel": false,
+        "inputTokens": 1791,
+        "outputTokens": 60,
+        "ms": 977,
+        "embedMs": 54,
+        "modelMs": 916,
+        "ollama": {
+          "total_duration": 52063959,
+          "load_duration": 2437042,
+          "prompt_eval_count": 47
+        }
+      },
+      {
+        "id": "q-11",
+        "refusedBeforeModel": false,
+        "inputTokens": 1703,
+        "outputTokens": 44,
+        "ms": 1127,
+        "embedMs": 58,
+        "modelMs": 1067,
+        "ollama": {
+          "total_duration": 48932250,
+          "load_duration": 2776792,
+          "prompt_eval_count": 19
+        }
+      },
+      {
+        "id": "q-12",
+        "refusedBeforeModel": false,
+        "inputTokens": 2077,
+        "outputTokens": 50,
+        "ms": 929,
+        "embedMs": 49,
+        "modelMs": 878,
+        "ollama": {
+          "total_duration": 46785250,
+          "load_duration": 3176709,
+          "prompt_eval_count": 23
+        }
+      },
+      {
+        "id": "q-13",
+        "refusedBeforeModel": false,
+        "inputTokens": 1468,
+        "outputTokens": 40,
+        "ms": 917,
+        "embedMs": 53,
+        "modelMs": 862,
+        "ollama": {
+          "total_duration": 51119917,
+          "load_duration": 2439792,
+          "prompt_eval_count": 14
+        }
+      },
+      {
+        "id": "q-14",
+        "refusedBeforeModel": false,
+        "inputTokens": 1490,
+        "outputTokens": 49,
+        "ms": 1028,
+        "embedMs": 49,
+        "modelMs": 969,
+        "ollama": {
+          "total_duration": 46046416,
+          "load_duration": 2508541,
+          "prompt_eval_count": 15
+        }
+      },
+      {
+        "id": "q-15",
+        "refusedBeforeModel": false,
+        "inputTokens": 1422,
+        "outputTokens": 44,
+        "ms": 1119,
+        "embedMs": 52,
+        "modelMs": 1062,
+        "ollama": {
+          "total_duration": 47979666,
+          "load_duration": 2214291,
+          "prompt_eval_count": 34
+        }
+      },
+      {
+        "id": "q-16",
+        "refusedBeforeModel": false,
+        "inputTokens": 1547,
+        "outputTokens": 64,
+        "ms": 918,
+        "embedMs": 51,
+        "modelMs": 862,
+        "ollama": {
+          "total_duration": 46304542,
+          "load_duration": 2860000,
+          "prompt_eval_count": 29
+        }
+      },
+      {
+        "id": "q-21",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 55,
+        "embedMs": 48,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 44583917,
+          "load_duration": 1713833,
+          "prompt_eval_count": 18
+        }
+      },
+      {
+        "id": "q-22",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 32,
+        "embedMs": 28,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 23341125,
+          "load_duration": 899875,
+          "prompt_eval_count": 22
+        }
+      },
+      {
+        "id": "q-23",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 25,
+        "embedMs": 21,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 18265167,
+          "load_duration": 419709,
+          "prompt_eval_count": 14
+        }
+      },
+      {
+        "id": "q-24",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 24,
+        "embedMs": 19,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 17401291,
+          "load_duration": 335000,
+          "prompt_eval_count": 14
+        }
+      },
+      {
+        "id": "q-25",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 23,
+        "embedMs": 20,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 17805417,
+          "load_duration": 396500,
+          "prompt_eval_count": 17
+        }
+      }
+    ],
+    "langfuseTraceId": "6b2c7ad5-9c8f-4759-83a8-05fbdbcafb49"
+  },
+  "w2": {
+    "runAt": "2026-10-31T15:51:00.640Z",
+    "budget": {
+      "maxBranches": 2,
+      "maxTokens": 60000,
+      "maxWallMs": 300000
+    },
+    "model": "gemini-3.5-flash-lite",
+    "embedder": "ollama:embeddinggemma-2:270m",
+    "wallMs": 8406,
+    "sumBranchMs": 15317,
+    "sumEmbedMs": 983,
+    "sumModelMs": 14241,
+    "inputTokens": 25033,
+    "outputTokens": 810,
+    "priceUsd": 0.009534899999999999,
+    "ollamaMs": {
+      "sumTotalDuration": 886.6,
+      "sumLoadDuration": 103.9,
+      "sumPromptEvalDuration": 0,
+      "sumPromptEvalCount": 471,
+      "sumEvalCount": 0
+    },
+    "done": 20,
+    "failed": [
+      "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions → HTTP 429: [{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"Resource has been exhausted (e.g. check quota).\",\n    \"status\": \"RESOURCE_EXHAUSTED\"\n  }\n}\n]",
+      "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions → HTTP 429: [{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-l",
+      "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions → HTTP 429: [{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-l",
+      "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions → HTTP 429: [{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-l",
+      "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions → HTTP 429: [{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-l"
+    ],
+    "notStarted": 0,
+    "stoppedEarly": false,
+    "branches": [
+      {
+        "id": "q-01",
+        "refusedBeforeModel": false,
+        "inputTokens": 1736,
+        "outputTokens": 30,
+        "ms": 1173,
+        "embedMs": 79,
+        "modelMs": 1081,
+        "ollama": {
+          "total_duration": 52339459,
+          "load_duration": 1576917,
+          "prompt_eval_count": 18
+        }
+      },
+      {
+        "id": "q-02",
+        "refusedBeforeModel": false,
+        "inputTokens": 1915,
+        "outputTokens": 58,
+        "ms": 968,
+        "embedMs": 88,
+        "modelMs": 879,
+        "ollama": {
+          "total_duration": 75446375,
+          "load_duration": 1239625,
+          "prompt_eval_count": 21
+        }
+      },
+      {
+        "id": "q-03",
+        "refusedBeforeModel": false,
+        "inputTokens": 2240,
+        "outputTokens": 40,
+        "ms": 1117,
+        "embedMs": 42,
+        "modelMs": 1074,
+        "ollama": {
+          "total_duration": 39919541,
+          "load_duration": 919416,
+          "prompt_eval_count": 26
+        }
+      },
+      {
+        "id": "q-04",
+        "refusedBeforeModel": false,
+        "inputTokens": 1722,
+        "outputTokens": 77,
+        "ms": 1120,
+        "embedMs": 42,
+        "modelMs": 1076,
+        "ollama": {
+          "total_duration": 40624333,
+          "load_duration": 990750,
+          "prompt_eval_count": 34
+        }
+      },
+      {
+        "id": "q-05",
+        "refusedBeforeModel": false,
+        "inputTokens": 1606,
+        "outputTokens": 52,
+        "ms": 1030,
+        "embedMs": 49,
+        "modelMs": 975,
+        "ollama": {
+          "total_duration": 45391542,
+          "load_duration": 1875167,
+          "prompt_eval_count": 32
+        }
+      },
+      {
+        "id": "q-06",
+        "refusedBeforeModel": false,
+        "inputTokens": 1351,
+        "outputTokens": 44,
+        "ms": 919,
+        "embedMs": 50,
+        "modelMs": 862,
+        "ollama": {
+          "total_duration": 46619250,
+          "load_duration": 2050250,
+          "prompt_eval_count": 18
+        }
+      },
+      {
+        "id": "q-07",
+        "refusedBeforeModel": false,
+        "inputTokens": 1598,
+        "outputTokens": 59,
+        "ms": 822,
+        "embedMs": 49,
+        "modelMs": 766,
+        "ollama": {
+          "total_duration": 46631459,
+          "load_duration": 2470459,
+          "prompt_eval_count": 23
+        }
+      },
+      {
+        "id": "q-08",
+        "refusedBeforeModel": false,
+        "inputTokens": 1709,
+        "outputTokens": 73,
+        "ms": 944,
+        "embedMs": 27,
+        "modelMs": 913,
+        "ollama": {
+          "total_duration": 23281458,
+          "load_duration": 1034375,
+          "prompt_eval_count": 22
+        }
+      },
+      {
+        "id": "q-09",
+        "refusedBeforeModel": false,
+        "inputTokens": 1205,
+        "outputTokens": 93,
+        "ms": 1119,
+        "embedMs": 57,
+        "modelMs": 1056,
+        "ollama": {
+          "total_duration": 53467417,
+          "load_duration": 3509750,
+          "prompt_eval_count": 40
+        }
+      },
+      {
+        "id": "q-10",
+        "refusedBeforeModel": false,
+        "inputTokens": 1791,
+        "outputTokens": 60,
+        "ms": 910,
+        "embedMs": 53,
+        "modelMs": 851,
+        "ollama": {
+          "total_duration": 48644750,
+          "load_duration": 1866458,
+          "prompt_eval_count": 47
+        }
+      },
+      {
+        "id": "q-11",
+        "refusedBeforeModel": false,
+        "inputTokens": 1703,
+        "outputTokens": 44,
+        "ms": 838,
+        "embedMs": 45,
+        "modelMs": 790,
+        "ollama": {
+          "total_duration": 43686041,
+          "load_duration": 1409416,
+          "prompt_eval_count": 19
+        }
+      },
+      {
+        "id": "q-12",
+        "refusedBeforeModel": false,
+        "inputTokens": 2077,
+        "outputTokens": 50,
+        "ms": 931,
+        "embedMs": 71,
+        "modelMs": 857,
+        "ollama": {
+          "total_duration": 67630458,
+          "load_duration": 46051041,
+          "prompt_eval_count": 23
+        }
+      },
+      {
+        "id": "q-13",
+        "refusedBeforeModel": false,
+        "inputTokens": 1468,
+        "outputTokens": 42,
+        "ms": 1400,
+        "embedMs": 51,
+        "modelMs": 1344,
+        "ollama": {
+          "total_duration": 43860417,
+          "load_duration": 2045000,
+          "prompt_eval_count": 14
+        }
+      },
+      {
+        "id": "q-14",
+        "refusedBeforeModel": false,
+        "inputTokens": 1490,
+        "outputTokens": 49,
+        "ms": 921,
+        "embedMs": 40,
+        "modelMs": 876,
+        "ollama": {
+          "total_duration": 37550000,
+          "load_duration": 1741167,
+          "prompt_eval_count": 15
+        }
+      },
+      {
+        "id": "q-15",
+        "refusedBeforeModel": false,
+        "inputTokens": 1422,
+        "outputTokens": 39,
+        "ms": 899,
+        "embedMs": 52,
+        "modelMs": 841,
+        "ollama": {
+          "total_duration": 48888417,
+          "load_duration": 1939792,
+          "prompt_eval_count": 34
+        }
+      },
+      {
+        "id": "q-21",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 54,
+        "embedMs": 48,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 43844500,
+          "load_duration": 1824750,
+          "prompt_eval_count": 18
+        }
+      },
+      {
+        "id": "q-22",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 29,
+        "embedMs": 25,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 22541667,
+          "load_duration": 964042,
+          "prompt_eval_count": 22
+        }
+      },
+      {
+        "id": "q-23",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 47,
+        "embedMs": 44,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 42317500,
+          "load_duration": 595375,
+          "prompt_eval_count": 14
+        }
+      },
+      {
+        "id": "q-24",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 38,
+        "embedMs": 35,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 30585417,
+          "load_duration": 13736875,
+          "prompt_eval_count": 14
+        }
+      },
+      {
+        "id": "q-25",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 38,
+        "embedMs": 36,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 33355250,
+          "load_duration": 16047792,
+          "prompt_eval_count": 17
+        }
+      }
+    ],
+    "langfuseTraceId": "e238e78c-5148-4a06-a2b6-aa7383aac477"
+  },
+  "w4": {
+    "runAt": "2026-10-31T15:52:06.935Z",
+    "budget": {
+      "maxBranches": 4,
+      "maxTokens": 60000,
+      "maxWallMs": 300000
+    },
+    "model": "gemini-3.5-flash-lite",
+    "embedder": "ollama:embeddinggemma-2:270m",
+    "wallMs": 5349,
+    "sumBranchMs": 18772,
+    "sumEmbedMs": 1309,
+    "sumModelMs": 17361,
+    "inputTokens": 28552,
+    "outputTokens": 973,
+    "priceUsd": 0.0109981,
+    "ollamaMs": {
+      "sumTotalDuration": 1202.6,
+      "sumLoadDuration": 172.3,
+      "sumPromptEvalDuration": 0,
+      "sumPromptEvalCount": 539,
+      "sumEvalCount": 0
+    },
+    "done": 22,
+    "failed": [
+      "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions → HTTP 429: [{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-l",
+      "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions → HTTP 429: [{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-l",
+      "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions → HTTP 429: [{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-l"
+    ],
+    "notStarted": 0,
+    "stoppedEarly": false,
+    "branches": [
+      {
+        "id": "q-01",
+        "refusedBeforeModel": false,
+        "inputTokens": 1736,
+        "outputTokens": 30,
+        "ms": 1157,
+        "embedMs": 177,
+        "modelMs": 978,
+        "ollama": {
+          "total_duration": 152987542,
+          "load_duration": 4353125,
+          "prompt_eval_count": 18
+        }
+      },
+      {
+        "id": "q-02",
+        "refusedBeforeModel": false,
+        "inputTokens": 1915,
+        "outputTokens": 63,
+        "ms": 1224,
+        "embedMs": 98,
+        "modelMs": 1111,
+        "ollama": {
+          "total_duration": 81945625,
+          "load_duration": 2446167,
+          "prompt_eval_count": 21
+        }
+      },
+      {
+        "id": "q-03",
+        "refusedBeforeModel": false,
+        "inputTokens": 2240,
+        "outputTokens": 40,
+        "ms": 1242,
+        "embedMs": 187,
+        "modelMs": 1054,
+        "ollama": {
+          "total_duration": 175015792,
+          "load_duration": 55239500,
+          "prompt_eval_count": 26
+        }
+      },
+      {
+        "id": "q-04",
+        "refusedBeforeModel": false,
+        "inputTokens": 1722,
+        "outputTokens": 77,
+        "ms": 1172,
+        "embedMs": 140,
+        "modelMs": 1030,
+        "ollama": {
+          "total_duration": 128151542,
+          "load_duration": 2589875,
+          "prompt_eval_count": 34
+        }
+      },
+      {
+        "id": "q-05",
+        "refusedBeforeModel": false,
+        "inputTokens": 1606,
+        "outputTokens": 52,
+        "ms": 1128,
+        "embedMs": 44,
+        "modelMs": 1083,
+        "ollama": {
+          "total_duration": 42369833,
+          "load_duration": 1242708,
+          "prompt_eval_count": 32
+        }
+      },
+      {
+        "id": "q-06",
+        "refusedBeforeModel": false,
+        "inputTokens": 1351,
+        "outputTokens": 44,
+        "ms": 813,
+        "embedMs": 43,
+        "modelMs": 768,
+        "ollama": {
+          "total_duration": 41713208,
+          "load_duration": 19919542,
+          "prompt_eval_count": 18
+        }
+      },
+      {
+        "id": "q-07",
+        "refusedBeforeModel": false,
+        "inputTokens": 1598,
+        "outputTokens": 61,
+        "ms": 1193,
+        "embedMs": 20,
+        "modelMs": 1171,
+        "ollama": {
+          "total_duration": 19207333,
+          "load_duration": 418417,
+          "prompt_eval_count": 23
+        }
+      },
+      {
+        "id": "q-08",
+        "refusedBeforeModel": false,
+        "inputTokens": 1709,
+        "outputTokens": 78,
+        "ms": 1392,
+        "embedMs": 24,
+        "modelMs": 1366,
+        "ollama": {
+          "total_duration": 23276917,
+          "load_duration": 5063208,
+          "prompt_eval_count": 22
+        }
+      },
+      {
+        "id": "q-09",
+        "refusedBeforeModel": false,
+        "inputTokens": 1205,
+        "outputTokens": 95,
+        "ms": 949,
+        "embedMs": 44,
+        "modelMs": 902,
+        "ollama": {
+          "total_duration": 42299709,
+          "load_duration": 1553375,
+          "prompt_eval_count": 40
+        }
+      },
+      {
+        "id": "q-10",
+        "refusedBeforeModel": false,
+        "inputTokens": 1791,
+        "outputTokens": 60,
+        "ms": 897,
+        "embedMs": 51,
+        "modelMs": 841,
+        "ollama": {
+          "total_duration": 46864166,
+          "load_duration": 1884958,
+          "prompt_eval_count": 47
+        }
+      },
+      {
+        "id": "q-11",
+        "refusedBeforeModel": false,
+        "inputTokens": 1703,
+        "outputTokens": 29,
+        "ms": 2126,
+        "embedMs": 50,
+        "modelMs": 2069,
+        "ollama": {
+          "total_duration": 46588208,
+          "load_duration": 2119542,
+          "prompt_eval_count": 19
+        }
+      },
+      {
+        "id": "q-12",
+        "refusedBeforeModel": false,
+        "inputTokens": 2077,
+        "outputTokens": 47,
+        "ms": 963,
+        "embedMs": 52,
+        "modelMs": 896,
+        "ollama": {
+          "total_duration": 47917958,
+          "load_duration": 3849000,
+          "prompt_eval_count": 23
+        }
+      },
+      {
+        "id": "q-13",
+        "refusedBeforeModel": false,
+        "inputTokens": 1468,
+        "outputTokens": 41,
+        "ms": 671,
+        "embedMs": 44,
+        "modelMs": 620,
+        "ollama": {
+          "total_duration": 40377917,
+          "load_duration": 1872500,
+          "prompt_eval_count": 14
+        }
+      },
+      {
+        "id": "q-14",
+        "refusedBeforeModel": false,
+        "inputTokens": 1490,
+        "outputTokens": 49,
+        "ms": 947,
+        "embedMs": 46,
+        "modelMs": 895,
+        "ollama": {
+          "total_duration": 43289416,
+          "load_duration": 2242166,
+          "prompt_eval_count": 15
+        }
+      },
+      {
+        "id": "q-15",
+        "refusedBeforeModel": false,
+        "inputTokens": 1422,
+        "outputTokens": 44,
+        "ms": 681,
+        "embedMs": 51,
+        "modelMs": 625,
+        "ollama": {
+          "total_duration": 48180083,
+          "load_duration": 2189958,
+          "prompt_eval_count": 34
+        }
+      },
+      {
+        "id": "q-16",
+        "refusedBeforeModel": false,
+        "inputTokens": 1547,
+        "outputTokens": 32,
+        "ms": 872,
+        "embedMs": 74,
+        "modelMs": 794,
+        "ollama": {
+          "total_duration": 71412167,
+          "load_duration": 48716875,
+          "prompt_eval_count": 29
+        }
+      },
+      {
+        "id": "q-17",
+        "refusedBeforeModel": false,
+        "inputTokens": 1972,
+        "outputTokens": 131,
+        "ms": 1219,
+        "embedMs": 55,
+        "modelMs": 1158,
+        "ollama": {
+          "total_duration": 51091042,
+          "load_duration": 2275125,
+          "prompt_eval_count": 39
+        }
+      },
+      {
+        "id": "q-21",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 36,
+        "embedMs": 33,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 30902542,
+          "load_duration": 13058792,
+          "prompt_eval_count": 18
+        }
+      },
+      {
+        "id": "q-22",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 22,
+        "embedMs": 19,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 17886584,
+          "load_duration": 309292,
+          "prompt_eval_count": 22
+        }
+      },
+      {
+        "id": "q-23",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 22,
+        "embedMs": 19,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 16959125,
+          "load_duration": 323417,
+          "prompt_eval_count": 14
+        }
+      },
+      {
+        "id": "q-24",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 24,
+        "embedMs": 19,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 16979291,
+          "load_duration": 356250,
+          "prompt_eval_count": 14
+        }
+      },
+      {
+        "id": "q-25",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 22,
+        "embedMs": 19,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 17212708,
+          "load_duration": 284708,
+          "prompt_eval_count": 17
+        }
+      }
+    ],
+    "langfuseTraceId": "7324e748-4f97-4022-a248-c10cbbf00c93"
+  },
+  "w8": {
+    "runAt": "2026-10-31T15:53:10.776Z",
+    "budget": {
+      "maxBranches": 8,
+      "maxTokens": 60000,
+      "maxWallMs": 300000
+    },
+    "model": "gemini-3.5-flash-lite",
+    "embedder": "ollama:embeddinggemma-2:270m",
+    "wallMs": 2986,
+    "sumBranchMs": 19728,
+    "sumEmbedMs": 1843,
+    "sumModelMs": 17808,
+    "inputTokens": 30555,
+    "outputTokens": 1015,
+    "priceUsd": 0.011703999999999999,
+    "ollamaMs": {
+      "sumTotalDuration": 1698,
+      "sumLoadDuration": 758.6,
+      "sumPromptEvalDuration": 0,
+      "sumPromptEvalCount": 565,
+      "sumEvalCount": 0
+    },
+    "done": 23,
+    "failed": [
+      "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions → HTTP 429: [{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-l",
+      "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions → HTTP 429: [{\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-l"
+    ],
+    "notStarted": 0,
+    "stoppedEarly": false,
+    "branches": [
+      {
+        "id": "q-01",
+        "refusedBeforeModel": false,
+        "inputTokens": 1736,
+        "outputTokens": 30,
+        "ms": 1105,
+        "embedMs": 100,
+        "modelMs": 988,
+        "ollama": {
+          "total_duration": 72383000,
+          "load_duration": 3507500,
+          "prompt_eval_count": 18
+        }
+      },
+      {
+        "id": "q-02",
+        "refusedBeforeModel": false,
+        "inputTokens": 1915,
+        "outputTokens": 61,
+        "ms": 1586,
+        "embedMs": 140,
+        "modelMs": 1445,
+        "ollama": {
+          "total_duration": 128033625,
+          "load_duration": 56919583,
+          "prompt_eval_count": 21
+        }
+      },
+      {
+        "id": "q-03",
+        "refusedBeforeModel": false,
+        "inputTokens": 2240,
+        "outputTokens": 40,
+        "ms": 1382,
+        "embedMs": 161,
+        "modelMs": 1221,
+        "ollama": {
+          "total_duration": 147921000,
+          "load_duration": 76082334,
+          "prompt_eval_count": 26
+        }
+      },
+      {
+        "id": "q-04",
+        "refusedBeforeModel": false,
+        "inputTokens": 1722,
+        "outputTokens": 77,
+        "ms": 1359,
+        "embedMs": 117,
+        "modelMs": 1241,
+        "ollama": {
+          "total_duration": 105253208,
+          "load_duration": 4247625,
+          "prompt_eval_count": 34
+        }
+      },
+      {
+        "id": "q-05",
+        "refusedBeforeModel": false,
+        "inputTokens": 1606,
+        "outputTokens": 52,
+        "ms": 1155,
+        "embedMs": 182,
+        "modelMs": 971,
+        "ollama": {
+          "total_duration": 169766833,
+          "load_duration": 109324583,
+          "prompt_eval_count": 32
+        }
+      },
+      {
+        "id": "q-06",
+        "refusedBeforeModel": false,
+        "inputTokens": 1351,
+        "outputTokens": 44,
+        "ms": 1155,
+        "embedMs": 204,
+        "modelMs": 950,
+        "ollama": {
+          "total_duration": 190281500,
+          "load_duration": 128981459,
+          "prompt_eval_count": 18
+        }
+      },
+      {
+        "id": "q-07",
+        "refusedBeforeModel": false,
+        "inputTokens": 1598,
+        "outputTokens": 53,
+        "ms": 1333,
+        "embedMs": 243,
+        "modelMs": 1089,
+        "ollama": {
+          "total_duration": 230316208,
+          "load_duration": 173269583,
+          "prompt_eval_count": 23
+        }
+      },
+      {
+        "id": "q-08",
+        "refusedBeforeModel": false,
+        "inputTokens": 1709,
+        "outputTokens": 73,
+        "ms": 1220,
+        "embedMs": 223,
+        "modelMs": 996,
+        "ollama": {
+          "total_duration": 209975833,
+          "load_duration": 150055750,
+          "prompt_eval_count": 22
+        }
+      },
+      {
+        "id": "q-09",
+        "refusedBeforeModel": false,
+        "inputTokens": 1205,
+        "outputTokens": 73,
+        "ms": 1164,
+        "embedMs": 50,
+        "modelMs": 1113,
+        "ollama": {
+          "total_duration": 47983917,
+          "load_duration": 1711834,
+          "prompt_eval_count": 40
+        }
+      },
+      {
+        "id": "q-10",
+        "refusedBeforeModel": false,
+        "inputTokens": 1791,
+        "outputTokens": 58,
+        "ms": 704,
+        "embedMs": 25,
+        "modelMs": 678,
+        "ollama": {
+          "total_duration": 23800417,
+          "load_duration": 417584,
+          "prompt_eval_count": 47
+        }
+      },
+      {
+        "id": "q-11",
+        "refusedBeforeModel": false,
+        "inputTokens": 1703,
+        "outputTokens": 83,
+        "ms": 845,
+        "embedMs": 46,
+        "modelMs": 798,
+        "ollama": {
+          "total_duration": 44864542,
+          "load_duration": 27358750,
+          "prompt_eval_count": 19
+        }
+      },
+      {
+        "id": "q-12",
+        "refusedBeforeModel": false,
+        "inputTokens": 2077,
+        "outputTokens": 47,
+        "ms": 895,
+        "embedMs": 19,
+        "modelMs": 874,
+        "ollama": {
+          "total_duration": 18580875,
+          "load_duration": 435459,
+          "prompt_eval_count": 23
+        }
+      },
+      {
+        "id": "q-13",
+        "refusedBeforeModel": false,
+        "inputTokens": 1468,
+        "outputTokens": 40,
+        "ms": 652,
+        "embedMs": 30,
+        "modelMs": 618,
+        "ollama": {
+          "total_duration": 28328500,
+          "load_duration": 719458,
+          "prompt_eval_count": 14
+        }
+      },
+      {
+        "id": "q-14",
+        "refusedBeforeModel": false,
+        "inputTokens": 1490,
+        "outputTokens": 49,
+        "ms": 1260,
+        "embedMs": 28,
+        "modelMs": 1227,
+        "ollama": {
+          "total_duration": 25425250,
+          "load_duration": 7003750,
+          "prompt_eval_count": 15
+        }
+      },
+      {
+        "id": "q-15",
+        "refusedBeforeModel": false,
+        "inputTokens": 1422,
+        "outputTokens": 39,
+        "ms": 791,
+        "embedMs": 30,
+        "modelMs": 757,
+        "ollama": {
+          "total_duration": 27822291,
+          "load_duration": 5613500,
+          "prompt_eval_count": 34
+        }
+      },
+      {
+        "id": "q-16",
+        "refusedBeforeModel": false,
+        "inputTokens": 1547,
+        "outputTokens": 32,
+        "ms": 930,
+        "embedMs": 50,
+        "modelMs": 874,
+        "ollama": {
+          "total_duration": 47174333,
+          "load_duration": 1651042,
+          "prompt_eval_count": 29
+        }
+      },
+      {
+        "id": "q-17",
+        "refusedBeforeModel": false,
+        "inputTokens": 1972,
+        "outputTokens": 95,
+        "ms": 1083,
+        "embedMs": 46,
+        "modelMs": 1031,
+        "ollama": {
+          "total_duration": 42849500,
+          "load_duration": 2003292,
+          "prompt_eval_count": 39
+        }
+      },
+      {
+        "id": "q-18",
+        "refusedBeforeModel": false,
+        "inputTokens": 2003,
+        "outputTokens": 69,
+        "ms": 988,
+        "embedMs": 46,
+        "modelMs": 937,
+        "ollama": {
+          "total_duration": 43715500,
+          "load_duration": 1948333,
+          "prompt_eval_count": 26
+        }
+      },
+      {
+        "id": "q-21",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 25,
+        "embedMs": 20,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 18587875,
+          "load_duration": 691458,
+          "prompt_eval_count": 18
+        }
+      },
+      {
+        "id": "q-22",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 23,
+        "embedMs": 20,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 18253958,
+          "load_duration": 449125,
+          "prompt_eval_count": 22
+        }
+      },
+      {
+        "id": "q-23",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 23,
+        "embedMs": 20,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 17312541,
+          "load_duration": 352416,
+          "prompt_eval_count": 14
+        }
+      },
+      {
+        "id": "q-24",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 23,
+        "embedMs": 19,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 16875000,
+          "load_duration": 303125,
+          "prompt_eval_count": 14
+        }
+      },
+      {
+        "id": "q-25",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 27,
+        "embedMs": 24,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 22523500,
+          "load_duration": 5527000,
+          "prompt_eval_count": 17
+        }
+      }
+    ],
+    "langfuseTraceId": "c2625960-02da-4fd5-bf05-2f24d8c3245e"
+  }
+}

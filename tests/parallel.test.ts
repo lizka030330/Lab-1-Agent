@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
-import { BUDGET, MAX_WIDTH, runPool, SYSTEM, type Budget } from '../scripts/parallel-eval';
+import { BUDGET, MAX_WIDTH, retryDelayMs, runPool, SYSTEM, type Budget } from '../scripts/parallel-eval';
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const budget = (b: Partial<Budget> = {}): Budget => ({ ...BUDGET, ...b });
@@ -45,5 +45,10 @@ describe('runPool (крок 07, без мережі)', () => {
   it('SYSTEM дослівно той самий, що в eval-run.ts (крок 06)', () => {
     const src = readFileSync('scripts/eval-run.ts', 'utf8');
     for (const line of SYSTEM.split('\n')) expect(src).toContain(`'${line}'`);
+  });
+
+  it('пауза перед повтором після 429: retryDelay з тіла Gemini, інакше 15 с × спроба', () => {
+    expect(retryDelayMs('HTTP 429: {"retryDelay": "23s"}', 1)).toBe(23_500);
+    expect(retryDelayMs('HTTP 429: обрізане повідомлення', 2)).toBe(30_000);
   });
 });

@@ -58,6 +58,21 @@ export interface BranchResult {
   readonly embedMs: number;
   readonly modelMs: number;
   readonly ollama: OllamaCounters;
+  /** Скільки разів гілка повторила виклик після HTTP 429 і скільки чекала на ліміт. */
+  readonly retries: number;
+  readonly waitedMs: number;
+}
+
+/** Повторів після 429 на одну гілку. 429 токенів не витрачає, тож облік не змінюється. */
+export const MAX_RETRIES = 4;
+
+/**
+ * Пауза перед повтором: беремо retryDelay, який радить сам Gemini у тілі 429,
+ * а якщо його немає (або повідомлення обрізане) — 15 с × номер спроби.
+ */
+export function retryDelayMs(message: string, attempt: number): number {
+  const m = /"retryDelay"\s*:\s*"(\d+(?:\.\d+)?)s"/.exec(message);
+  return m?.[1] !== undefined ? Math.ceil(Number(m[1]) * 1000) + 500 : 15_000 * attempt;
 }
 
 /**
@@ -179,12 +194,27 @@ async function main(): Promise<void> {
     const served = fuse(index, ranked, K);
     const refusedBeforeModel = shouldRefuse(ranked.vector[0]?.cosine ?? 0);
     const userText = `${CONTEXT_HEADER}\n\n${renderContext(served.map((h) => h.chunk))}\n\n===\n${entry.query}`;
+    let retries = 0;
+    let waitedMs = 0;
     const modelStart = performance.now();
     const startIso = new Date().toISOString();
     // Підсумок токенів гілки: наш адаптер Лаб. 1 (fetch, не AI SDK) повертає turn.usage типу Usage з src/cost.ts.
     const turn = refusedBeforeModel
       ? { text: REFUSAL_TEXT, usage: ZERO_USAGE as Usage }
-      : await model(SYSTEM, [{ role: 'user', text: userText }], []);
+      : await (async () => {
+          for (let attempt = 1; ; attempt++) {
+            try {
+              return await model(SYSTEM, [{ role: 'user', text: userText }], []);
+            } catch (error) {
+              const message = error instanceof Error ? error.message : String(error);
+              if (!message.includes('HTTP 429') || attempt > MAX_RETRIES) throw error;
+              const wait = retryDelayMs(message, attempt);
+              retries += 1;
+              waitedMs += wait;
+              await new Promise((r) => setTimeout(r, wait));
+            }
+          }
+        })();
     const modelMs = performance.now() - modelStart;
     spent += turn.usage.inputTokens + turn.usage.outputTokens;
     if (!refusedBeforeModel) {
@@ -210,6 +240,8 @@ async function main(): Promise<void> {
       embedMs: Math.round(embedMs),
       modelMs: Math.round(modelMs),
       ollama: counters,
+      retries,
+      waitedMs,
     };
   });
 
@@ -233,6 +265,8 @@ async function main(): Promise<void> {
     sumBranchMs: sum((r) => r.ms),
     sumEmbedMs: sum((r) => r.embedMs),
     sumModelMs: sum((r) => r.modelMs),
+    retries: sum((r) => r.retries),
+    sumWaitedMs: sum((r) => r.waitedMs),
     inputTokens,
     outputTokens,
     priceUsd: priceUsd(spec, { inputTokens, cachedTokens: 0, outputTokens }),
@@ -265,6 +299,8 @@ async function main(): Promise<void> {
     sumEmbedMs: run.sumEmbedMs,
     sumModelMs: run.sumModelMs,
     ollamaSumTotalMs: run.ollamaMs.sumTotalDuration,
+    retries: run.retries,
+    sumWaitedMs: run.sumWaitedMs,
     tokens: `${inputTokens} / ${outputTokens}`,
     priceUsd: run.priceUsd.toFixed(6),
     done: ok.length,
