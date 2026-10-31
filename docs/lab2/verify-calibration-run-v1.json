@@ -1,0 +1,108 @@
+{
+  "date": "2026-10-31T11:53:17.780Z",
+  "model": "gemini-3.5-flash-lite",
+  "matched": 8,
+  "total": 10,
+  "rows": [
+    {
+      "n": 1,
+      "commit": "f1a3c8e",
+      "criterion": "A1",
+      "human": "unknown",
+      "what": "валідатор еталонного набору і 6 тестів до нього",
+      "judge": "unknown",
+      "reason": "Зміна додає код валідатора та тести, але статус виконання `npm test` та результати прогону CI у diff невідомі.",
+      "match": true
+    },
+    {
+      "n": 2,
+      "commit": "f1a3c8e",
+      "criterion": "A3",
+      "human": "fail",
+      "what": "той самий валідатор: чи перевіряє він, що id з must_cite є в таблиці spec і в docs/lab2/corpus/",
+      "judge": "fail",
+      "reason": "У валідаторі scripts/validate-golden.ts немає перевірки того, чи кожен id у полі must_cite наявний у таблиці розділу 2 та в docs/lab2/corpus/.",
+      "match": true
+    },
+    {
+      "n": 3,
+      "commit": "3fe506f",
+      "criterion": "A2",
+      "human": "pass",
+      "what": "заморожений queries.jsonl: 25 запитів, теги",
+      "judge": "unknown",
+      "reason": "Зміна містить файл з 25 запитами та двома тегами injection, але для остаточного підтвердження виконання критерію необхідно запустити валідатор через CI, оскільки статус прогону команди валідації неможливо перевірити лише за diff.",
+      "match": false
+    },
+    {
+      "n": 4,
+      "commit": "3fe506f",
+      "criterion": "A7",
+      "human": "unknown",
+      "what": "той самий набір: 5 unanswerable, але відповідей асистента з пошуком ще немає",
+      "judge": "unknown",
+      "reason": "Зміна додає файли із запитами, але не містить файлу docs/lab2/eval-report.md зі звітом оцінювання.",
+      "match": true
+    },
+    {
+      "n": 5,
+      "commit": "4ee7a24",
+      "criterion": "A1",
+      "human": "unknown",
+      "what": "крок валідатора в CI (ci.yml), без прогону",
+      "judge": "unknown",
+      "reason": "Критерій вимагає перевірки зеленого статусу `npm test` та відсутності мережевих запитів, що можливо перевірити лише виконанням тестів (CI/ runtime), тоді як у diff є лише додавання кроку валідатора у workflow.",
+      "match": true
+    },
+    {
+      "n": 6,
+      "commit": "4ee7a24",
+      "criterion": "A2",
+      "human": "unknown",
+      "what": "той самий крок CI запускає валідатор, але самого queries.jsonl у diff немає",
+      "judge": "unknown",
+      "reason": "Цей diff додає лише запуск валідатора у CI, але не містить самого файлу `docs/lab2/golden/queries.jsonl` чи його вмісту, тому неможливо перевірити наявність та структуру 20 запитів.",
+      "match": true
+    },
+    {
+      "n": 7,
+      "commit": "68d6791",
+      "criterion": "A8",
+      "human": "unknown",
+      "what": "скрипт базової лінії міряє затримку й вартість без пошуку",
+      "judge": "unknown",
+      "reason": "Зміна містить скрипт для базової лінії та документацію еталонного набору, але не додає файли docs/lab2/eval-report.md та docs/lab2/budget.md із самими числами затримки та вартості.",
+      "match": true
+    },
+    {
+      "n": 8,
+      "commit": "e31f153",
+      "criterion": "A5",
+      "human": "unknown",
+      "what": "baseline.md: точність без пошуку 45%",
+      "judge": "unknown",
+      "reason": "Ця зміна містить лише дані базової лінії (baseline), але не містить результатів прогону з пошуком для перевірки точності ≥ 70%.",
+      "match": true
+    },
+    {
+      "n": 9,
+      "commit": "e31f153",
+      "criterion": "A7",
+      "human": "unknown",
+      "what": "baseline.md: відмови без пошуку 0 з 5",
+      "judge": "pass",
+      "reason": "У таблиці підсумків та у файлі baseline.md чітко зазначено, що кількість правильних відмов для unanswerable запитів становить 0 із 5.",
+      "match": false
+    },
+    {
+      "n": 10,
+      "commit": "30fccb2",
+      "criterion": "A2",
+      "human": "unknown",
+      "what": "spec v1.1: змінено лише текст критерію A2 і правило оцінювання",
+      "judge": "unknown",
+      "reason": "Зміна стосується лише редагування файлу специфікації (docs/lab2/spec.md), але не містить самого файлу queries.jsonl чи запуску валідатора для перевірки його вмісту.",
+      "match": true
+    }
+  ]
+}

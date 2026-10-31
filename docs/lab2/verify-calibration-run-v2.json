@@ -1,0 +1,108 @@
+{
+  "date": "2026-10-31T11:56:16.868Z",
+  "model": "gemini-3.5-flash-lite",
+  "matched": 8,
+  "total": 10,
+  "rows": [
+    {
+      "n": 1,
+      "commit": "f1a3c8e",
+      "criterion": "A1",
+      "human": "unknown",
+      "what": "валідатор еталонного набору і 6 тестів до нього",
+      "judge": "unknown",
+      "reason": "За специфікацією критерій перевіряється прогоном CI на main (npm test), а в diff присутні лише код валідатора та тести до нього, але немає результатів виконання команди.",
+      "match": true
+    },
+    {
+      "n": 2,
+      "commit": "f1a3c8e",
+      "criterion": "A3",
+      "human": "fail",
+      "what": "той самий валідатор: чи перевіряє він, що id з must_cite є в таблиці spec і в docs/lab2/corpus/",
+      "judge": "unknown",
+      "reason": "У diff реалізовано загальну валідацію еталонного набору, але перевірка наявності кожного id з must_cite у таблиці розділу 2 та в docs/lab2/corpus/ у коді відсутня.",
+      "match": false
+    },
+    {
+      "n": 3,
+      "commit": "3fe506f",
+      "criterion": "A2",
+      "human": "pass",
+      "what": "заморожений queries.jsonl: 25 запитів, теги",
+      "judge": "pass",
+      "reason": "Файл queries.jsonl містить рівно 25 запитів (20 з відповідями, серед них мінімум 2 з тегом injection та відповідними інструкціями проти ін'єкцій, і 5 unanswerable запитів без обов'язкових цитат), що повністю відповідає вимогам критерію.",
+      "match": true
+    },
+    {
+      "n": 4,
+      "commit": "3fe506f",
+      "criterion": "A7",
+      "human": "unknown",
+      "what": "той самий набір: 5 unanswerable, але відповідей асистента з пошуком ще немає",
+      "judge": "unknown",
+      "reason": "У diff є файл з набором запитів (queries.jsonl), але критерій вимагає перевірки числа у звіті eval-report.md, якого в зміні немає.",
+      "match": true
+    },
+    {
+      "n": 5,
+      "commit": "4ee7a24",
+      "criterion": "A1",
+      "human": "unknown",
+      "what": "крок валідатора в CI (ci.yml), без прогону",
+      "judge": "unknown",
+      "reason": "Зміна додає команду валідатора до CI-пайплайну, але успішність прогону 'npm test' та відсутність мережевих запитів неможливо перевірити лише за статичним diff файлу конфігурації GitHub Actions.",
+      "match": true
+    },
+    {
+      "n": 6,
+      "commit": "4ee7a24",
+      "criterion": "A2",
+      "human": "unknown",
+      "what": "той самий крок CI запускає валідатор, але самого queries.jsonl у diff немає",
+      "judge": "unknown",
+      "reason": "Зміна торкається лише CI workflow, але не додає чи не змінює файл 'docs/lab2/golden/queries.jsonl', тому вміст набору та його відповідність критерію неможливо перевірити за цим diff.",
+      "match": true
+    },
+    {
+      "n": 7,
+      "commit": "68d6791",
+      "criterion": "A8",
+      "human": "unknown",
+      "what": "скрипт базової лінії міряє затримку й вартість без пошуку",
+      "judge": "unknown",
+      "reason": "У diff є лише скрипт базової лінії без пошуку (baseline.ts) та еталонний набір (eval-set.md), тоді як критерій вимагає перевірки за звітом системи з пошуком (eval-report.md, budget.md).",
+      "match": true
+    },
+    {
+      "n": 8,
+      "commit": "e31f153",
+      "criterion": "A5",
+      "human": "unknown",
+      "what": "baseline.md: точність без пошуку 45%",
+      "judge": "unknown",
+      "reason": "Зміна містить лише результати для базової лінії (baseline.md / baseline-run.json) з точністю 45%, а дані з пошуком (eval-report.md) у цій зміні відсутні.",
+      "match": true
+    },
+    {
+      "n": 9,
+      "commit": "e31f153",
+      "criterion": "A7",
+      "human": "unknown",
+      "what": "baseline.md: відмови без пошуку 0 з 5",
+      "judge": "fail",
+      "reason": "Згідно звітів у `docs/lab2/baseline.md` та `docs/lab2/baseline-run.json`, для запитів з тегом unanswerable зафіксовано 0 із 5 правильних відмов (усі 5 отримали розгорнуті відповіді/вигадки замість відмови).",
+      "match": false
+    },
+    {
+      "n": 10,
+      "commit": "30fccb2",
+      "criterion": "A2",
+      "human": "unknown",
+      "what": "spec v1.1: змінено лише текст критерію A2 і правило оцінювання",
+      "judge": "unknown",
+      "reason": "Зміна стосується лише файлу документації (специфікації) spec.md і не містить самого файлу queries.jsonl чи запуску валідатора, щоб підтвердити виконання критерію.",
+      "match": true
+    }
+  ]
+}
