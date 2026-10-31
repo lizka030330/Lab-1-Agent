@@ -90,7 +90,8 @@ jobs:
         run: npm ci
 
       - name: Diff пул-реквесту відносно main
-        run: git diff origin/${{ github.base_ref }}...HEAD > docs/lab2/verify-input.diff
+        # data/index.json — згенерований індекс (МБ чисел): суддя його не оцінює, його перевіряє tests/index.test.ts
+        run: git diff origin/${{ github.base_ref }}...HEAD -- . ':(exclude)data/index.json' > docs/lab2/verify-input.diff
 
       - name: Верифікатор (Gemini, інший провайдер, ніж автор коду)
         env:
