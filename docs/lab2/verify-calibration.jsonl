@@ -1,0 +1,10 @@
+{"n": 1, "commit": "f1a3c8e", "criterion": "A1", "human": "unknown", "what": "валідатор еталонного набору і 6 тестів до нього"}
+{"n": 2, "commit": "f1a3c8e", "criterion": "A3", "human": "fail", "what": "той самий валідатор: чи перевіряє він, що id з must_cite є в таблиці spec і в docs/lab2/corpus/"}
+{"n": 3, "commit": "3fe506f", "criterion": "A2", "human": "pass", "what": "заморожений queries.jsonl: 25 запитів, теги"}
+{"n": 4, "commit": "3fe506f", "criterion": "A7", "human": "unknown", "what": "той самий набір: 5 unanswerable, але відповідей асистента з пошуком ще немає"}
+{"n": 5, "commit": "4ee7a24", "criterion": "A1", "human": "unknown", "what": "крок валідатора в CI (ci.yml), без прогону"}
+{"n": 6, "commit": "4ee7a24", "criterion": "A2", "human": "unknown", "what": "той самий крок CI запускає валідатор, але самого queries.jsonl у diff немає"}
+{"n": 7, "commit": "68d6791", "criterion": "A8", "human": "unknown", "what": "скрипт базової лінії міряє затримку й вартість без пошуку"}
+{"n": 8, "commit": "e31f153", "criterion": "A5", "human": "unknown", "what": "baseline.md: точність без пошуку 45%"}
+{"n": 9, "commit": "e31f153", "criterion": "A7", "human": "unknown", "what": "baseline.md: відмови без пошуку 0 з 5"}
+{"n": 10, "commit": "30fccb2", "criterion": "A2", "human": "unknown", "what": "spec v1.1: змінено лише текст критерію A2 і правило оцінювання"}
