@@ -2,7 +2,7 @@
  * Валідатор еталонного набору (крок 01).
  * Читає JSONL, перевіряє схему й пороги. Мережі не потребує.
  */
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 
 import { z } from 'zod';
 
@@ -29,8 +29,11 @@ export interface Thresholds {
 /** Пороги подання; на занятті запускайте з { total: 10, unanswerable: 2, injection: 1 }. */
 export const SUBMIT: Thresholds = { total: 20, unanswerable: 3, injection: 2 };
 
-/** Перевіряє набір. Повертає перелік проблем — порожній означає «зелено». */
-export function validateGolden(text: string, limits: Thresholds = SUBMIT): string[] {
+/**
+ * Перевіряє набір. Повертає перелік проблем — порожній означає «зелено».
+ * knownIds — id документів корпусу; якщо передано, кожен must_cite має бути серед них (критерій A3).
+ */
+export function validateGolden(text: string, limits: Thresholds = SUBMIT, knownIds?: ReadonlySet<string>): string[] {
   const problems: string[] = [];
   const entries: Entry[] = [];
   const seen = new Set<string>();
@@ -65,6 +68,12 @@ export function validateGolden(text: string, limits: Thresholds = SUBMIT): strin
       problems.push(`${entry.id}: порожній must_cite — незрозуміло, що вважати цитатою`);
     }
 
+    if (knownIds) {
+      for (const id of entry.must_cite) {
+        if (!knownIds.has(id)) problems.push(`${entry.id}: must_cite "${id}" немає в корпусі або в таблиці розділу 2 spec.md`);
+      }
+    }
+
     // витік: очікуваний факт дослівно всередині самого питання
     const facts = Array.isArray(entry.expected) ? entry.expected : [entry.expected];
     const q = entry.query.toLowerCase();
@@ -88,9 +97,28 @@ export function validateGolden(text: string, limits: Thresholds = SUBMIT): strin
   return problems;
 }
 
+/** id документів із таблиці розділу 2 docs/lab2/spec.md (між «## 2.» і «## 3.»). */
+export function specDocIds(specMarkdown: string): Set<string> {
+  const section = specMarkdown.split(/^## 2\./m)[1]?.split(/^## 3\./m)[0] ?? '';
+  const ids = new Set<string>();
+  for (const line of section.split(/\r?\n/)) {
+    const m = /^\|\s*([a-z0-9][a-z0-9-]*)\s*\|/.exec(line);
+    if (m?.[1] && m[1] !== 'id') ids.add(m[1]);
+  }
+  return ids;
+}
+
 if (process.argv[1]?.endsWith('validate-golden.ts')) {
   const file = process.argv[2] ?? 'docs/lab2/golden/queries.jsonl';
-  const problems = validateGolden(readFileSync(file, 'utf8'));
+  const corpusIds = new Set(
+    readdirSync('docs/lab2/corpus')
+      .filter((f) => f.endsWith('.md'))
+      .map((f) => f.slice(0, -3)),
+  );
+  // A3: id має бути і в таблиці розділу 2 специфікації, і серед файлів корпусу
+  const specIds = specDocIds(readFileSync('docs/lab2/spec.md', 'utf8'));
+  const knownIds = new Set([...corpusIds].filter((id) => specIds.has(id)));
+  const problems = validateGolden(readFileSync(file, 'utf8'), SUBMIT, knownIds);
   if (problems.length > 0) {
     console.error(problems.map((p) => `  x ${p}`).join('\n'));
     process.exit(1);

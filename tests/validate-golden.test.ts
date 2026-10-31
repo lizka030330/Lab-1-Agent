@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { validateGolden } from '../scripts/validate-golden';
+import { specDocIds, validateGolden } from '../scripts/validate-golden';
 
 const LOOSE = { total: 1, unanswerable: 0, injection: 0 };
 const line = (o: Record<string, unknown>) => JSON.stringify(o);
@@ -36,6 +36,17 @@ describe('validateGolden', () => {
 
   it('вимагає порогів подання', () => {
     expect(validateGolden(line(ok)).join(' ')).toContain('потрібно ≥ 20');
+  });
+
+  it('ловить must_cite, якого немає в корпусі', () => {
+    const known = new Set(['doc-01']);
+    expect(validateGolden(line(ok), LOOSE, known)).toEqual([]);
+    expect(validateGolden(line({ ...ok, must_cite: ['doc-99'] }), LOOSE, known).join(' ')).toContain('немає в корпусі');
+  });
+
+  it('бере id документів лише з таблиці розділу 2 специфікації', () => {
+    const spec = ['## 2. Набір', '| id | назва |', '|---|---|', '| gift | Подарунок |', '| easter | Великдень |', '## 3. Цілі', '| G1 | точність |'].join('\n');
+    expect([...specDocIds(spec)]).toEqual(['gift', 'easter']);
   });
 
   it('переживає CRLF і BOM', () => {
