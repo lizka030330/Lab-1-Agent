@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { REFUSE_BELOW_COSINE, isRefusal, shouldRefuse } from '../src/rag/answer';
 import { buildBm25, searchBm25, tokenize } from '../src/rag/bm25';
-import { renderCitation, validateAnswer } from '../src/rag/cite';
+import { citedIds, renderCitation, validateAnswer } from '../src/rag/cite';
 import { fakeEmbedder } from '../src/rag/embed';
 import { rrf } from '../src/rag/rrf';
 import { bm25From, hybridSearch } from '../src/rag/search';
@@ -106,6 +106,13 @@ describe('validateAnswer', () => {
 
   it('приймає цитату на видане', () => {
     expect(validateAnswer('Гості дякували подарунками [korovai#0003].', served)).toEqual([]);
+  });
+
+  it('бачить кілька id в одних дужках (провал q-17 у прогоні кроку 06)', () => {
+    const answer = 'Під подушку [st-nicholas#0000, st-nicholas-day#0005]. Через камін [st-nicholas-day#0005].';
+    expect(citedIds(answer)).toEqual(['st-nicholas#0000', 'st-nicholas-day#0005', 'st-nicholas-day#0005']);
+    expect(validateAnswer(answer, [{ id: 'st-nicholas#0000' }, { id: 'st-nicholas-day#0005' }])).toEqual([]);
+    expect(validateAnswer(answer, [{ id: 'st-nicholas-day#0005' }]).join(' ')).toContain('[st-nicholas#0000]');
   });
 
   it('рядок цитати веде до файлу й 0-based зсувів', () => {
