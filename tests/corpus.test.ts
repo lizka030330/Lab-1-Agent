@@ -13,10 +13,11 @@ describe('корпус docs/lab2/corpus', () => {
     expect(files).toHaveLength(25);
   });
 
-  it('кожен документ має заголовок із джерелом у Вікіпедії', () => {
+  it('кожен документ має заголовок із джерелом у Вікіпедії і ліцензією CC BY-SA 4.0', () => {
     for (const f of files) {
       const head = readFileSync(`${DIR}/${f}`, 'utf8').split('\n---\n')[0] ?? '';
       expect(head, f).toContain('source: https://uk.wikipedia.org/wiki/');
+      expect(head, f).toContain('license: CC BY-SA 4.0');
     }
   });
 });

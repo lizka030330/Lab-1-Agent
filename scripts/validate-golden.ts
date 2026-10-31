@@ -70,7 +70,7 @@ export function validateGolden(text: string, limits: Thresholds = SUBMIT, knownI
 
     if (knownIds) {
       for (const id of entry.must_cite) {
-        if (!knownIds.has(id)) problems.push(`${entry.id}: must_cite "${id}" немає в корпусі`);
+        if (!knownIds.has(id)) problems.push(`${entry.id}: must_cite "${id}" немає в корпусі або в таблиці розділу 2 spec.md`);
       }
     }
 
@@ -97,6 +97,17 @@ export function validateGolden(text: string, limits: Thresholds = SUBMIT, knownI
   return problems;
 }
 
+/** id документів із таблиці розділу 2 docs/lab2/spec.md (між «## 2.» і «## 3.»). */
+export function specDocIds(specMarkdown: string): Set<string> {
+  const section = specMarkdown.split(/^## 2\./m)[1]?.split(/^## 3\./m)[0] ?? '';
+  const ids = new Set<string>();
+  for (const line of section.split(/\r?\n/)) {
+    const m = /^\|\s*([a-z0-9][a-z0-9-]*)\s*\|/.exec(line);
+    if (m?.[1] && m[1] !== 'id') ids.add(m[1]);
+  }
+  return ids;
+}
+
 if (process.argv[1]?.endsWith('validate-golden.ts')) {
   const file = process.argv[2] ?? 'docs/lab2/golden/queries.jsonl';
   const corpusIds = new Set(
@@ -104,7 +115,10 @@ if (process.argv[1]?.endsWith('validate-golden.ts')) {
       .filter((f) => f.endsWith('.md'))
       .map((f) => f.slice(0, -3)),
   );
-  const problems = validateGolden(readFileSync(file, 'utf8'), SUBMIT, corpusIds);
+  // A3: id має бути і в таблиці розділу 2 специфікації, і серед файлів корпусу
+  const specIds = specDocIds(readFileSync('docs/lab2/spec.md', 'utf8'));
+  const knownIds = new Set([...corpusIds].filter((id) => specIds.has(id)));
+  const problems = validateGolden(readFileSync(file, 'utf8'), SUBMIT, knownIds);
   if (problems.length > 0) {
     console.error(problems.map((p) => `  x ${p}`).join('\n'));
     process.exit(1);
