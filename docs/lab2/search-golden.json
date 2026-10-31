@@ -1,0 +1,385 @@
+{
+  "date": "2026-10-31T15:08:40.574Z",
+  "embedder": "ollama:embeddinggemma-2:270m",
+  "rows": [
+    {
+      "id": "q-01",
+      "tags": [
+        "easy"
+      ],
+      "ranks": [
+        {
+          "doc": "christmas",
+          "vector": 1,
+          "words": 1,
+          "rrf": 1
+        }
+      ],
+      "topCosine": 0.794870283340118,
+      "wordHits": 232
+    },
+    {
+      "id": "q-02",
+      "tags": [
+        "easy"
+      ],
+      "ranks": [
+        {
+          "doc": "st-nicholas",
+          "vector": 1,
+          "words": 1,
+          "rrf": 1
+        }
+      ],
+      "topCosine": 0.8117240551759537,
+      "wordHits": 253
+    },
+    {
+      "id": "q-03",
+      "tags": [
+        "easy"
+      ],
+      "ranks": [
+        {
+          "doc": "santa-claus",
+          "vector": 8,
+          "words": 3,
+          "rrf": 4
+        }
+      ],
+      "topCosine": 0.8231553255795032,
+      "wordHits": 312
+    },
+    {
+      "id": "q-04",
+      "tags": [
+        "easy"
+      ],
+      "ranks": [
+        {
+          "doc": "st-nicholas-day",
+          "vector": 1,
+          "words": 1,
+          "rrf": 1
+        }
+      ],
+      "topCosine": 0.8846822172448825,
+      "wordHits": 388
+    },
+    {
+      "id": "q-05",
+      "tags": [
+        "easy"
+      ],
+      "ranks": [
+        {
+          "doc": "st-nicholas-day",
+          "vector": 1,
+          "words": 1,
+          "rrf": 1
+        }
+      ],
+      "topCosine": 0.8345155974548846,
+      "wordHits": 149
+    },
+    {
+      "id": "q-06",
+      "tags": [
+        "easy"
+      ],
+      "ranks": [
+        {
+          "doc": "st-nicholas-day",
+          "vector": 1,
+          "words": 3,
+          "rrf": 1
+        }
+      ],
+      "topCosine": 0.8258919002866052,
+      "wordHits": 362
+    },
+    {
+      "id": "q-07",
+      "tags": [
+        "easy"
+      ],
+      "ranks": [
+        {
+          "doc": "hanukkah",
+          "vector": 1,
+          "words": 1,
+          "rrf": 1
+        }
+      ],
+      "topCosine": 0.8277658910659154,
+      "wordHits": 330
+    },
+    {
+      "id": "q-08",
+      "tags": [
+        "easy"
+      ],
+      "ranks": [
+        {
+          "doc": "eid-al-adha",
+          "vector": 1,
+          "words": 1,
+          "rrf": 1
+        }
+      ],
+      "topCosine": 0.8332820750989879,
+      "wordHits": 363
+    },
+    {
+      "id": "q-09",
+      "tags": [
+        "easy"
+      ],
+      "ranks": [
+        {
+          "doc": "wedding-anniversary",
+          "vector": 1,
+          "words": 1,
+          "rrf": 1
+        }
+      ],
+      "topCosine": 0.8434092885444863,
+      "wordHits": 371
+    },
+    {
+      "id": "q-10",
+      "tags": [
+        "easy"
+      ],
+      "ranks": [
+        {
+          "doc": "wedding-anniversary",
+          "vector": 1,
+          "words": 1,
+          "rrf": 1
+        }
+      ],
+      "topCosine": 0.8313635897380359,
+      "wordHits": 405
+    },
+    {
+      "id": "q-11",
+      "tags": [
+        "easy"
+      ],
+      "ranks": [
+        {
+          "doc": "wedding-anniversary",
+          "vector": 1,
+          "words": 1,
+          "rrf": 1
+        }
+      ],
+      "topCosine": 0.7707218178074938,
+      "wordHits": 370
+    },
+    {
+      "id": "q-12",
+      "tags": [
+        "easy"
+      ],
+      "ranks": [
+        {
+          "doc": "pysanka",
+          "vector": 1,
+          "words": 1,
+          "rrf": 1
+        }
+      ],
+      "topCosine": 0.8192990554623475,
+      "wordHits": 336
+    },
+    {
+      "id": "q-13",
+      "tags": [
+        "easy"
+      ],
+      "ranks": [
+        {
+          "doc": "pysanka",
+          "vector": 1,
+          "words": 1,
+          "rrf": 1
+        }
+      ],
+      "topCosine": 0.7936153510636622,
+      "wordHits": 236
+    },
+    {
+      "id": "q-14",
+      "tags": [
+        "easy"
+      ],
+      "ranks": [
+        {
+          "doc": "potlatch",
+          "vector": 1,
+          "words": 1,
+          "rrf": 1
+        }
+      ],
+      "topCosine": 0.8132978151729713,
+      "wordHits": 358
+    },
+    {
+      "id": "q-15",
+      "tags": [
+        "easy"
+      ],
+      "ranks": [
+        {
+          "doc": "valentines-day",
+          "vector": 1,
+          "words": 1,
+          "rrf": 1
+        }
+      ],
+      "topCosine": 0.7969605608657446,
+      "wordHits": 393
+    },
+    {
+      "id": "q-16",
+      "tags": [
+        "easy"
+      ],
+      "ranks": [
+        {
+          "doc": "valentines-day",
+          "vector": 1,
+          "words": 1,
+          "rrf": 1
+        }
+      ],
+      "topCosine": 0.8289699197410763,
+      "wordHits": 388
+    },
+    {
+      "id": "q-17",
+      "tags": [
+        "hard"
+      ],
+      "ranks": [
+        {
+          "doc": "st-nicholas",
+          "vector": 3,
+          "words": 3,
+          "rrf": 2
+        },
+        {
+          "doc": "santa-claus",
+          "vector": 6,
+          "words": 4,
+          "rrf": 6
+        }
+      ],
+      "topCosine": 0.8494561382191467,
+      "wordHits": 251
+    },
+    {
+      "id": "q-18",
+      "tags": [
+        "hard"
+      ],
+      "ranks": [
+        {
+          "doc": "diwali",
+          "vector": 3,
+          "words": 1,
+          "rrf": 3
+        },
+        {
+          "doc": "chinese-new-year",
+          "vector": 1,
+          "words": 2,
+          "rrf": 1
+        }
+      ],
+      "topCosine": 0.831424157156612,
+      "wordHits": 363
+    },
+    {
+      "id": "q-19",
+      "tags": [
+        "injection",
+        "easy"
+      ],
+      "ranks": [
+        {
+          "doc": "birthday",
+          "vector": 1,
+          "words": 6,
+          "rrf": 1
+        }
+      ],
+      "topCosine": 0.8487787733759772,
+      "wordHits": 298
+    },
+    {
+      "id": "q-20",
+      "tags": [
+        "injection",
+        "easy"
+      ],
+      "ranks": [
+        {
+          "doc": "korovai",
+          "vector": 1,
+          "words": 1,
+          "rrf": 1
+        }
+      ],
+      "topCosine": 0.78243039779145,
+      "wordHits": 285
+    },
+    {
+      "id": "q-21",
+      "tags": [
+        "unanswerable"
+      ],
+      "ranks": [],
+      "topCosine": 0.7399612576523737,
+      "wordHits": 360
+    },
+    {
+      "id": "q-22",
+      "tags": [
+        "unanswerable"
+      ],
+      "ranks": [],
+      "topCosine": 0.7557373133977178,
+      "wordHits": 352
+    },
+    {
+      "id": "q-23",
+      "tags": [
+        "unanswerable"
+      ],
+      "ranks": [],
+      "topCosine": 0.760878817592962,
+      "wordHits": 99
+    },
+    {
+      "id": "q-24",
+      "tags": [
+        "unanswerable"
+      ],
+      "ranks": [],
+      "topCosine": 0.7319455082168216,
+      "wordHits": 361
+    },
+    {
+      "id": "q-25",
+      "tags": [
+        "unanswerable"
+      ],
+      "ranks": [],
+      "topCosine": 0.7530836291879991,
+      "wordHits": 344
+    }
+  ]
+}
