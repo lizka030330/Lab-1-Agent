@@ -5,10 +5,10 @@ import { readdirSync, readFileSync } from 'node:fs';
 
 import { describe, expect, it } from 'vitest';
 
-const DIR = 'docs/lab2/corpus';
+const DIR = 'corpus';
 const files = readdirSync(DIR).filter((f) => f.endsWith('.md'));
 
-describe('корпус docs/lab2/corpus', () => {
+describe('корпус corpus/', () => {
   it('містить 25 документів', () => {
     expect(files).toHaveLength(25);
   });
