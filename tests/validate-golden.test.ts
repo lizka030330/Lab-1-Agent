@@ -38,6 +38,12 @@ describe('validateGolden', () => {
     expect(validateGolden(line(ok)).join(' ')).toContain('потрібно ≥ 20');
   });
 
+  it('ловить must_cite, якого немає в корпусі', () => {
+    const known = new Set(['doc-01']);
+    expect(validateGolden(line(ok), LOOSE, known)).toEqual([]);
+    expect(validateGolden(line({ ...ok, must_cite: ['doc-99'] }), LOOSE, known).join(' ')).toContain('немає в корпусі');
+  });
+
   it('переживає CRLF і BOM', () => {
     expect(validateGolden(`\uFEFF${line(ok)}\r\n\r\n`, LOOSE)).toEqual([]);
   });
