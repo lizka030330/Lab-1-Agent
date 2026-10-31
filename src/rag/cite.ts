@@ -32,10 +32,22 @@ export function renderContext(chunks: readonly IndexedChunk[]): string {
     .join('\n\n---\n\n');
 }
 
-const CITED = /\[([a-z0-9][a-z0-9-]*#\d{4})]/gi;
+const ID = /^[a-z0-9][a-z0-9-]*#\d{4}$/i;
 
+/**
+ * Id у квадратних дужках: «[korovai#0003]» або кілька в одних дужках через кому
+ * «[st-nicholas#0000, st-nicholas-day#0005]» — так модель відповіла на q-17 у прогоні кроку 06,
+ * і перша версія (лише один id у дужках) таку цитату не бачила.
+ */
 export function citedIds(answer: string): string[] {
-  return [...answer.matchAll(CITED)].map((m) => m[1] ?? '');
+  const ids: string[] = [];
+  for (const m of answer.matchAll(/\[([^\]]+)]/g)) {
+    for (const part of (m[1] ?? '').split(/[,;]\s*/)) {
+      const id = part.trim();
+      if (ID.test(id)) ids.push(id);
+    }
+  }
+  return ids;
 }
 
 /**

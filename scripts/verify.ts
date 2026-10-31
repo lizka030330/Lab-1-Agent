@@ -44,7 +44,7 @@ const model = chatCompletionsModel({
 });
 
 console.log(`Суддя: ${modelId} (Google); критеріїв: ${criteria.length}; diff: ${file}, ${diff.length} симв.\n`);
-const report = verifyReport.parse(await verifyDiff(model, criteria, diff));
+const report = verifyReport.parse(await verifyDiff(model, criteria, diff, Number(process.env.VERIFY_PAUSE_MS) || 0));
 writeFileSync('docs/lab2/verify-report.json', `${JSON.stringify({ model: modelId, file, ...report }, null, 2)}\n`, 'utf8');
 console.log(reportTable(report));
 

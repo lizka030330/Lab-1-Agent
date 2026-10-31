@@ -86,9 +86,21 @@ export async function judgeCriterion(model: Model, c: Criterion, diff: string): 
   throw new Error(`суддя двічі повернув невалідний вердикт для ${c.id}: ${lastText.slice(0, 200)}`);
 }
 
-export async function verifyDiff(model: Model, criteria: readonly Criterion[], diff: string): Promise<VerifyReport> {
+/**
+ * pauseMs — пауза між критеріями. Кожен критерій надсилає весь diff, тож на безкоштовному
+ * рівні Gemini (250k вхідних токенів/хв) великий diff × 8 критеріїв без паузи дає HTTP 429.
+ */
+export async function verifyDiff(
+  model: Model,
+  criteria: readonly Criterion[],
+  diff: string,
+  pauseMs = 0,
+): Promise<VerifyReport> {
   const results: CriterionVerdict[] = [];
-  for (const c of criteria) results.push(await judgeCriterion(model, c, diff));
+  for (const [i, c] of criteria.entries()) {
+    if (i > 0 && pauseMs > 0) await new Promise((r) => setTimeout(r, pauseMs));
+    results.push(await judgeCriterion(model, c, diff));
+  }
   return { results };
 }
 
