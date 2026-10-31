@@ -1,6 +1,6 @@
 /**
  * Завантажує корпус лабораторної 2 (25 статей української Вікіпедії, CC BY-SA 4.0)
- * у docs/lab2/corpus/<id>.md. Ходить у мережу — запускати лише вручну:
+ * у corpus/<id>.md (корінь репозиторію, крок 04). Ходить у мережу — запускати лише вручну:
  *
  *   npx tsx scripts/fetch-corpus.ts
  *
@@ -37,7 +37,7 @@ const DOCS: ReadonlyArray<readonly [string, string]> = [
   ['eid-al-adha', 'Курбан-байрам'],
 ];
 
-const OUT = 'docs/lab2/corpus';
+const OUT = 'corpus';
 const LICENSE = 'CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)';
 const PAUSE_MS = 5000;
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

@@ -111,7 +111,7 @@ export function specDocIds(specMarkdown: string): Set<string> {
 if (process.argv[1]?.endsWith('validate-golden.ts')) {
   const file = process.argv[2] ?? 'docs/lab2/golden/queries.jsonl';
   const corpusIds = new Set(
-    readdirSync('docs/lab2/corpus')
+    readdirSync('corpus')
       .filter((f) => f.endsWith('.md'))
       .map((f) => f.slice(0, -3)),
   );
