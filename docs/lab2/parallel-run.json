@@ -1,0 +1,1734 @@
+{
+  "w1": {
+    "runAt": "2026-10-31T15:57:05.225Z",
+    "budget": {
+      "maxBranches": 1,
+      "maxTokens": 60000,
+      "maxWallMs": 300000
+    },
+    "model": "gemini-3.5-flash-lite",
+    "embedder": "ollama:embeddinggemma-2:270m",
+    "wallMs": 67216,
+    "sumBranchMs": 67215,
+    "sumEmbedMs": 1235,
+    "sumModelMs": 65844,
+    "retries": 2,
+    "sumWaitedMs": 45000,
+    "inputTokens": 33837,
+    "outputTokens": 1118,
+    "priceUsd": 0.0129461,
+    "ollamaMs": {
+      "sumTotalDuration": 1125,
+      "sumLoadDuration": 64.8,
+      "sumPromptEvalDuration": 0,
+      "sumPromptEvalCount": 642,
+      "sumEvalCount": 0
+    },
+    "done": 25,
+    "failed": [],
+    "notStarted": 0,
+    "stoppedEarly": false,
+    "branches": [
+      {
+        "id": "q-01",
+        "refusedBeforeModel": false,
+        "inputTokens": 1736,
+        "outputTokens": 30,
+        "ms": 1079,
+        "embedMs": 79,
+        "modelMs": 987,
+        "ollama": {
+          "total_duration": 53183959,
+          "load_duration": 1467209,
+          "prompt_eval_count": 18
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-02",
+        "refusedBeforeModel": false,
+        "inputTokens": 1915,
+        "outputTokens": 58,
+        "ms": 923,
+        "embedMs": 44,
+        "modelMs": 877,
+        "ollama": {
+          "total_duration": 41533292,
+          "load_duration": 2811500,
+          "prompt_eval_count": 21
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-03",
+        "refusedBeforeModel": false,
+        "inputTokens": 2240,
+        "outputTokens": 40,
+        "ms": 1124,
+        "embedMs": 52,
+        "modelMs": 1069,
+        "ollama": {
+          "total_duration": 49473334,
+          "load_duration": 2664875,
+          "prompt_eval_count": 26
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-04",
+        "refusedBeforeModel": false,
+        "inputTokens": 1722,
+        "outputTokens": 77,
+        "ms": 1536,
+        "embedMs": 44,
+        "modelMs": 1490,
+        "ollama": {
+          "total_duration": 42325167,
+          "load_duration": 1453083,
+          "prompt_eval_count": 34
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-05",
+        "refusedBeforeModel": false,
+        "inputTokens": 1606,
+        "outputTokens": 52,
+        "ms": 815,
+        "embedMs": 50,
+        "modelMs": 763,
+        "ollama": {
+          "total_duration": 47932000,
+          "load_duration": 3790834,
+          "prompt_eval_count": 32
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-06",
+        "refusedBeforeModel": false,
+        "inputTokens": 1351,
+        "outputTokens": 44,
+        "ms": 827,
+        "embedMs": 47,
+        "modelMs": 773,
+        "ollama": {
+          "total_duration": 43269917,
+          "load_duration": 1831375,
+          "prompt_eval_count": 18
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-07",
+        "refusedBeforeModel": false,
+        "inputTokens": 1598,
+        "outputTokens": 60,
+        "ms": 1119,
+        "embedMs": 46,
+        "modelMs": 1067,
+        "ollama": {
+          "total_duration": 42121083,
+          "load_duration": 1873917,
+          "prompt_eval_count": 23
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-08",
+        "refusedBeforeModel": false,
+        "inputTokens": 1709,
+        "outputTokens": 73,
+        "ms": 1024,
+        "embedMs": 56,
+        "modelMs": 962,
+        "ollama": {
+          "total_duration": 53427416,
+          "load_duration": 1987541,
+          "prompt_eval_count": 22
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-09",
+        "refusedBeforeModel": false,
+        "inputTokens": 1205,
+        "outputTokens": 60,
+        "ms": 855,
+        "embedMs": 54,
+        "modelMs": 795,
+        "ollama": {
+          "total_duration": 51038375,
+          "load_duration": 4892834,
+          "prompt_eval_count": 40
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-10",
+        "refusedBeforeModel": false,
+        "inputTokens": 1791,
+        "outputTokens": 60,
+        "ms": 1020,
+        "embedMs": 56,
+        "modelMs": 957,
+        "ollama": {
+          "total_duration": 52062500,
+          "load_duration": 1718500,
+          "prompt_eval_count": 47
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-11",
+        "refusedBeforeModel": false,
+        "inputTokens": 1703,
+        "outputTokens": 53,
+        "ms": 1713,
+        "embedMs": 49,
+        "modelMs": 1659,
+        "ollama": {
+          "total_duration": 44724375,
+          "load_duration": 3425625,
+          "prompt_eval_count": 19
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-12",
+        "refusedBeforeModel": false,
+        "inputTokens": 2077,
+        "outputTokens": 63,
+        "ms": 924,
+        "embedMs": 60,
+        "modelMs": 857,
+        "ollama": {
+          "total_duration": 56701625,
+          "load_duration": 2044167,
+          "prompt_eval_count": 23
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-13",
+        "refusedBeforeModel": false,
+        "inputTokens": 1468,
+        "outputTokens": 45,
+        "ms": 1124,
+        "embedMs": 50,
+        "modelMs": 1072,
+        "ollama": {
+          "total_duration": 42531583,
+          "load_duration": 14845500,
+          "prompt_eval_count": 14
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-14",
+        "refusedBeforeModel": false,
+        "inputTokens": 1490,
+        "outputTokens": 49,
+        "ms": 1032,
+        "embedMs": 49,
+        "modelMs": 975,
+        "ollama": {
+          "total_duration": 45687166,
+          "load_duration": 2152083,
+          "prompt_eval_count": 15
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-15",
+        "refusedBeforeModel": false,
+        "inputTokens": 1422,
+        "outputTokens": 46,
+        "ms": 1213,
+        "embedMs": 52,
+        "modelMs": 1156,
+        "ollama": {
+          "total_duration": 48267375,
+          "load_duration": 2029541,
+          "prompt_eval_count": 34
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-16",
+        "refusedBeforeModel": false,
+        "inputTokens": 1547,
+        "outputTokens": 32,
+        "ms": 827,
+        "embedMs": 60,
+        "modelMs": 760,
+        "ollama": {
+          "total_duration": 56835583,
+          "load_duration": 1758167,
+          "prompt_eval_count": 29
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-17",
+        "refusedBeforeModel": false,
+        "inputTokens": 1972,
+        "outputTokens": 137,
+        "ms": 47004,
+        "embedMs": 54,
+        "modelMs": 46945,
+        "ollama": {
+          "total_duration": 50057125,
+          "load_duration": 2341000,
+          "prompt_eval_count": 39
+        },
+        "retries": 2,
+        "waitedMs": 45000
+      },
+      {
+        "id": "q-18",
+        "refusedBeforeModel": false,
+        "inputTokens": 2003,
+        "outputTokens": 68,
+        "ms": 920,
+        "embedMs": 91,
+        "modelMs": 822,
+        "ollama": {
+          "total_duration": 82564333,
+          "load_duration": 1946542,
+          "prompt_eval_count": 26
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-19",
+        "refusedBeforeModel": false,
+        "inputTokens": 1691,
+        "outputTokens": 34,
+        "ms": 1024,
+        "embedMs": 54,
+        "modelMs": 964,
+        "ollama": {
+          "total_duration": 51122583,
+          "load_duration": 1936375,
+          "prompt_eval_count": 48
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-20",
+        "refusedBeforeModel": false,
+        "inputTokens": 1591,
+        "outputTokens": 37,
+        "ms": 952,
+        "embedMs": 50,
+        "modelMs": 894,
+        "ollama": {
+          "total_duration": 45978166,
+          "load_duration": 3679625,
+          "prompt_eval_count": 29
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-21",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 56,
+        "embedMs": 49,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 45136125,
+          "load_duration": 1915834,
+          "prompt_eval_count": 18
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-22",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 32,
+        "embedMs": 28,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 23352209,
+          "load_duration": 875459,
+          "prompt_eval_count": 22
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-23",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 25,
+        "embedMs": 21,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 19288209,
+          "load_duration": 478750,
+          "prompt_eval_count": 14
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-24",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 24,
+        "embedMs": 20,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 18155708,
+          "load_duration": 458541,
+          "prompt_eval_count": 14
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-25",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 23,
+        "embedMs": 20,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 18271083,
+          "load_duration": 466500,
+          "prompt_eval_count": 17
+        },
+        "retries": 0,
+        "waitedMs": 0
+      }
+    ],
+    "langfuseTraceId": "a32b0b41-4e17-4f79-9cd6-0e2a480ba9a4"
+  },
+  "w2": {
+    "runAt": "2026-10-31T15:59:00.436Z",
+    "budget": {
+      "maxBranches": 2,
+      "maxTokens": 60000,
+      "maxWallMs": 300000
+    },
+    "model": "gemini-3.5-flash-lite",
+    "embedder": "ollama:embeddinggemma-2:270m",
+    "wallMs": 54152,
+    "sumBranchMs": 95379,
+    "sumEmbedMs": 1241,
+    "sumModelMs": 93988,
+    "retries": 4,
+    "sumWaitedMs": 75000,
+    "inputTokens": 33837,
+    "outputTokens": 1120,
+    "priceUsd": 0.0129511,
+    "ollamaMs": {
+      "sumTotalDuration": 1130.9,
+      "sumLoadDuration": 54.7,
+      "sumPromptEvalDuration": 0,
+      "sumPromptEvalCount": 642,
+      "sumEvalCount": 0
+    },
+    "done": 25,
+    "failed": [],
+    "notStarted": 0,
+    "stoppedEarly": false,
+    "branches": [
+      {
+        "id": "q-01",
+        "refusedBeforeModel": false,
+        "inputTokens": 1736,
+        "outputTokens": 30,
+        "ms": 1209,
+        "embedMs": 103,
+        "modelMs": 1104,
+        "ollama": {
+          "total_duration": 80419292,
+          "load_duration": 1283375,
+          "prompt_eval_count": 18
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-02",
+        "refusedBeforeModel": false,
+        "inputTokens": 1915,
+        "outputTokens": 64,
+        "ms": 1197,
+        "embedMs": 70,
+        "modelMs": 1113,
+        "ollama": {
+          "total_duration": 55356833,
+          "load_duration": 1625833,
+          "prompt_eval_count": 21
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-03",
+        "refusedBeforeModel": false,
+        "inputTokens": 2240,
+        "outputTokens": 40,
+        "ms": 970,
+        "embedMs": 78,
+        "modelMs": 891,
+        "ollama": {
+          "total_duration": 76115333,
+          "load_duration": 1823542,
+          "prompt_eval_count": 26
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-04",
+        "refusedBeforeModel": false,
+        "inputTokens": 1722,
+        "outputTokens": 77,
+        "ms": 921,
+        "embedMs": 42,
+        "modelMs": 877,
+        "ollama": {
+          "total_duration": 40458000,
+          "load_duration": 1190709,
+          "prompt_eval_count": 34
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-05",
+        "refusedBeforeModel": false,
+        "inputTokens": 1606,
+        "outputTokens": 52,
+        "ms": 928,
+        "embedMs": 55,
+        "modelMs": 868,
+        "ollama": {
+          "total_duration": 51753416,
+          "load_duration": 3823083,
+          "prompt_eval_count": 32
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-06",
+        "refusedBeforeModel": false,
+        "inputTokens": 1351,
+        "outputTokens": 44,
+        "ms": 992,
+        "embedMs": 35,
+        "modelMs": 953,
+        "ollama": {
+          "total_duration": 31733250,
+          "load_duration": 10114917,
+          "prompt_eval_count": 18
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-07",
+        "refusedBeforeModel": false,
+        "inputTokens": 1598,
+        "outputTokens": 59,
+        "ms": 719,
+        "embedMs": 49,
+        "modelMs": 665,
+        "ollama": {
+          "total_duration": 45463875,
+          "load_duration": 2154583,
+          "prompt_eval_count": 23
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-08",
+        "refusedBeforeModel": false,
+        "inputTokens": 1709,
+        "outputTokens": 73,
+        "ms": 910,
+        "embedMs": 43,
+        "modelMs": 859,
+        "ollama": {
+          "total_duration": 39958459,
+          "load_duration": 1850125,
+          "prompt_eval_count": 22
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-09",
+        "refusedBeforeModel": false,
+        "inputTokens": 1205,
+        "outputTokens": 60,
+        "ms": 927,
+        "embedMs": 47,
+        "modelMs": 875,
+        "ollama": {
+          "total_duration": 45378125,
+          "load_duration": 1461709,
+          "prompt_eval_count": 40
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-10",
+        "refusedBeforeModel": false,
+        "inputTokens": 1791,
+        "outputTokens": 60,
+        "ms": 871,
+        "embedMs": 55,
+        "modelMs": 810,
+        "ollama": {
+          "total_duration": 51454625,
+          "load_duration": 1746291,
+          "prompt_eval_count": 47
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-11",
+        "refusedBeforeModel": false,
+        "inputTokens": 1703,
+        "outputTokens": 45,
+        "ms": 814,
+        "embedMs": 51,
+        "modelMs": 759,
+        "ollama": {
+          "total_duration": 47815917,
+          "load_duration": 1996334,
+          "prompt_eval_count": 19
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-12",
+        "refusedBeforeModel": false,
+        "inputTokens": 2077,
+        "outputTokens": 50,
+        "ms": 874,
+        "embedMs": 46,
+        "modelMs": 823,
+        "ollama": {
+          "total_duration": 42330833,
+          "load_duration": 1919292,
+          "prompt_eval_count": 23
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-13",
+        "refusedBeforeModel": false,
+        "inputTokens": 1468,
+        "outputTokens": 42,
+        "ms": 810,
+        "embedMs": 44,
+        "modelMs": 760,
+        "ollama": {
+          "total_duration": 40393125,
+          "load_duration": 1739791,
+          "prompt_eval_count": 14
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-14",
+        "refusedBeforeModel": false,
+        "inputTokens": 1490,
+        "outputTokens": 49,
+        "ms": 760,
+        "embedMs": 45,
+        "modelMs": 711,
+        "ollama": {
+          "total_duration": 41779125,
+          "load_duration": 2180292,
+          "prompt_eval_count": 15
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-15",
+        "refusedBeforeModel": false,
+        "inputTokens": 1422,
+        "outputTokens": 44,
+        "ms": 922,
+        "embedMs": 47,
+        "modelMs": 859,
+        "ollama": {
+          "total_duration": 44991792,
+          "load_duration": 1992542,
+          "prompt_eval_count": 34
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-16",
+        "refusedBeforeModel": false,
+        "inputTokens": 1547,
+        "outputTokens": 32,
+        "ms": 791,
+        "embedMs": 51,
+        "modelMs": 733,
+        "ollama": {
+          "total_duration": 47929625,
+          "load_duration": 2145416,
+          "prompt_eval_count": 29
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-17",
+        "refusedBeforeModel": false,
+        "inputTokens": 1972,
+        "outputTokens": 140,
+        "ms": 46900,
+        "embedMs": 50,
+        "modelMs": 46844,
+        "ollama": {
+          "total_duration": 47276959,
+          "load_duration": 2037709,
+          "prompt_eval_count": 39
+        },
+        "retries": 2,
+        "waitedMs": 45000
+      },
+      {
+        "id": "q-18",
+        "refusedBeforeModel": false,
+        "inputTokens": 2003,
+        "outputTokens": 68,
+        "ms": 16564,
+        "embedMs": 45,
+        "modelMs": 16512,
+        "ollama": {
+          "total_duration": 42582875,
+          "load_duration": 4465834,
+          "prompt_eval_count": 26
+        },
+        "retries": 1,
+        "waitedMs": 15000
+      },
+      {
+        "id": "q-19",
+        "refusedBeforeModel": false,
+        "inputTokens": 1691,
+        "outputTokens": 54,
+        "ms": 16274,
+        "embedMs": 76,
+        "modelMs": 16189,
+        "ollama": {
+          "total_duration": 70123584,
+          "load_duration": 2084542,
+          "prompt_eval_count": 48
+        },
+        "retries": 1,
+        "waitedMs": 15000
+      },
+      {
+        "id": "q-20",
+        "refusedBeforeModel": false,
+        "inputTokens": 1591,
+        "outputTokens": 37,
+        "ms": 861,
+        "embedMs": 72,
+        "modelMs": 783,
+        "ollama": {
+          "total_duration": 64224541,
+          "load_duration": 1961458,
+          "prompt_eval_count": 29
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-21",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 55,
+        "embedMs": 50,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 46135791,
+          "load_duration": 2666958,
+          "prompt_eval_count": 18
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-22",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 34,
+        "embedMs": 27,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 23231042,
+          "load_duration": 854625,
+          "prompt_eval_count": 22
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-23",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 24,
+        "embedMs": 21,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 19208916,
+          "load_duration": 720166,
+          "prompt_eval_count": 14
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-24",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 22,
+        "embedMs": 19,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 17269625,
+          "load_duration": 362625,
+          "prompt_eval_count": 14
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-25",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 30,
+        "embedMs": 20,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 17544167,
+          "load_duration": 464042,
+          "prompt_eval_count": 17
+        },
+        "retries": 0,
+        "waitedMs": 0
+      }
+    ],
+    "langfuseTraceId": "5f203199-46c8-4bbe-8e5c-5f2a7ccfe93f"
+  },
+  "w4": {
+    "runAt": "2026-10-31T16:00:52.590Z",
+    "budget": {
+      "maxBranches": 4,
+      "maxTokens": 60000,
+      "maxWallMs": 300000
+    },
+    "model": "gemini-3.5-flash-lite",
+    "embedder": "ollama:embeddinggemma-2:270m",
+    "wallMs": 51039,
+    "sumBranchMs": 156821,
+    "sumEmbedMs": 1683,
+    "sumModelMs": 155061,
+    "retries": 6,
+    "sumWaitedMs": 135000,
+    "inputTokens": 33837,
+    "outputTokens": 1197,
+    "priceUsd": 0.0131436,
+    "ollamaMs": {
+      "sumTotalDuration": 1541.8,
+      "sumLoadDuration": 211.1,
+      "sumPromptEvalDuration": 0,
+      "sumPromptEvalCount": 642,
+      "sumEvalCount": 0
+    },
+    "done": 25,
+    "failed": [],
+    "notStarted": 0,
+    "stoppedEarly": false,
+    "branches": [
+      {
+        "id": "q-01",
+        "refusedBeforeModel": false,
+        "inputTokens": 1736,
+        "outputTokens": 34,
+        "ms": 1095,
+        "embedMs": 184,
+        "modelMs": 909,
+        "ollama": {
+          "total_duration": 151171458,
+          "load_duration": 1602958,
+          "prompt_eval_count": 18
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-02",
+        "refusedBeforeModel": false,
+        "inputTokens": 1915,
+        "outputTokens": 66,
+        "ms": 1361,
+        "embedMs": 214,
+        "modelMs": 1146,
+        "ollama": {
+          "total_duration": 195572167,
+          "load_duration": 105361500,
+          "prompt_eval_count": 21
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-03",
+        "refusedBeforeModel": false,
+        "inputTokens": 2240,
+        "outputTokens": 40,
+        "ms": 1042,
+        "embedMs": 193,
+        "modelMs": 848,
+        "ollama": {
+          "total_duration": 174671042,
+          "load_duration": 54071417,
+          "prompt_eval_count": 26
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-04",
+        "refusedBeforeModel": false,
+        "inputTokens": 1722,
+        "outputTokens": 77,
+        "ms": 1204,
+        "embedMs": 150,
+        "modelMs": 1040,
+        "ollama": {
+          "total_duration": 128021958,
+          "load_duration": 1373541,
+          "prompt_eval_count": 34
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-05",
+        "refusedBeforeModel": false,
+        "inputTokens": 1606,
+        "outputTokens": 52,
+        "ms": 800,
+        "embedMs": 51,
+        "modelMs": 747,
+        "ollama": {
+          "total_duration": 48111250,
+          "load_duration": 2334000,
+          "prompt_eval_count": 32
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-06",
+        "refusedBeforeModel": false,
+        "inputTokens": 1351,
+        "outputTokens": 44,
+        "ms": 666,
+        "embedMs": 39,
+        "modelMs": 625,
+        "ollama": {
+          "total_duration": 36295000,
+          "load_duration": 14992542,
+          "prompt_eval_count": 18
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-07",
+        "refusedBeforeModel": false,
+        "inputTokens": 1598,
+        "outputTokens": 60,
+        "ms": 817,
+        "embedMs": 38,
+        "modelMs": 777,
+        "ollama": {
+          "total_duration": 36294667,
+          "load_duration": 4820500,
+          "prompt_eval_count": 23
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-08",
+        "refusedBeforeModel": false,
+        "inputTokens": 1709,
+        "outputTokens": 73,
+        "ms": 1214,
+        "embedMs": 47,
+        "modelMs": 1163,
+        "ollama": {
+          "total_duration": 45827959,
+          "load_duration": 1572209,
+          "prompt_eval_count": 22
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-09",
+        "refusedBeforeModel": false,
+        "inputTokens": 1205,
+        "outputTokens": 98,
+        "ms": 896,
+        "embedMs": 48,
+        "modelMs": 844,
+        "ollama": {
+          "total_duration": 46476709,
+          "load_duration": 1811917,
+          "prompt_eval_count": 40
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-10",
+        "refusedBeforeModel": false,
+        "inputTokens": 1791,
+        "outputTokens": 58,
+        "ms": 993,
+        "embedMs": 33,
+        "modelMs": 956,
+        "ollama": {
+          "total_duration": 31881709,
+          "load_duration": 775250,
+          "prompt_eval_count": 47
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-11",
+        "refusedBeforeModel": false,
+        "inputTokens": 1703,
+        "outputTokens": 98,
+        "ms": 949,
+        "embedMs": 44,
+        "modelMs": 903,
+        "ollama": {
+          "total_duration": 42223875,
+          "load_duration": 1225541,
+          "prompt_eval_count": 19
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-12",
+        "refusedBeforeModel": false,
+        "inputTokens": 2077,
+        "outputTokens": 59,
+        "ms": 1018,
+        "embedMs": 61,
+        "modelMs": 954,
+        "ollama": {
+          "total_duration": 59441625,
+          "load_duration": 1875250,
+          "prompt_eval_count": 23
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-13",
+        "refusedBeforeModel": false,
+        "inputTokens": 1468,
+        "outputTokens": 40,
+        "ms": 947,
+        "embedMs": 28,
+        "modelMs": 917,
+        "ollama": {
+          "total_duration": 25373458,
+          "load_duration": 814833,
+          "prompt_eval_count": 14
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-14",
+        "refusedBeforeModel": false,
+        "inputTokens": 1490,
+        "outputTokens": 49,
+        "ms": 1646,
+        "embedMs": 72,
+        "modelMs": 1571,
+        "ollama": {
+          "total_duration": 67537709,
+          "load_duration": 2295875,
+          "prompt_eval_count": 15
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-15",
+        "refusedBeforeModel": false,
+        "inputTokens": 1422,
+        "outputTokens": 43,
+        "ms": 723,
+        "embedMs": 51,
+        "modelMs": 671,
+        "ollama": {
+          "total_duration": 49062209,
+          "load_duration": 2591875,
+          "prompt_eval_count": 34
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-16",
+        "refusedBeforeModel": false,
+        "inputTokens": 1547,
+        "outputTokens": 32,
+        "ms": 46530,
+        "embedMs": 47,
+        "modelMs": 46475,
+        "ollama": {
+          "total_duration": 44812917,
+          "load_duration": 1823417,
+          "prompt_eval_count": 29
+        },
+        "retries": 2,
+        "waitedMs": 45000
+      },
+      {
+        "id": "q-17",
+        "refusedBeforeModel": false,
+        "inputTokens": 1972,
+        "outputTokens": 134,
+        "ms": 894,
+        "embedMs": 75,
+        "modelMs": 816,
+        "ollama": {
+          "total_duration": 73725250,
+          "load_duration": 1388208,
+          "prompt_eval_count": 39
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-18",
+        "refusedBeforeModel": false,
+        "inputTokens": 2003,
+        "outputTokens": 68,
+        "ms": 46565,
+        "embedMs": 22,
+        "modelMs": 46540,
+        "ollama": {
+          "total_duration": 19570333,
+          "load_duration": 522083,
+          "prompt_eval_count": 26
+        },
+        "retries": 2,
+        "waitedMs": 45000
+      },
+      {
+        "id": "q-19",
+        "refusedBeforeModel": false,
+        "inputTokens": 1691,
+        "outputTokens": 35,
+        "ms": 46545,
+        "embedMs": 62,
+        "modelMs": 46480,
+        "ollama": {
+          "total_duration": 59989250,
+          "load_duration": 4310500,
+          "prompt_eval_count": 48
+        },
+        "retries": 2,
+        "waitedMs": 45000
+      },
+      {
+        "id": "q-20",
+        "refusedBeforeModel": false,
+        "inputTokens": 1591,
+        "outputTokens": 37,
+        "ms": 767,
+        "embedMs": 86,
+        "modelMs": 679,
+        "ollama": {
+          "total_duration": 84533208,
+          "load_duration": 1174042,
+          "prompt_eval_count": 29
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-21",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 46,
+        "embedMs": 43,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 39817208,
+          "load_duration": 1415792,
+          "prompt_eval_count": 18
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-22",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 29,
+        "embedMs": 24,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 22100083,
+          "load_duration": 684708,
+          "prompt_eval_count": 22
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-23",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 29,
+        "embedMs": 28,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 18763459,
+          "load_duration": 466667,
+          "prompt_eval_count": 14
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-24",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 22,
+        "embedMs": 21,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 19602542,
+          "load_duration": 530292,
+          "prompt_eval_count": 14
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-25",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 23,
+        "embedMs": 22,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 20880208,
+          "load_duration": 1223792,
+          "prompt_eval_count": 17
+        },
+        "retries": 0,
+        "waitedMs": 0
+      }
+    ],
+    "langfuseTraceId": "be4db599-5d68-46ea-acbf-dd501430b315"
+  },
+  "w8": {
+    "runAt": "2026-10-31T16:02:42.366Z",
+    "budget": {
+      "maxBranches": 8,
+      "maxTokens": 60000,
+      "maxWallMs": 300000
+    },
+    "model": "gemini-3.5-flash-lite",
+    "embedder": "ollama:embeddinggemma-2:270m",
+    "wallMs": 48763,
+    "sumBranchMs": 158409,
+    "sumEmbedMs": 2048,
+    "sumModelMs": 156278,
+    "retries": 6,
+    "sumWaitedMs": 135000,
+    "inputTokens": 33837,
+    "outputTokens": 1116,
+    "priceUsd": 0.0129411,
+    "ollamaMs": {
+      "sumTotalDuration": 1896.3,
+      "sumLoadDuration": 830.3,
+      "sumPromptEvalDuration": 0,
+      "sumPromptEvalCount": 642,
+      "sumEvalCount": 0
+    },
+    "done": 25,
+    "failed": [],
+    "notStarted": 0,
+    "stoppedEarly": false,
+    "branches": [
+      {
+        "id": "q-01",
+        "refusedBeforeModel": false,
+        "inputTokens": 1736,
+        "outputTokens": 30,
+        "ms": 1029,
+        "embedMs": 115,
+        "modelMs": 912,
+        "ollama": {
+          "total_duration": 90899166,
+          "load_duration": 3998000,
+          "prompt_eval_count": 18
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-02",
+        "refusedBeforeModel": false,
+        "inputTokens": 1915,
+        "outputTokens": 56,
+        "ms": 1056,
+        "embedMs": 73,
+        "modelMs": 968,
+        "ollama": {
+          "total_duration": 56729583,
+          "load_duration": 3319041,
+          "prompt_eval_count": 21
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-03",
+        "refusedBeforeModel": false,
+        "inputTokens": 2240,
+        "outputTokens": 40,
+        "ms": 1401,
+        "embedMs": 150,
+        "modelMs": 1249,
+        "ollama": {
+          "total_duration": 137242292,
+          "load_duration": 60650375,
+          "prompt_eval_count": 26
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-04",
+        "refusedBeforeModel": false,
+        "inputTokens": 1722,
+        "outputTokens": 77,
+        "ms": 1077,
+        "embedMs": 129,
+        "modelMs": 947,
+        "ollama": {
+          "total_duration": 116093125,
+          "load_duration": 55434709,
+          "prompt_eval_count": 34
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-05",
+        "refusedBeforeModel": false,
+        "inputTokens": 1606,
+        "outputTokens": 52,
+        "ms": 1127,
+        "embedMs": 211,
+        "modelMs": 915,
+        "ollama": {
+          "total_duration": 198126500,
+          "load_duration": 140741459,
+          "prompt_eval_count": 32
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-06",
+        "refusedBeforeModel": false,
+        "inputTokens": 1351,
+        "outputTokens": 44,
+        "ms": 1363,
+        "embedMs": 170,
+        "modelMs": 1191,
+        "ollama": {
+          "total_duration": 157428750,
+          "load_duration": 93397500,
+          "prompt_eval_count": 18
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-07",
+        "refusedBeforeModel": false,
+        "inputTokens": 1598,
+        "outputTokens": 60,
+        "ms": 1330,
+        "embedMs": 232,
+        "modelMs": 1096,
+        "ollama": {
+          "total_duration": 218268750,
+          "load_duration": 159724750,
+          "prompt_eval_count": 23
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-08",
+        "refusedBeforeModel": false,
+        "inputTokens": 1709,
+        "outputTokens": 75,
+        "ms": 1405,
+        "embedMs": 190,
+        "modelMs": 1214,
+        "ollama": {
+          "total_duration": 177070292,
+          "load_duration": 118783583,
+          "prompt_eval_count": 22
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-09",
+        "refusedBeforeModel": false,
+        "inputTokens": 1205,
+        "outputTokens": 95,
+        "ms": 1027,
+        "embedMs": 51,
+        "modelMs": 971,
+        "ollama": {
+          "total_duration": 48034667,
+          "load_duration": 2458417,
+          "prompt_eval_count": 40
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-10",
+        "refusedBeforeModel": false,
+        "inputTokens": 1791,
+        "outputTokens": 60,
+        "ms": 976,
+        "embedMs": 44,
+        "modelMs": 931,
+        "ollama": {
+          "total_duration": 41357583,
+          "load_duration": 15948250,
+          "prompt_eval_count": 47
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-11",
+        "refusedBeforeModel": false,
+        "inputTokens": 1703,
+        "outputTokens": 72,
+        "ms": 957,
+        "embedMs": 46,
+        "modelMs": 910,
+        "ollama": {
+          "total_duration": 45108375,
+          "load_duration": 25640542,
+          "prompt_eval_count": 19
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-12",
+        "refusedBeforeModel": false,
+        "inputTokens": 2077,
+        "outputTokens": 47,
+        "ms": 965,
+        "embedMs": 19,
+        "modelMs": 945,
+        "ollama": {
+          "total_duration": 18241625,
+          "load_duration": 414625,
+          "prompt_eval_count": 23
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-13",
+        "refusedBeforeModel": false,
+        "inputTokens": 1468,
+        "outputTokens": 40,
+        "ms": 816,
+        "embedMs": 61,
+        "modelMs": 749,
+        "ollama": {
+          "total_duration": 57710500,
+          "load_duration": 3864500,
+          "prompt_eval_count": 14
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-14",
+        "refusedBeforeModel": false,
+        "inputTokens": 1490,
+        "outputTokens": 49,
+        "ms": 1128,
+        "embedMs": 52,
+        "modelMs": 1074,
+        "ollama": {
+          "total_duration": 49450875,
+          "load_duration": 30374250,
+          "prompt_eval_count": 15
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-15",
+        "refusedBeforeModel": false,
+        "inputTokens": 1422,
+        "outputTokens": 36,
+        "ms": 893,
+        "embedMs": 41,
+        "modelMs": 849,
+        "ollama": {
+          "total_duration": 39215959,
+          "load_duration": 16265292,
+          "prompt_eval_count": 34
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-16",
+        "refusedBeforeModel": false,
+        "inputTokens": 1547,
+        "outputTokens": 32,
+        "ms": 875,
+        "embedMs": 57,
+        "modelMs": 815,
+        "ollama": {
+          "total_duration": 55623375,
+          "load_duration": 11421000,
+          "prompt_eval_count": 29
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-17",
+        "refusedBeforeModel": false,
+        "inputTokens": 1972,
+        "outputTokens": 93,
+        "ms": 922,
+        "embedMs": 52,
+        "modelMs": 864,
+        "ollama": {
+          "total_duration": 49378292,
+          "load_duration": 2046417,
+          "prompt_eval_count": 39
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-18",
+        "refusedBeforeModel": false,
+        "inputTokens": 2003,
+        "outputTokens": 68,
+        "ms": 46592,
+        "embedMs": 77,
+        "modelMs": 46511,
+        "ollama": {
+          "total_duration": 75641708,
+          "load_duration": 1042917,
+          "prompt_eval_count": 26
+        },
+        "retries": 2,
+        "waitedMs": 45000
+      },
+      {
+        "id": "q-19",
+        "refusedBeforeModel": false,
+        "inputTokens": 1691,
+        "outputTokens": 53,
+        "ms": 46707,
+        "embedMs": 96,
+        "modelMs": 46608,
+        "ollama": {
+          "total_duration": 93418834,
+          "load_duration": 44506334,
+          "prompt_eval_count": 48
+        },
+        "retries": 2,
+        "waitedMs": 45000
+      },
+      {
+        "id": "q-20",
+        "refusedBeforeModel": false,
+        "inputTokens": 1591,
+        "outputTokens": 37,
+        "ms": 46631,
+        "embedMs": 69,
+        "modelMs": 46559,
+        "ollama": {
+          "total_duration": 67567458,
+          "load_duration": 21946708,
+          "prompt_eval_count": 29
+        },
+        "retries": 2,
+        "waitedMs": 45000
+      },
+      {
+        "id": "q-21",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 38,
+        "embedMs": 36,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 34450291,
+          "load_duration": 17164000,
+          "prompt_eval_count": 18
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-22",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 23,
+        "embedMs": 20,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 17598584,
+          "load_duration": 295959,
+          "prompt_eval_count": 22
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-23",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 22,
+        "embedMs": 19,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 17318208,
+          "load_duration": 294708,
+          "prompt_eval_count": 14
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-24",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 23,
+        "embedMs": 19,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 17207625,
+          "load_duration": 276167,
+          "prompt_eval_count": 14
+        },
+        "retries": 0,
+        "waitedMs": 0
+      },
+      {
+        "id": "q-25",
+        "refusedBeforeModel": true,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "ms": 26,
+        "embedMs": 19,
+        "modelMs": 0,
+        "ollama": {
+          "total_duration": 17111750,
+          "load_duration": 268500,
+          "prompt_eval_count": 17
+        },
+        "retries": 0,
+        "waitedMs": 0
+      }
+    ],
+    "langfuseTraceId": "660080df-d2f0-423c-b94e-94ac65cd2dc9"
+  }
+}
