@@ -32,6 +32,9 @@ jobs:
       - name: Юніт-тести
         run: npm test
 
+      - name: Валідатор еталонного набору (Лаб. 2)
+        run: npx tsx scripts/validate-golden.ts docs/lab2/golden/queries.jsonl
+
       - name: Збірка
         run: npm run build
 
