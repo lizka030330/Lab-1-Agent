@@ -91,12 +91,15 @@ jobs:
 
       - name: Diff пул-реквесту відносно main
         # data/index.json — згенерований індекс (МБ чисел): суддя його не оцінює, його перевіряє tests/index.test.ts
-        run: git diff origin/${{ github.base_ref }}...HEAD -- . ':(exclude)data/index.json' > docs/lab2/verify-input.diff
+        # docs/lab2/eval-run.json — сирі відповіді прогону (≈1300 рядків): числа з нього суддя бачить у eval-report.md,
+        # а сам файл перевіряється `npx tsx scripts/eval-run.ts --summary`; без виключення diff ×8 критеріїв перевищує ліміт 250k токенів/хв
+        run: git diff origin/${{ github.base_ref }}...HEAD -- . ':(exclude)data/index.json' ':(exclude)docs/lab2/eval-run.json' > docs/lab2/verify-input.diff
 
       - name: Верифікатор (Gemini, інший провайдер, ніж автор коду)
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           VERIFY_MODEL: gemini-3.5-flash-lite
+          VERIFY_PAUSE_MS: '15000'  # ліміт безкоштовного рівня: 250k вхідних токенів/хв
         run: npm run verify
 
       - name: Звіт верифікатора як артефакт
