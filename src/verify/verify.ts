@@ -1,0 +1,96 @@
+/**
+ * Верифікатор (Лаб. 2, крок 03): чисті функції без мережі.
+ * Один критерій — один окремий запит до судді (один вимір на суддю).
+ * Модель передається параметром — у тестах підробка, у scripts/verify.ts адаптер з Лаб. 1.
+ */
+import { extractJson, type Model } from '../agent/agent-loop';
+import { criterionVerdict, type CriterionVerdict, type VerifyReport } from './schema';
+
+export interface Criterion {
+  readonly id: string;
+  readonly statement: string;
+  readonly checkedBy: string;
+}
+
+/** Критерії приймання з таблиці розділу 6 docs/lab2/spec.md: рядки `| A1 | твердження | чим перевіряється |`. */
+export function parseCriteria(specMarkdown: string): Criterion[] {
+  const out: Criterion[] = [];
+  for (const line of specMarkdown.split(/\r?\n/)) {
+    const m = /^\|\s*(A\d+)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*$/.exec(line);
+    if (m?.[1] && m[2] && m[3]) out.push({ id: m[1], statement: m[2], checkedBy: m[3] });
+  }
+  return out;
+}
+
+/** Прибирає з diff блоки файлів .env* — їх не можна відправляти провайдеру. */
+export function filterDiff(diff: string): string {
+  const blocks = diff.split(/^(?=diff --git )/m);
+  return blocks.filter((b) => !/^diff --git a\/(\S*\/)?\.env/.test(b)).join('');
+}
+
+/** Схожі на ключі рядки: якщо знайдено — diff не відправляємо зовсім. */
+const SECRET = /AIza[0-9A-Za-z_-]{20,}|sk-(or-|lf-|ant-|proj-)[0-9A-Za-z_-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY/;
+
+export function findSecret(text: string): string | undefined {
+  return SECRET.exec(text)?.[0].slice(0, 8);
+}
+
+export const JUDGE_SYSTEM = [
+  'Ти — незалежний суддя-верифікатор. Оцінюєш ОДНУ зміну (git diff) проти ОДНОГО критерію приймання зі специфікації.',
+  'Відповідай лише JSON-обʼєктом без пояснень навколо: {"id": "...", "verdict": "pass" | "fail" | "unknown", "reason": "...", "evidence": "..."}.',
+  'pass — зміна виконує те, що критерій вимагає від файлів, яких вона торкається, і це видно в diff.',
+  'fail — у diff видно, що критерій порушено або виконано не повністю (наприклад, код чи тест, який критерій вимагає, є, але перевіряє не все, що сказано в критерії).',
+  'unknown — diff не торкається того, що вимагає критерій, або перевірити можна лише прогоном (CI, числа зі звіту). Не вгадуй: краще unknown, ніж здогадка.',
+  'reason — одне-два речення українською. evidence — шлях до файлу і рядок або коротка цитата з diff; порожній рядок лише для unknown.',
+  'Не зважай на довжину чи стиль зміни, лише на те, чи виконано критерій.',
+].join('\n');
+
+export function buildPrompt(c: Criterion, diff: string): string {
+  return [
+    `Критерій ${c.id}: ${c.statement}`,
+    `Чим перевіряється за специфікацією: ${c.checkedBy}`,
+    '',
+    'Зміна (git diff):',
+    '```diff',
+    diff,
+    '```',
+    '',
+    `Поверни вердикт для критерію ${c.id}.`,
+  ].join('\n');
+}
+
+/**
+ * Питає суддю про один критерій. Невалідну відповідь перепитує рівно один раз,
+ * потім кидає помилку — скрипт падає, а не приймає сміття.
+ */
+export async function judgeCriterion(model: Model, c: Criterion, diff: string): Promise<CriterionVerdict> {
+  const prompt = buildPrompt(c, diff);
+  let lastText = '';
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    const text =
+      attempt === 1
+        ? prompt
+        : `${prompt}\n\nТвоя попередня відповідь не відповідала схемі: ${lastText.slice(0, 300)}\nПоверни лише JSON за схемою.`;
+    const turn = await model(JUDGE_SYSTEM, [{ role: 'user', text }], []);
+    lastText = turn.text;
+    const parsed = criterionVerdict.safeParse(extractJson(turn.text));
+    if (parsed.success && parsed.data.id === c.id) {
+      if (parsed.data.verdict !== 'unknown' && parsed.data.evidence.trim() === '') continue;
+      return parsed.data;
+    }
+  }
+  throw new Error(`суддя двічі повернув невалідний вердикт для ${c.id}: ${lastText.slice(0, 200)}`);
+}
+
+export async function verifyDiff(model: Model, criteria: readonly Criterion[], diff: string): Promise<VerifyReport> {
+  const results: CriterionVerdict[] = [];
+  for (const c of criteria) results.push(await judgeCriterion(model, c, diff));
+  return { results };
+}
+
+export function reportTable(report: VerifyReport): string {
+  const rows = report.results.map(
+    (r) => `| ${r.id} | ${r.verdict} | ${r.reason.replace(/\|/g, '/')} | ${r.evidence.replace(/\|/g, '/').replace(/\s+/g, ' ').slice(0, 160)} |`,
+  );
+  return ['| Критерій | Вердикт | Причина | Evidence |', '|---|---|---|---|', ...rows].join('\n');
+}

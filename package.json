@@ -17,7 +17,8 @@
     "e2e": "playwright test",
     "doctor": "tsx scripts/doctor.ts",
     "sync-skills": "tsx scripts/sync-skills.ts",
-    "log:import": "tsx scripts/transcript-to-jsonl.ts"
+    "log:import": "tsx scripts/transcript-to-jsonl.ts",
+    "verify": "tsx scripts/verify.ts docs/lab2/verify-input.diff"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.87",
