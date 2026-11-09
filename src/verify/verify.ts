@@ -16,7 +16,7 @@ export interface Criterion {
 export function parseCriteria(specMarkdown: string): Criterion[] {
   const out: Criterion[] = [];
   for (const line of specMarkdown.split(/\r?\n/)) {
-    const m = /^\|\s*(A\d+)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*$/.exec(line);
+    const m = /^\|\s*([AM]\d+)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*$/.exec(line); // A — spec.md, M — mcp-spec.md (крок 08)
     if (m?.[1] && m[2] && m[3]) out.push({ id: m[1], statement: m[2], checkedBy: m[3] });
   }
   return out;

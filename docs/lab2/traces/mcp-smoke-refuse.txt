@@ -1,0 +1,11 @@
+lab2-corpus MCP server running on stdio
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "фрагмента korovai#9999 немає в індексі"
+    }
+  ],
+  "isError": true
+}
+{"error":{"code":"tool_is_error","message":"Tool 'fetch_chunk' returned isError:true."}}
