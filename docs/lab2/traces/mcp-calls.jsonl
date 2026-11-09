@@ -2,3 +2,12 @@
 {"ts":"2026-11-09T09:55:54.871Z","source":"unknown","tool":"fetch_chunk","args":{"id":"korovai#9999"},"result":"refused","why":"Error: фрагмента korovai#9999 немає в індексі"}
 {"ts":"2026-11-09T09:57:00.940Z","source":"inspector-smoke","tool":"search_corpus","args":{"query":"чим гості дякували за коровай","topK":5},"result":"ok","hits":5}
 {"ts":"2026-11-09T09:57:02.155Z","source":"inspector-smoke","tool":"fetch_chunk","args":{"id":"korovai#9999"},"result":"refused","why":"Error: фрагмента korovai#9999 немає в індексі"}
+{"ts":"2026-11-09T10:10:30.519Z","source":"lab2-app","tool":"search_corpus","args":{"query":"чим гості дякували за коровай","topK":3},"result":"ok","hits":3}
+{"ts":"2026-11-09T10:10:30.524Z","source":"lab2-app","tool":"fetch_chunk","args":{"id":"korovai#0005"},"result":"ok"}
+{"ts":"2026-11-09T10:10:30.525Z","source":"lab2-app","tool":"fetch_chunk","args":{"id":"korovai#9999"},"result":"refused","why":"Error: фрагмента korovai#9999 немає в індексі"}
+{"ts":"2026-11-09T10:10:40.787Z","source":"opencode","tool":"fetch_chunk","args":{"id":"korovai#0005"},"result":"ok"}
+{"ts":"2026-11-09T10:10:40.838Z","source":"opencode","tool":"fetch_chunk","args":{"id":"korovai#9999"},"result":"refused","why":"Error: фрагмента korovai#9999 немає в індексі"}
+{"ts":"2026-11-09T10:10:40.972Z","source":"opencode","tool":"search_corpus","args":{"query":"писанка знак перемир'я","topK":5},"result":"ok","hits":5}
+{"ts":"2026-11-09T10:12:58.637Z","source":"lab2-app","tool":"search_corpus","args":{"query":"писанка знак перемир'я","topK":3},"result":"ok","hits":3}
+{"ts":"2026-11-09T10:12:58.641Z","source":"lab2-app","tool":"fetch_chunk","args":{"id":"korovai#0005"},"result":"ok"}
+{"ts":"2026-11-09T10:12:58.641Z","source":"lab2-app","tool":"fetch_chunk","args":{"id":"korovai#9999"},"result":"refused","why":"Error: фрагмента korovai#9999 немає в індексі"}

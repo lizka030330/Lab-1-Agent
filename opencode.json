@@ -18,6 +18,19 @@
     "context7": {
       "type": "remote",
       "url": "https://mcp.context7.com/mcp"
+    },
+    "lab2-corpus": {
+      "type": "local",
+      "command": [
+        "npx",
+        "tsx",
+        "src/mcp/server.ts"
+      ],
+      "enabled": true,
+      "environment": {
+        "MCP_CLIENT_LABEL": "opencode"
+      },
+      "timeout": 15000
     }
   }
 }
