@@ -1,0 +1,18 @@
+[0m
+> build · gemini-3.5-flash-lite
+[0m
+[0m⚙ [0mlab2-corpus_fetch_chunk {"id":"korovai#0005"}
+[0m✗ [0mlab2-corpus_fetch_chunk {"id":"korovai#9999"} failed
+[91m[1mError: [0mфрагмента korovai#9999 немає в індексі
+[0m⚙ [0mlab2-corpus_search_corpus {"query":"писанка знак перемир'я"}
+1) **lab2-corpus_fetch_chunk**
+- **Аргументи:** `id: "korovai#0005"`
+- **Результат:** Повернуто фрагмент `korovai#0005` (одяг / символіка короваю, звичаї).
+
+2) **lab2-corpus_search_corpus**
+- **Аргументи:** `query: "писанка знак перемир'я"`
+- **Результат:** Повернуто кілька релевантних фрагментів з `pysanka.md`, зокрема `pysanka#0018` де згадується: "Писанку за всіх часів дарували на знак перемир'я, побажання здоров'я, краси, сили, врожаю."
+
+3) **lab2-corpus_fetch_chunk**
+- **Аргументи:** `id: "korovai#9999"`
+- **Результат:** `фрагмента korovai#9999 немає в індексі`
