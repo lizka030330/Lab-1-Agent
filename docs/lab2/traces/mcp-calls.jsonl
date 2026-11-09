@@ -1,0 +1,4 @@
+{"ts":"2026-11-09T09:55:53.576Z","source":"unknown","tool":"search_corpus","args":{"query":"чим гості дякували за коровай","topK":5},"result":"ok","hits":5}
+{"ts":"2026-11-09T09:55:54.871Z","source":"unknown","tool":"fetch_chunk","args":{"id":"korovai#9999"},"result":"refused","why":"Error: фрагмента korovai#9999 немає в індексі"}
+{"ts":"2026-11-09T09:57:00.940Z","source":"inspector-smoke","tool":"search_corpus","args":{"query":"чим гості дякували за коровай","topK":5},"result":"ok","hits":5}
+{"ts":"2026-11-09T09:57:02.155Z","source":"inspector-smoke","tool":"fetch_chunk","args":{"id":"korovai#9999"},"result":"refused","why":"Error: фрагмента korovai#9999 немає в індексі"}

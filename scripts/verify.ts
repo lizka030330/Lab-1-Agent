@@ -9,7 +9,7 @@
  * суддя — Gemini (Google) через адаптер chatCompletionsModel з Лаб. 1. Модель — VERIFY_MODEL.
  * Код виходу 1, якщо хоч один критерій fail (unknown браму не валить). Звіт — docs/lab2/verify-report.json.
  */
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 
 import { chatCompletionsModel } from '../src/agent/adapters';
 import { isBlocked, verifyReport } from '../src/verify/schema';
@@ -32,10 +32,12 @@ if (diff.trim() === '') {
 const secret = findSecret(diff);
 if (secret) throw new Error(`у diff схоже на ключ (${secret}…) — не відправляю`);
 
-const criteria = parseCriteria(readFileSync('docs/lab2/spec.md', 'utf8')).filter(
+// Крок 08: критерії сервера M1–M5 живуть у mcp-spec.md і звіряються тією самою брамою.
+const specs = ['docs/lab2/spec.md', 'docs/lab2/mcp-spec.md'].filter((f) => existsSync(f));
+const criteria = parseCriteria(specs.map((f) => readFileSync(f, 'utf8')).join('\n')).filter(
   (c) => only.length === 0 || only.includes(c.id),
 );
-if (criteria.length === 0) throw new Error('не знайдено критеріїв приймання в docs/lab2/spec.md');
+if (criteria.length === 0) throw new Error(`не знайдено критеріїв приймання в ${specs.join(', ')}`);
 
 const model = chatCompletionsModel({
   url: 'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions',
