@@ -32,5 +32,19 @@
       },
       "timeout": 15000
     }
+  },
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (локально)",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "qwen3-8b-16k": {
+          "name": "qwen3:8b, контекст 16k (scripts/harness/Modelfile)"
+        }
+      }
+    }
   }
 }
