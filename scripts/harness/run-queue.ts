@@ -47,6 +47,13 @@ for (const task of tasks) {
     cpSync(rec.artifact_dir, keep, { recursive: true });
     // зміни агента — комітом на гілці прогону (runTask уже зробив git add -A)
     const staged = git(['diff', '--cached', '--name-only'], tree).trim();
+    // журнал прогону — у ту саму гілку: брами CI (крок 01) знаходять його і дописують поле gates
+    if (staged !== '') {
+      const inTree = join(tree, 'docs', 'lab3', 'runs', `${task.id}-${new Date(rec.started_at).getTime()}`);
+      mkdirSync(inTree, { recursive: true });
+      cpSync(rec.artifact_dir, inTree, { recursive: true });
+      git(['add', '--', inTree], tree);
+    }
     if (staged !== '') {
       git(['commit', '-m', `harness: ${task.id} (${rec.exit_status}, acceptance ${rec.acceptance_passed ? 'pass' : 'fail'})`], tree);
       if (push) git(['push', '-u', 'origin', branch], tree);
