@@ -48,10 +48,13 @@ export interface RunRecord {
 }
 
 /**
- * Модель агента — локальна, через Ollama. Типова — qwen2.5-coder-14b-12k (scripts/harness/Modelfile.coder14b);
- * перша спроба qwen3-8b-16k (scripts/harness/Modelfile) лишається доступною: HARNESS_MODEL=ollama/qwen3-8b-16k.
+ * Модель агента. Типова — Gemini 2.5 Flash через OpenCode (безкоштовний ключ AI Studio):
+ * обидві локальні спроби провалили acceptance у 4 з 4 прогонів —
+ *   ollama/qwen3-8b-16k (scripts/harness/Modelfile): не запускала перевірок, ламала код;
+ *   ollama/qwen2.5-coder-14b-12k (scripts/harness/Modelfile.coder14b): друкувала виклик інструмента текстом.
+ * Будь-яку можна повернути: HARNESS_MODEL=ollama/qwen3-8b-16k. Верифікатор (крок 02) — інша модель, gemini-3.5-flash-lite.
  */
-export const OPENCODE_MODEL = process.env.HARNESS_MODEL || 'ollama/qwen2.5-coder-14b-12k';
+export const OPENCODE_MODEL = process.env.HARNESS_MODEL || 'google/gemini-2.5-flash';
 
 /** Спільна обвʼязка процесу: таймаут задачі тримає сам процес. */
 function spawnAgent(bin: string, args: readonly string[], cwd: string, timeoutS: number): AgentResult {
