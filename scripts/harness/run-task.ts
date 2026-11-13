@@ -154,7 +154,13 @@ export function readMeta(stdout: string): Pick<RunRecord, 'session_id' | 'input_
 }
 
 /** Межа ходів чи бюджету — не падіння. Рядки розпізнавання — дослівно з виводу агента (factory.md). */
-const BUDGET_MARKERS = [/Budget limit reached/i, /max(imum)? (turns|steps)/i];
+const BUDGET_MARKERS = [
+  /Budget limit reached/i,
+  /max(imum)? (turns|steps)/i,
+  // Gemini, безкоштовний рівень: «You exceeded your current quota … requests per day limit exceeded on Free Tier»
+  // (13.11.2026, gemini-3.6-flash, limit: 20) — це межа бюджету, а не збій агента.
+  /exceeded your current quota/i,
+];
 
 export function classify(res: AgentResult): ExitStatus {
   if (res.timedOut) return 'timeout';

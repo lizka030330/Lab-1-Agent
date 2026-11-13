@@ -62,6 +62,11 @@ describe('runTask (крок 00, без мережі й без ключів)', ()
   it('відрізняє вичерпаний бюджет і таймаут від падіння', () => {
     const budget = runTask(task, { runner: fake(1, '', 'Budget limit reached'), agentPath: 'fake', worktree: tmp(), outDir: tmp(), check: fail });
     expect(budget.exit_status).toBe('budget_or_turns');
+    const quota = runTask(task, {
+      runner: fake(1, '{"type":"error","error":{"data":{"message":"You exceeded your current quota, please check your plan"}}}'),
+      agentPath: 'fake', worktree: tmp(), outDir: tmp(), check: fail,
+    });
+    expect(quota.exit_status).toBe('budget_or_turns');
     const timeout = runTask(task, { runner: fake(1, '', '', true), agentPath: 'fake', worktree: tmp(), outDir: tmp(), check: fail });
     expect(timeout.exit_status).toBe('timeout');
   });

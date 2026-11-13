@@ -1,0 +1,53 @@
+diff --git a/src/metrics.ts b/src/metrics.ts
+index 746dcdf..48cd3ca 100644
+--- a/src/metrics.ts
++++ b/src/metrics.ts
+@@ -47,6 +47,18 @@ export function mean(values: readonly number[]): number {
+   return values.reduce((sum, v) => sum + v, 0) / values.length;
+ }
+ 
++export function median(values: readonly number[]): number {
++  if (values.length === 0) {
++    throw new RangeError('медіана порожнього переліку не визначена');
++  }
++  const sorted = [...values].sort((a, b) => a - b);
++  const mid = Math.floor(sorted.length / 2);
++  if (sorted.length % 2 === 1) {
++    return sorted[mid]!;
++  }
++  return (sorted[mid - 1]! + sorted[mid]!) / 2;
++}
++
+ /**
+  * nDCG@k для НЕбінарної релевантності: `gains` — оцінка кожного документа (0, 1, 2…).
+  * Беріть лише тоді, коли ці оцінки у вас справді розставлені рукою.
+diff --git a/tests/metrics.test.ts b/tests/metrics.test.ts
+index 95383c5..c792334 100644
+--- a/tests/metrics.test.ts
++++ b/tests/metrics.test.ts
+@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
+ import {
+   docsAtK,
+   mean,
++  median,
+   ndcgAtK,
+   proportionCI95,
+   recallAtK,
+@@ -96,3 +97,17 @@ describe('переходи вердиктів', () => {
+     expect(rows).toContainEqual({ from: 'correct', to: 'wrong', ids: ['q-03'] });
+   });
+ });
++
++describe('median', () => {
++  it('непарна кількість елементів', () => {
++    expect(median([3, 1, 2])).toBe(2);
++  });
++
++  it('парна кількість елементів (середнє двох середніх)', () => {
++    expect(median([4, 1, 3, 2])).toBe(2.5);
++  });
++
++  it('порожній перелік кидає RangeError', () => {
++    expect(() => median([])).toThrow(RangeError);
++  });
++});
