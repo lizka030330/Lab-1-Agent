@@ -47,8 +47,11 @@ export interface RunRecord {
   readonly gates: Record<string, 'pass' | 'fail' | 'skipped'>; // крок 01
 }
 
-/** Модель агента: локальна, з контекстом 16k (scripts/harness/Modelfile). */
-export const OPENCODE_MODEL = 'ollama/qwen3-8b-16k';
+/**
+ * Модель агента — локальна, через Ollama. Типова — qwen2.5-coder-14b-12k (scripts/harness/Modelfile.coder14b);
+ * перша спроба qwen3-8b-16k (scripts/harness/Modelfile) лишається доступною: HARNESS_MODEL=ollama/qwen3-8b-16k.
+ */
+export const OPENCODE_MODEL = process.env.HARNESS_MODEL || 'ollama/qwen2.5-coder-14b-12k';
 
 /** Спільна обвʼязка процесу: таймаут задачі тримає сам процес. */
 function spawnAgent(bin: string, args: readonly string[], cwd: string, timeoutS: number): AgentResult {

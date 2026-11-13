@@ -43,6 +43,9 @@
       "models": {
         "qwen3-8b-16k": {
           "name": "qwen3:8b, контекст 16k (scripts/harness/Modelfile)"
+        },
+        "qwen2.5-coder-14b-12k": {
+          "name": "qwen2.5-coder:14b, контекст 12k (scripts/harness/Modelfile.coder14b)"
         }
       }
     }

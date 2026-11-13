@@ -26,8 +26,10 @@ if (tasks.length === 0) throw new Error(`у ${file} немає задач${onlyI
 
 const ROOT = resolve('.');
 const git = (a: string[], cwd = ROOT) => execFileSync('git', a, { cwd, encoding: 'utf8' });
-if (git(['status', '--porcelain']).trim() !== '') {
-  throw new Error('основний checkout не чистий: закомітьте зміни, інакше дерево прогону не побачить їх');
+// Нові теки docs/lab3/runs/ від попередніх прогонів не заважають: дерево береться від HEAD, а вони в нього не потрапляють.
+const dirtyBefore = git(['status', '--porcelain']).split('\n').filter((l) => l.trim() !== '' && !l.includes('docs/lab3/runs/'));
+if (dirtyBefore.length > 0) {
+  throw new Error(`основний checkout не чистий: закомітьте зміни, інакше дерево прогону не побачить їх\n${dirtyBefore.join('\n')}`);
 }
 
 for (const task of tasks) {
