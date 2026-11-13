@@ -1,0 +1,6 @@
+# Друга модель агента фабрики (Лаб. 3): qwen2.5-coder:14b, контекст 12 288 токенів.
+# qwen3:8b провалила acceptance у 3 з 3 прогонів (t-02 ×2, t-01) і жодного разу не запустила перевірку.
+# 14B на 16 ГБ RAM: ~9 ГБ ваги + кеш контексту, тому контекст 12k, а не 16k (системний промпт OpenCode ≈ 6k).
+#   ollama pull qwen2.5-coder:14b && ollama create qwen2.5-coder-14b-12k -f scripts/harness/Modelfile.coder14b
+FROM qwen2.5-coder:14b
+PARAMETER num_ctx 12288

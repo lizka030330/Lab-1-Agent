@@ -1,0 +1,42 @@
+diff --git a/tests/bm25.test.ts b/tests/bm25.test.ts
+new file mode 100644
+index 0000000..4bfa11e
+--- /dev/null
++++ b/tests/bm25.test.ts
+@@ -0,0 +1,35 @@
++import { tokenize } from '../src/rag/bm25'
++
++describe('tokenize', () => {
++  it('should lowercase and split text', () => {
++    expect(tokenize('Hello, world!')).toEqual(['hello', 'world'])
++  })
++
++  it('should keep cyrillic and digits', () => {
++    expect(tokenize('Привет123!')).toEqual(['привет', '123'])
++  })
++
++  it('should remove single-character tokens', () => {
++    expect(tokenize('a b c.')).toEqual(['a', 'b', 'c'])
++  })
++
++  it('should handle mixed punctuation', () => {
++    expect(tokenize('!!!test###')).toEqual(['test'])
++  })
++
++  it('should handle empty input', () => {
++    expect(tokenize('')).toEqual([])
++  })
++
++  it('should handle multiple spaces', () => {
++    expect(tokenize('  test   ')).toEqual(['test'])
++  })
++
++  it('should handle unicode punctuation', () => {
++    expect(tokenize('Hello…world!')).toEqual(['hello', 'world'])
++  })
++
++  it('should ignore non-alphanumeric characters', () => {
++    expect(tokenize('abc!@#def')).toEqual(['abc', 'def'])
++  })
++})
+\ No newline at end of file

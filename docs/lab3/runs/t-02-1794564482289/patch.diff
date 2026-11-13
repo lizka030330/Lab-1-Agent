@@ -1,0 +1,44 @@
+diff --git a/.agent-log/opencode.jsonl b/.agent-log/opencode.jsonl
+index 6f64219..86556b7 100644
+--- a/.agent-log/opencode.jsonl
++++ b/.agent-log/opencode.jsonl
+@@ -106,3 +106,4 @@
+ {"ts":"2026-10-31T11:30:18.560Z","tool":"task","input":{},"result":"ok","session":"ses_e6e62c14cffenddNBL31qonnlu","source":"opencode"}
+ {"ts":"2026-11-09T10:10:40.790Z","tool":"lab2-corpus_fetch_chunk","input":{},"result":"ok","session":"ses_e403632b9ffedWK5dhAEYCE0mn","source":"opencode"}
+ {"ts":"2026-11-09T10:10:40.973Z","tool":"lab2-corpus_search_corpus","input":{},"result":"ok","session":"ses_e403632b9ffedWK5dhAEYCE0mn","source":"opencode"}
++{"ts":"2026-11-13T10:10:18.440Z","tool":"write","input":{"filePath":"/Users/lizaefremenko/Desktop/IT STEP/AI/harness-runs/t-02-1794564482153/tests/bm25.test.ts"},"result":"ok","session":"ses_e2b9f0253ffewDCzrQlVHhkiTM","source":"opencode"}
+diff --git a/tests/bm25.test.ts b/tests/bm25.test.ts
+new file mode 100644
+index 0000000..639e05e
+--- /dev/null
++++ b/tests/bm25.test.ts
+@@ -0,0 +1,28 @@
++import { tokenize } from '../src/rag/bm25'
++
++describe('tokenize function', () => {
++  it('should convert to lowercase and split by punctuation/spaces', () => {
++    const result = tokenize('Hello, world! 123. Привіт.')
++    expect(result).toEqual(['hello', 'world', '123', 'привіт'])
++  })
++
++  it('should remove single-character tokens', () => {
++    const result = tokenize('a, b! c? d.')
++    expect(result).toEqual(['', '', 'c', 'd'])
++  })
++
++  it('should preserve Cyrillic and digits', () => {
++    const result = tokenize('Тест123! Пробіл 456.')
++    expect(result).toEqual(['тест123', 'пробіл', '456'])
++  })
++
++  it('should handle empty input', () => {
++    const result = tokenize('')
++    expect(result).toEqual([])
++  })
++
++  it('should split on multiple delimiters', () => {
++    const result = tokenize('Hello,,world! 123. Test.')
++    expect(result).toEqual(['hello', 'world', '123', 'test'])
++  })
++})
+\ No newline at end of file
