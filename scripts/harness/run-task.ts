@@ -48,13 +48,14 @@ export interface RunRecord {
 }
 
 /**
- * Модель агента. Типова — Gemini 2.5 Flash через OpenCode (безкоштовний ключ AI Studio):
+ * Модель агента. Типова — Gemini 3.8 Flash через OpenCode (безкоштовний ключ AI Studio); gemini-2.5-flash
+ * відповів 404 «no longer available to new users» (прогін t-02-1794568421600). Чому не локальна:
  * обидві локальні спроби провалили acceptance у 4 з 4 прогонів —
  *   ollama/qwen3-8b-16k (scripts/harness/Modelfile): не запускала перевірок, ламала код;
  *   ollama/qwen2.5-coder-14b-12k (scripts/harness/Modelfile.coder14b): друкувала виклик інструмента текстом.
  * Будь-яку можна повернути: HARNESS_MODEL=ollama/qwen3-8b-16k. Верифікатор (крок 02) — інша модель, gemini-3.5-flash-lite.
  */
-export const OPENCODE_MODEL = process.env.HARNESS_MODEL || 'google/gemini-2.5-flash';
+export const OPENCODE_MODEL = process.env.HARNESS_MODEL || 'google/gemini-3.8-flash';
 
 /** Спільна обвʼязка процесу: таймаут задачі тримає сам процес. */
 function spawnAgent(bin: string, args: readonly string[], cwd: string, timeoutS: number): AgentResult {
