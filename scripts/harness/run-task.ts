@@ -63,7 +63,9 @@ function spawnAgent(bin: string, args: readonly string[], cwd: string, timeoutS:
     cwd,
     encoding: 'utf8',
     timeout: timeoutS * 1000,
-    killSignal: 'SIGINT', // дає агентові завершити хід
+    // SIGKILL, а не SIGINT з методички: OpenCode на SIGINT не завершився, і spawnSync чекав без кінця —
+    // прогін t-02 (13.11, Gemini 3.8 Flash) висів 40 хв при timeout_s = 900. Незавершений хід — ціна гарантованої зупинки.
+    killSignal: 'SIGKILL',
     maxBuffer: 64 * 1024 * 1024,
     shell: process.platform === 'win32',
   });
@@ -77,15 +79,17 @@ function spawnAgent(bin: string, args: readonly string[], cwd: string, timeoutS:
 
 /**
  * Безкоштовний шлях: OpenCode + Ollama. Прапорці — рівно з `opencode run --help` (1.18.34):
- * -m provider/model, --format json (сирі події JSON), --agent harness (звужені дозволи), --dir (тека прогону).
+ * -m provider/model, --format json (сирі події JSON), --agent harness (звужені дозволи), --dir (тека прогону),
+ * --print-logs --log-level INFO (журнал OpenCode у stderr → agent.log: видно, на чому агент завис).
  * `--auto` НЕ передаємо: він автоматично схвалює все незаборонене — це обхід дозволів.
  */
 export const opencodeRunner: AgentRunner = (task, cwd) =>
   spawnAgent(
     'opencode',
-    ['run', task.input, '-m', OPENCODE_MODEL, '--format', 'json', '--agent', 'harness', '--dir', resolve(cwd)],
+    ['run', task.input, '-m', OPENCODE_MODEL, '--format', 'json', '--agent', 'harness', '--dir', resolve(cwd), '--print-logs', '--log-level', 'INFO'],
     cwd,
-    task.budget.timeout_s,
+    // HARNESS_MAX_TIMEOUT_S — лише щоб СКОРОТИТИ таймаут задачі (діагностика); збільшити бюджет ним не можна
+    Math.min(task.budget.timeout_s, Number(process.env.HARNESS_MAX_TIMEOUT_S) || Infinity),
   );
 
 /** Вивід OpenCode з --format json — рядки JSON-подій. Рядки, що не парсяться, пропускаємо. */
