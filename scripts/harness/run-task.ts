@@ -176,10 +176,13 @@ export function runTask(
   }
 
   // Артефакт: спершу git add -A, бо `git diff` без індексу не показує нових файлів.
+  // .agent-log/ виключено: хук журналу OpenCode дописує його в КОЖНОМУ прогоні — це не зміна задачі
+  // (перший прогін t-02 приніс цей файл у patch.diff поруч із тестом).
   let patch = '';
+  const quiet = { cwd: opts.worktree, stdio: ['ignore', 'pipe', 'ignore'] as ['ignore', 'pipe', 'ignore'] };
   try {
-    execFileSync('git', ['add', '-A'], { cwd: opts.worktree });
-    patch = execFileSync('git', ['diff', '--cached'], { cwd: opts.worktree, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+    execFileSync('git', ['add', '-A', '--', '.', ':(exclude).agent-log'], quiet);
+    patch = execFileSync('git', ['diff', '--cached'], { ...quiet, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
   } catch {
     patch = '';
   }
