@@ -32,6 +32,7 @@ Thumbs.db
 
 # Сирі теки прогонів фабрики (Лаб. 3). Відібрані артефакти — у docs/lab3/runs/, вони комітяться.
 /runs/
-# Локальні запуски свідка брам (у CI вони йдуть артефактом gate-record)
-gate-record.json
+# Локальні запуски свідка брам (у CI вони йдуть артефактом gate-record) — лише в корені:
+# без «/» рядок ігнорував би й докази docs/lab3/gate-record-*/gate-record.json
+/gate-record.json
 /gate-record/
