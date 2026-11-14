@@ -63,7 +63,7 @@ export function buildHarnessPrompt(run: RunForJudge, c: HarnessCriterion): strin
     patch,
     '```',
     '',
-    `Поверни вердикт для критерію ${c.id}.`,
+    `Поверни вердикт для критерію ${c.id}. Поле "id" — рівно "${c.id}" (ідентифікатор критерію, не задачі ${run.taskId}).`,
   ].join('\n');
 }
 
@@ -71,16 +71,18 @@ export function buildHarnessPrompt(run: RunForJudge, c: HarnessCriterion): strin
 export async function judgeHarnessCriterion(model: Model, run: RunForJudge, c: HarnessCriterion): Promise<CriterionVerdict> {
   const prompt = buildHarnessPrompt(run, c);
   let last = '';
+  let problem = '';
   for (let attempt = 1; attempt <= 2; attempt++) {
-    const text = attempt === 1 ? prompt : `${prompt}\n\nТвоя попередня відповідь не відповідала схемі: ${last.slice(0, 300)}\nПоверни лише JSON за схемою.`;
+    const text = attempt === 1 ? prompt : `${prompt}\n\nТвоя попередня відповідь невалідна: ${problem}. Відповідь була: ${last.slice(0, 300)}\nПоверни лише JSON за схемою.`;
     const turn = await model(HARNESS_JUDGE_SYSTEM, [{ role: 'user', text }], []);
     last = turn.text.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
     const parsed = criterionVerdict.safeParse(extractJson(last));
-    if (parsed.success && parsed.data.id === c.id && (parsed.data.verdict === 'unknown' || parsed.data.evidence.trim() !== '')) {
-      return parsed.data;
-    }
+    if (!parsed.success) problem = 'JSON не відповідає схемі (потрібні id, verdict, reason, evidence)';
+    else if (parsed.data.id !== c.id) problem = `id має бути "${c.id}", а не "${parsed.data.id}"`;
+    else if (parsed.data.verdict !== 'unknown' && parsed.data.evidence.trim() === '') problem = 'evidence порожній — для pass/fail він обовʼязковий';
+    else return parsed.data;
   }
-  throw new Error(`суддя двічі повернув невалідний вердикт для ${run.taskId}/${c.id}: ${last.slice(0, 200)}`);
+  throw new Error(`суддя двічі повернув невалідний вердикт для ${run.taskId}/${c.id} (${problem}): ${last.slice(0, 300)}`);
 }
 
 export async function judgeRun(model: Model, run: RunForJudge, criteria: readonly HarnessCriterion[]): Promise<VerifyReport> {

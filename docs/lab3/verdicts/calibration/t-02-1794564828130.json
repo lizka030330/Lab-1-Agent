@@ -1,0 +1,28 @@
+{
+  "run": "docs/lab3/runs/t-02-1794564828130",
+  "task_id": "t-02",
+  "judge_model": "ollama/qwen3-8b-16k",
+  "judged_at": "2026-11-14T16:19:42.619Z",
+  "ms": 105099,
+  "blocked": true,
+  "results": [
+    {
+      "id": "C1",
+      "verdict": "fail",
+      "reason": "Файл tests/bm25.test.ts не містить імпортів describe/it/expect з 'vitest', хоча імпорт tokenize присутній",
+      "evidence": "tests/bm25.test.ts: import { tokenize } from '../src/rag/bm25' (відсутні імпорти describe/it/expect)"
+    },
+    {
+      "id": "C2",
+      "verdict": "fail",
+      "reason": "Тест 'should remove single-character tokens' очікує ['a', 'b', 'c'], але за критерієм токени з одного символу мають бути видалені, тому правильний результат — ['.', ''] (або порожній список, якщо крапка також видаляється).",
+      "evidence": "tests/bm25.test.ts: expect(tokenize('a b c.')).toEqual(['a', 'b', 'c'])"
+    },
+    {
+      "id": "C3",
+      "verdict": "pass",
+      "reason": "Файл src/rag/bm25.ts не змінено, зміни лише у tests/bm25.test.ts",
+      "evidence": "diff --git a/tests/bm25.test.ts b/tests/bm25.test.ts\nnew file mode 100644\nindex 0000000..4bfa11e"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "run": "docs/lab3/runs/t-01-1794571697367",
+  "task_id": "t-01",
+  "judge_model": "ollama/qwen3-8b-16k",
+  "judged_at": "2026-11-14T16:17:57.516Z",
+  "ms": 91162,
+  "blocked": false,
+  "results": [
+    {
+      "id": "C1",
+      "verdict": "pass",
+      "reason": "Функція median реалізована згідно з критерієм: для непарної кількості - середній елемент після сортування, для парної - середнє двох середніх. Оброблено випадок порожнього списку.",
+      "evidence": "src/metrics.ts:+  if (values.length === 0) {+    throw new RangeError('медіана порожнього переліку не визначена');+  }+  const sorted = [...values].sort((a, b) => a - b);+  const mid = Math.floor(sorted.length / 2);+  if (sorted.length % 2 === 1) {+    return sorted[mid]!;+  }+  return (sorted[mid - 1]! + sorted[mid]!) / 2;"
+    },
+    {
+      "id": "C2",
+      "verdict": "pass",
+      "reason": "У src/metrics.ts median кидає RangeError для порожнього переліку, як mean. Тест в tests/metrics.test.ts перевіряє це поведінку.",
+      "evidence": "src/metrics.ts: if (values.length === 0) { throw new RangeError('медіана порожнього переліку не визначена'); }"
+    },
+    {
+      "id": "C3",
+      "verdict": "pass",
+      "reason": "У tests/metrics.test.ts додано тести для непарної, парної кількості елементів та порожнього списку, імпорт median виконано",
+      "evidence": "tests/metrics.test.ts\n+  import { median }\n+  describe('median', () => {\n+    it('непарна кількість елементів'...\n+    it('парна кількість елементів'...\n+    it('порожній перелік кидає RangeError'..."
+    },
+    {
+      "id": "C4",
+      "verdict": "pass",
+      "reason": "Функція mean у src/metrics.ts залишається незмінною, додана функція median не порушує існуючий код, а зміни тільки у вказаних файлах.",
+      "evidence": "src/metrics.ts: додана median, mean залишається без змін; tests/metrics.test.ts: додані тести для median, інші тестування не змінено"
+    }
+  ]
+}
