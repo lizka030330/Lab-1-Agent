@@ -1,0 +1,14 @@
+{"case": 1, "run": "t-01-1794565498582", "criterion": "C1", "mine": "pass"}
+{"case": 2, "run": "t-01-1794565498582", "criterion": "C2", "mine": "pass"}
+{"case": 3, "run": "t-01-1794565498582", "criterion": "C3", "mine": "fail"}
+{"case": 4, "run": "t-01-1794565498582", "criterion": "C4", "mine": "fail"}
+{"case": 5, "run": "t-01-1794571697367", "criterion": "C1", "mine": "pass"}
+{"case": 6, "run": "t-01-1794571697367", "criterion": "C2", "mine": "pass"}
+{"case": 7, "run": "t-01-1794571697367", "criterion": "C3", "mine": "pass"}
+{"case": 8, "run": "t-01-1794571697367", "criterion": "C4", "mine": "pass"}
+{"case": 9, "run": "t-02-1794564828130", "criterion": "C1", "mine": "fail"}
+{"case": 10, "run": "t-02-1794564828130", "criterion": "C2", "mine": "fail"}
+{"case": 11, "run": "t-02-1794564828130", "criterion": "C3", "mine": "pass"}
+{"case": 12, "run": "t-02-1794571544688", "criterion": "C1", "mine": "pass"}
+{"case": 13, "run": "t-02-1794571544688", "criterion": "C2", "mine": "pass"}
+{"case": 14, "run": "t-02-1794571544688", "criterion": "C3", "mine": "pass"}
