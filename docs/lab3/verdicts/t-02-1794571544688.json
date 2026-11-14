@@ -1,0 +1,28 @@
+{
+  "run": "docs/lab3/runs/t-02-1794571544688",
+  "task_id": "t-02",
+  "judge_model": "ollama/qwen3-8b-16k",
+  "judged_at": "2026-11-14T16:26:09.764Z",
+  "ms": 158842,
+  "blocked": false,
+  "results": [
+    {
+      "id": "C1",
+      "verdict": "pass",
+      "reason": "Файл tests/bm25.test.ts створено з потрібними імпортами describe/it/expect з 'vitest' та tokenize з '../src/rag/bm25'.",
+      "evidence": "tests/bm25.test.ts\nimport { describe, expect, it } from 'vitest';\nimport { tokenize } from '../src/rag/bm25';"
+    },
+    {
+      "id": "C2",
+      "verdict": "pass",
+      "reason": "Тести відповідають вимогам критерію: нижній регістр, розбиття за пунктуацією/пробілами, зберігання кирилиці/цифр, відкидання токенів з одного символу.",
+      "evidence": "tests/bm25.test.ts:4-27 (тести на всі критерії)"
+    },
+    {
+      "id": "C3",
+      "verdict": "pass",
+      "reason": "Файл src/rag/bm25.ts не змінювався, як вимагає критерій.",
+      "evidence": "diff не містить змін у src/rag/bm25.ts, лише створення tests/bm25.test.ts"
+    }
+  ]
+}

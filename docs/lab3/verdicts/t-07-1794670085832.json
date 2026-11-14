@@ -1,0 +1,28 @@
+{
+  "run": "docs/lab3/runs/t-07-1794670085832",
+  "task_id": "t-07",
+  "judge_model": "ollama/qwen3-8b-16k",
+  "judged_at": "2026-11-14T16:29:38.126Z",
+  "ms": 208356,
+  "blocked": false,
+  "results": [
+    {
+      "id": "C1",
+      "verdict": "pass",
+      "reason": "У test файлі присутні всі три тестові випадки з правильними очікуваними значеннями.",
+      "evidence": "tests/error-pct.test.ts: expect(errorPct(100, 100)).toBe(0); expect(errorPct(110, 100)).toBe(10); expect(errorPct(90, 100)).toBe(10)"
+    },
+    {
+      "id": "C2",
+      "verdict": "pass",
+      "reason": "Тести відповідають реалізації errorPct: похибка рахується за модулем у відсотках.",
+      "evidence": "tests/error-pct.test.ts: expect(errorPct(110, 100)).toBe(10);"
+    },
+    {
+      "id": "C3",
+      "verdict": "pass",
+      "reason": "Файл src/cost.ts не змінено, як це вимагає критерій C3.",
+      "evidence": "diff не містить змін у src/cost.ts"
+    }
+  ]
+}
