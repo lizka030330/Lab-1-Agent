@@ -1,0 +1,27 @@
+diff --git a/tests/mcp-limits.test.ts b/tests/mcp-limits.test.ts
+new file mode 100644
+index 0000000..9fee52f
+--- /dev/null
++++ b/tests/mcp-limits.test.ts
+@@ -0,0 +1,21 @@
++import { describe, expect, it } from 'vitest';
++import { LIMITS, searchInput } from '../src/mcp/tools';
++
++describe('межі схеми searchInput (mcp-limits)', () => {
++  it('topK = 0 відхиляється', () => {
++    expect(searchInput.safeParse({ query: 'тест', topK: 0 }).success).toBe(false);
++  });
++
++  it('topK = 2.5 (не ціле) відхиляється', () => {
++    expect(searchInput.safeParse({ query: 'тест', topK: 2.5 }).success).toBe(false);
++  });
++
++  it('topK = 10 приймається', () => {
++    expect(searchInput.safeParse({ query: 'тест', topK: 10 }).success).toBe(true);
++  });
++
++  it('query рівно з 500 символів приймається', () => {
++    const exactQuery = 'а'.repeat(LIMITS.queryChars);
++    expect(searchInput.safeParse({ query: exactQuery }).success).toBe(true);
++  });
++});
