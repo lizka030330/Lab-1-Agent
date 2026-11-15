@@ -4,6 +4,7 @@ import {
   docsAtK,
   mean,
   ndcgAtK,
+  precisionAtK,
   proportionCI95,
   recallAtK,
   reciprocalRank,
@@ -40,6 +41,23 @@ describe('recall@k', () => {
 
   it('для unanswerable не визначено — це помилка виміру, а не нуль', () => {
     expect(() => recallAtK(hits, [], 4)).toThrow(RangeError);
+  });
+});
+
+describe('precision@k', () => {
+  it('обчислює частку релевантних документів серед знайдених топ-k', () => {
+    expect(precisionAtK(hits, ['doc-02', 'doc-09'], 4)).toBeCloseTo(2 / 3, 10);
+    expect(precisionAtK(hits, ['doc-07', 'doc-02'], 2)).toBeCloseTo(1, 10);
+  });
+
+  it('кидає RangeError для k <= 0', () => {
+    expect(() => precisionAtK(hits, ['doc-07'], 0)).toThrow(RangeError);
+    expect(() => precisionAtK(hits, ['doc-07'], -1)).toThrow(RangeError);
+  });
+
+  it('повертає 0, якщо релевантних документів немає або hits порожній', () => {
+    expect(precisionAtK(hits, ['doc-33'], 4)).toBe(0);
+    expect(precisionAtK([], ['doc-07'], 5)).toBe(0);
   });
 });
 

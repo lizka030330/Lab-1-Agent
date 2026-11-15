@@ -31,6 +31,17 @@ export function recallAtK(hits: readonly Hit[], mustCite: readonly string[], k: 
   return found / mustCite.length;
 }
 
+/** precision@k: частка документів серед перших k (після склеювання), що входять у mustCite. */
+export function precisionAtK(hits: readonly Hit[], mustCite: readonly string[], k: number): number {
+  if (k <= 0) {
+    throw new RangeError('k має бути більшим за нуль');
+  }
+  const docs = docsAtK(hits, k);
+  if (docs.length === 0) return 0;
+  const found = docs.filter((id) => mustCite.includes(id)).length;
+  return found / docs.length;
+}
+
 /** Обернений ранг першого влучання серед топ-k ФРАГМЕНТІВ. Немає влучань — 0. */
 export function reciprocalRank(hits: readonly Hit[], mustCite: readonly string[], k: number): number {
   if (mustCite.length === 0) {
