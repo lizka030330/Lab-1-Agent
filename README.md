@@ -117,3 +117,11 @@ npm run log:import -- --in <шлях-до-транскрипту> --source auto
 - Агент: OpenCode з кореня репозиторію — сервер підключено в `opencode.json`.
 - Застосунок: `npx tsx scripts/mcp-demo.ts "ваш запит"` — з будь-якої теки.
 - Звіт про підключення: `docs/lab2/mcp-integration.md`.
+
+## Лабораторна 3 — фабрика задач
+
+Черга задач лабораторної роботи розміщена у файлі `docs/lab3/tasks.jsonl`. Опис фабрики задач та її складових знаходиться у `docs/lab3/factory.md`. Для запуску виконання однієї задачі з черги використовується наступна команда:
+
+```bash
+npx tsx scripts/harness/run-queue.ts docs/lab3/tasks.jsonl --id t-01
+```
