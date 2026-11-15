@@ -19,7 +19,17 @@ export const BM25: Bm25Options = { k1: 1.2, b: 0.75 };
  * на кроці 06 вона зʼявиться серед причин помилок. Списку стоп-слів теж немає.
  */
 export function tokenize(text: string): string[] {
-  return (text.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? []).filter((t) => t.length > 1);
+  const rawTokens = text.toLowerCase().match(/[\p{L}\p{N}\u0027’ʼ]+/gu) ?? [];
+  const processed: string[] = [];
+  for (const t of rawTokens) {
+    const cleaned = t.replace(/^[\u0027’ʼ]+|[\u0027’ʼ]+$/g, '');
+    if (cleaned.length === 0) continue;
+    const normalized = cleaned.replace(/[\u0027’ʼ]/g, 'ʼ');
+    if (normalized.length > 1) {
+      processed.push(normalized);
+    }
+  }
+  return processed;
 }
 
 export interface Bm25Index {

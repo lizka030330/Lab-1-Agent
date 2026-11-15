@@ -1,0 +1,59 @@
+diff --git a/src/rag/bm25.ts b/src/rag/bm25.ts
+index aae4e68..bb6f350 100644
+--- a/src/rag/bm25.ts
++++ b/src/rag/bm25.ts
+@@ -19,7 +19,17 @@ export const BM25: Bm25Options = { k1: 1.2, b: 0.75 };
+  * на кроці 06 вона зʼявиться серед причин помилок. Списку стоп-слів теж немає.
+  */
+ export function tokenize(text: string): string[] {
+-  return (text.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? []).filter((t) => t.length > 1);
++  const rawTokens = text.toLowerCase().match(/[\p{L}\p{N}\u0027’ʼ]+/gu) ?? [];
++  const processed: string[] = [];
++  for (const t of rawTokens) {
++    const cleaned = t.replace(/^[\u0027’ʼ]+|[\u0027’ʼ]+$/g, '');
++    if (cleaned.length === 0) continue;
++    const normalized = cleaned.replace(/[\u0027’ʼ]/g, 'ʼ');
++    if (normalized.length > 1) {
++      processed.push(normalized);
++    }
++  }
++  return processed;
+ }
+ 
+ export interface Bm25Index {
+diff --git a/tests/tokenize-apostrophe.test.ts b/tests/tokenize-apostrophe.test.ts
+new file mode 100644
+index 0000000..07d0128
+--- /dev/null
++++ b/tests/tokenize-apostrophe.test.ts
+@@ -0,0 +1,30 @@
++import { describe, expect, it } from 'vitest';
++import { tokenize } from '../src/rag/bm25';
++
++describe('tokenize apostrophe handling', () => {
++  it('handles all three forms of apostrophe between letters and normalizes to ʼ (U+02BC)', () => {
++    expect(tokenize("пам'ять")).toEqual(['памʼять']);
++    expect(tokenize("пам’ять")).toEqual(['памʼять']);
++    expect(tokenize("памʼять")).toEqual(['памʼять']);
++    expect(tokenize("Пам'ять")).toEqual(['памʼять']);
++    expect(tokenize("з'їзд")).toEqual(['зʼїзд']);
++    expect(tokenize("об'єкт")).toEqual(['обʼєкт']);
++    expect(tokenize("п'ять")).toEqual(['пʼять']);
++  });
++
++  it('ignores apostrophe at the beginning or end of a word', () => {
++    expect(tokenize("'слово'")).toEqual(['слово']);
++    expect(tokenize("’слово’")).toEqual(['слово']);
++    expect(tokenize("ʼсловоʼ")).toEqual(['слово']);
++    expect(tokenize("слово'")).toEqual(['слово']);
++    expect(tokenize("слово’")).toEqual(['слово']);
++    expect(tokenize("словоʼ")).toEqual(['слово']);
++    expect(tokenize("'пам'ять'")).toEqual(['памʼять']);
++  });
++
++  it('drops single-letter tokens even with apostrophe', () => {
++    expect(tokenize("о'")).toEqual([]);
++    expect(tokenize("'о'")).toEqual([]);
++    expect(tokenize("о")).toEqual([]);
++  });
++});
