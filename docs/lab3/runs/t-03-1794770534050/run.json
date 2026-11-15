@@ -1,0 +1,34 @@
+{
+  "task_id": "t-03",
+  "agent_path": "opencode+google/gemini-3.5-flash-lite",
+  "artifact_dir": "/Users/lizaefremenko/Desktop/IT STEP/AI/Lab-1-Agent/runs/t-03-1794770534050",
+  "started_at": "2026-11-15T19:22:14.050Z",
+  "ended_at": "2026-11-15T19:22:55.593Z",
+  "duration_s": 41.5,
+  "exit_status": "ok",
+  "acceptance": [
+    {
+      "cmd": "grep -q 'export function citedDocIds' src/rag/cite.ts",
+      "exit": 0
+    },
+    {
+      "cmd": "test -f tests/cited-doc-ids.test.ts",
+      "exit": 0
+    },
+    {
+      "cmd": "npm run typecheck",
+      "exit": 0
+    },
+    {
+      "cmd": "npm test -- tests/cited-doc-ids.test.ts tests/retrieval.test.ts",
+      "exit": 0
+    }
+  ],
+  "acceptance_passed": true,
+  "session_id": "ses_e1f56ed6dffeGrg0vg2C8b4iTC",
+  "input_tokens": 33492,
+  "output_tokens": 1327,
+  "cost_usd_estimate": 0.02503961,
+  "trace_id": null,
+  "gates": {}
+}
