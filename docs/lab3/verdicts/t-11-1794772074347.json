@@ -1,0 +1,34 @@
+{
+  "run": "docs/lab3/runs/t-11-1794772074347",
+  "task_id": "t-11",
+  "judge_model": "ollama/qwen3-8b-16k",
+  "judged_at": "2026-11-15T19:53:59.559Z",
+  "ms": 88668,
+  "blocked": false,
+  "results": [
+    {
+      "id": "C1",
+      "verdict": "pass",
+      "reason": "Функція docsAtK тепер кидає RangeError для k <= 0, а для k > 0 логіка залишилась нею. Оновлення JSDoc відповідає змінам. Тести на k=0 та k=-1 додано правильно.",
+      "evidence": "src/metrics.ts: if (k <= 0) { throw new RangeError(...) }, tests/metrics.test.ts: expect(() => ...).toThrow(RangeError)"
+    },
+    {
+      "id": "C2",
+      "verdict": "pass",
+      "reason": "JSDoc-коментар оновлено, додано опис про кидає RangeError для k <= 0.",
+      "evidence": "src/metrics.ts: /** ... Кидає RangeError для k <= 0. */"
+    },
+    {
+      "id": "C3",
+      "verdict": "pass",
+      "reason": "У tests/metrics.test.ts додано тест для k=0 та k=-1, який перевіряє кидання RangeError, а існуючі тести не змінено.",
+      "evidence": "tests/metrics.test.ts:25, +  it('k = 0 і k = -1 кидають RangeError', () => { ... })"
+    },
+    {
+      "id": "C4",
+      "verdict": "pass",
+      "reason": "Функції src/metrics.ts окрім docsAtK не змінено, зміни торкаються лише потрібних файлів.",
+      "evidence": "src/metrics.ts: функція docsAtK оновлена, інші функції та інтерфейси не змінено. tests/metrics.test.ts: доданий тест для k=0 та k=-1."
+    }
+  ]
+}
