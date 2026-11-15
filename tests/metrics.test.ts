@@ -25,6 +25,11 @@ describe('docsAtK', () => {
     // топ-2 фрагменти — обидва з doc-07, тож документів усього один
     expect(docsAtK(hits, 2)).toEqual(['doc-07']);
   });
+
+  it('k = 0 і k = -1 кидають RangeError', () => {
+    expect(() => docsAtK(hits, 0)).toThrow(RangeError);
+    expect(() => docsAtK(hits, -1)).toThrow(RangeError);
+  });
 });
 
 describe('recall@k', () => {

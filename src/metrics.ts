@@ -13,8 +13,11 @@ export interface Hit {
 
 export type Verdict = 'correct' | 'partial' | 'wrong' | 'refused';
 
-/** Документи за топ-k ФРАГМЕНТАМИ, у порядку першої появи, без повторів. */
+/** Документи за топ-k ФРАГМЕНТАМИ, у порядку першої появи, без повторів. Кидає RangeError для k <= 0. */
 export function docsAtK(hits: readonly Hit[], k: number): string[] {
+  if (k <= 0) {
+    throw new RangeError('k має бути більшим за нуль');
+  }
   const out: string[] = [];
   for (const hit of hits.slice(0, k)) {
     if (!out.includes(hit.docId)) out.push(hit.docId);
