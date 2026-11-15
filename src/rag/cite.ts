@@ -51,6 +51,23 @@ export function citedIds(answer: string): string[] {
 }
 
 /**
+ * Унікальні docId (частина id до символу #) з цитат відповіді, у порядку першої появи.
+ */
+export function citedDocIds(answer: string): string[] {
+  const ids = citedIds(answer);
+  const docIds: string[] = [];
+  const seen = new Set<string>();
+  for (const id of ids) {
+    const docId = id.split('#')[0];
+    if (docId && !seen.has(docId)) {
+      seen.add(docId);
+      docIds.push(docId);
+    }
+  }
+  return docIds;
+}
+
+/**
  * Відповідь без цитати і відповідь із цитатою на невидане — помилки.
  * Повертає перелік проблем; порожній означає «зелено».
  */
