@@ -1,0 +1,22 @@
+{
+  "run": "docs/lab3/runs/t-08-1794770944209",
+  "task_id": "t-08",
+  "judge_model": "ollama/qwen3-8b-16k",
+  "judged_at": "2026-11-15T19:30:53.673Z",
+  "ms": 37198,
+  "blocked": false,
+  "results": [
+    {
+      "id": "C1",
+      "verdict": "pass",
+      "reason": "JSDoc-коментарі додані безпосередньо над визначеними елементами, зміст відповідає вимогам критерію.",
+      "evidence": "src/cost.ts: /** Нульовий облік... */\nsrc/cost.ts: /** Поелементна сума... */"
+    },
+    {
+      "id": "C2",
+      "verdict": "pass",
+      "reason": "Додані JSDoc-коментарі над ZERO_USAGE та addUsage, інші частини файлу не змінено",
+      "evidence": "src/cost.ts: /** Нульовий облік... */\nsrc/cost.ts: /** Поелементна сума... */"
+    }
+  ]
+}
