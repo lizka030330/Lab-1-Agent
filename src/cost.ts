@@ -16,8 +16,10 @@ export interface Usage {
   readonly outputTokens: number;
 }
 
+/** Нульовий облік (усі три лічильники inputTokens, cachedTokens, outputTokens дорівнюють 0). */
 export const ZERO_USAGE: Usage = { inputTokens: 0, cachedTokens: 0, outputTokens: 0 };
 
+/** Поелементна сума двох Usage: додає inputTokens, cachedTokens та outputTokens. */
 export function addUsage(a: Usage, b: Usage): Usage {
   return {
     inputTokens: a.inputTokens + b.inputTokens,
