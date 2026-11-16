@@ -1,0 +1,51 @@
+diff --git a/src/rag/answer.ts b/src/rag/answer.ts
+index fdf3758..39c8313 100644
+--- a/src/rag/answer.ts
++++ b/src/rag/answer.ts
+@@ -38,3 +38,12 @@ export function buildUserMessage(query: string, context: string): string {
+ export function isRefusal(answer: string): boolean {
+   return answer.includes(REFUSAL_TEXT) || /у документах (колекції )?(цього|такого) немає/i.test(answer);
+ }
++
++export function refusalRate(answers: readonly string[]): number {
++  if (answers.length === 0) {
++    throw new RangeError('Масив відповідей не може бути порожнім.');
++  }
++
++  const refusalCount = answers.filter((answer) => isRefusal(answer)).length;
++  return refusalCount / answers.length;
++}
+diff --git a/tests/refusal-rate.test.ts b/tests/refusal-rate.test.ts
+new file mode 100644
+index 0000000..796aaee
+--- /dev/null
++++ b/tests/refusal-rate.test.ts
+@@ -0,0 +1,28 @@
++import { describe, expect, it } from 'vitest';
++
++import { refusalRate } from '../src/rag/answer';
++
++describe('refusalRate', () => {
++  it('повертає 0, якщо в масиві немає жодної відмови', () => {
++    const answers = [
++      'Коровай печуть на весілля [korovai#0001].',
++      'Писанку дарували на Великдень [pysanka#0002].',
++    ];
++    expect(refusalRate(answers)).toBe(0);
++  });
++
++  it('повертає правильну частку, якщо частина відповідей є відмовами', () => {
++    const answers = [
++      'У документах колекції цього немає.',
++      'Коровай печуть на весілля [korovai#0001].',
++      'У документах цього немає.',
++      'Писанку дарували на Великдень [pysanka#0002].',
++    ];
++    expect(refusalRate(answers)).toBe(0.5);
++  });
++
++  it('кидає RangeError для порожнього масиву', () => {
++    expect(() => refusalRate([])).toThrow(RangeError);
++    expect(() => refusalRate([])).toThrow('Масив відповідей не може бути порожнім.');
++  });
++});

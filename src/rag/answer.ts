@@ -38,3 +38,12 @@ export function buildUserMessage(query: string, context: string): string {
 export function isRefusal(answer: string): boolean {
   return answer.includes(REFUSAL_TEXT) || /у документах (колекції )?(цього|такого) немає/i.test(answer);
 }
+
+export function refusalRate(answers: readonly string[]): number {
+  if (answers.length === 0) {
+    throw new RangeError('Масив відповідей не може бути порожнім.');
+  }
+
+  const refusalCount = answers.filter((answer) => isRefusal(answer)).length;
+  return refusalCount / answers.length;
+}
