@@ -1,10 +1,10 @@
 {
-  "state": "open",
-  "sameFails": 3,
-  "noProgress": 4,
-  "lastFailure": "timeout",
-  "openedAt": "2026-11-16T13:08:01.075Z",
-  "trip": "3 однакові відмови підряд (timeout)",
+  "state": "closed",
+  "sameFails": 0,
+  "noProgress": 0,
+  "lastFailure": null,
+  "openedAt": null,
+  "trip": null,
   "cooldownMin": 30,
   "probeTaken": false
 }

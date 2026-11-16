@@ -1,0 +1,16 @@
+diff --git a/README.md b/README.md
+index a3b87b8..12d6945 100644
+--- a/README.md
++++ b/README.md
+@@ -117,3 +117,11 @@ npm run log:import -- --in <шлях-до-транскрипту> --source auto
+ - Агент: OpenCode з кореня репозиторію — сервер підключено в `opencode.json`.
+ - Застосунок: `npx tsx scripts/mcp-demo.ts "ваш запит"` — з будь-якої теки.
+ - Звіт про підключення: `docs/lab2/mcp-integration.md`.
++
++## Лабораторна 3 — фабрика задач
++
++Черга задач лежить у `docs/lab3/tasks.jsonl`, а опис фабрики — у `docs/lab3/factory.md`. Для запуску однієї задачі використовуйте команду:
++
++```bash
++npx tsx scripts/harness/run-queue.ts docs/lab3/tasks.jsonl --id t-01
++```

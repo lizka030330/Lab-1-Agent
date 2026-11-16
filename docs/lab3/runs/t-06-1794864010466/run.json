@@ -1,0 +1,34 @@
+{
+  "task_id": "t-06",
+  "agent_path": "opencode+google/gemini-3.5-flash-lite",
+  "artifact_dir": "/Users/lizaefremenko/Desktop/IT STEP/AI/Lab-1-Agent/runs/t-06-1794864010466",
+  "started_at": "2026-11-16T21:20:10.466Z",
+  "ended_at": "2026-11-16T21:20:46.938Z",
+  "duration_s": 36.5,
+  "exit_status": "ok",
+  "acceptance": [
+    {
+      "cmd": "grep -q '## Лабораторна 3 — фабрика задач' README.md",
+      "exit": 0
+    },
+    {
+      "cmd": "grep -q 'docs/lab3/factory.md' README.md",
+      "exit": 0
+    },
+    {
+      "cmd": "grep -q 'run-queue.ts' README.md",
+      "exit": 0
+    },
+    {
+      "cmd": "npm run lint",
+      "exit": 0
+    }
+  ],
+  "acceptance_passed": true,
+  "session_id": "ses_e19c491e9ffeWybAZ4NmmvYYuW",
+  "input_tokens": 21282,
+  "output_tokens": 749,
+  "cost_usd_estimate": 0.01561599,
+  "trace_id": null,
+  "gates": {}
+}
