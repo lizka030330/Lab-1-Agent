@@ -1,0 +1,75 @@
+# Прогін агента в CI (Лаб. 3, крок 03): власний цикл на AI SDK зі stopWhen + circuit breaker, стан якого їздить
+# між прогонами артефактом. Запуск — вручну (Actions → harness → Run workflow): кожен прогін витрачає квоту Gemini.
+# Розбір — docs/lab3/stop.md.
+name: harness
+
+on:
+  workflow_dispatch:
+    inputs:
+      steps:
+        description: 'Ліміт isStepCount (задача потребує ≈ 10 кроків)'
+        default: '3'
+
+# два прогони фабрики одночасно не йдуть: новий скасовує попередній
+concurrency:
+  group: harness-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  actions: read # прочитати артефакт брейкера з попереднього прогону
+
+jobs:
+  factory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10 # типове — 360 хв; звичайний прогін триває ~2 хв
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+
+      # download-artifact без run-id бере артефакт лише з ПОТОЧНОГО прогону — стан брейкера так не доїде.
+      # Тому спершу шукаємо останній завершений прогін цього робочого процесу на цій гілці.
+      - name: Попередній прогін (стан брейкера)
+        id: prev
+        timeout-minutes: 1
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          id=$(gh run list --workflow harness.yml --branch "${{ github.ref_name }}" --status completed -L 1 --json databaseId -q '.[0].databaseId')
+          echo "run_id=${id}" >> "$GITHUB_OUTPUT"
+          echo "попередній прогін: ${id:-немає}"
+      - uses: actions/download-artifact@v8
+        if: steps.prev.outputs.run_id != ''
+        continue-on-error: true # першого разу артефакту ще немає — брейкер стартує closed
+        with:
+          name: breaker
+          path: .harness
+          run-id: ${{ steps.prev.outputs.run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Прогін агента (stopWhen + брейкер)
+        timeout-minutes: 5 # для кроку типового значення документація не називає — задаємо явно
+        env:
+          GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GOOGLE_GENERATIVE_AI_API_KEY }}
+        run: npx tsx scripts/harness/stop-demo.ts --provider google --steps "${{ inputs.steps }}"
+
+      - name: Стан брейкера після прогону
+        if: ${{ !cancelled() }}
+        run: cat .harness/breaker.json || echo "файлу стану немає"
+      - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: breaker
+          path: .harness/breaker.json
+          include-hidden-files: true # .harness/ — прихована тека; без цього upload-artifact її пропускає
+          overwrite: true
+      - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: stop-log
+          path: docs/lab3/stop-log.jsonl
+          if-no-files-found: ignore

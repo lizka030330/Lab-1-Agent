@@ -4,7 +4,7 @@
  * Виконавець не має власного інтелекту: запуск агента — параметр runner, тому тест працює без мережі.
  * Шлях агента: OpenCode + Ollama (docs/lab3/factory.md).
  */
-import { execFileSync, spawnSync } from 'node:child_process';
+import { execFileSync, spawn, spawnSync } from 'node:child_process';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
@@ -22,12 +22,14 @@ export interface AgentResult {
   readonly stderr: string;
   /** true, якщо процес убив таймаут, а не агент завершився сам */
   readonly timedOut: boolean;
+  /** true, якщо харнес убив агента на першій відмові за квотою (крок 03) */
+  readonly quotaStop?: boolean;
 }
 
 /** Запуск агента. У тестах підмінюється підставним. */
-export type AgentRunner = (task: Task, cwd: string) => AgentResult;
+export type AgentRunner = (task: Task, cwd: string) => AgentResult | Promise<AgentResult>;
 
-export type ExitStatus = 'ok' | 'agent_failed' | 'timeout' | 'budget_or_turns';
+export type ExitStatus = 'ok' | 'agent_failed' | 'timeout' | 'quota' | 'budget_or_turns';
 
 export interface RunRecord {
   readonly task_id: string;
@@ -54,28 +56,54 @@ export interface RunRecord {
  * обидві локальні спроби провалили acceptance у 4 з 4 прогонів —
  *   ollama/qwen3-8b-16k (scripts/harness/Modelfile): не запускала перевірок, ламала код;
  *   ollama/qwen2.5-coder-14b-12k (scripts/harness/Modelfile.coder14b): друкувала виклик інструмента текстом.
- * Будь-яку можна повернути: HARNESS_MODEL=ollama/qwen3-8b-16k. Верифікатор (крок 02) — інша модель, gemini-3.5-flash-lite.
+ * Будь-яку можна повернути: HARNESS_MODEL=ollama/qwen3-8b-16k. Верифікатор (крок 02) — інша родина: Qwen3 8B в Ollama.
  */
 export const OPENCODE_MODEL = process.env.HARNESS_MODEL || 'google/gemini-3.6-flash';
 
-/** Спільна обвʼязка процесу: таймаут задачі тримає сам процес. */
-function spawnAgent(bin: string, args: readonly string[], cwd: string, timeoutS: number): AgentResult {
-  const r = spawnSync(bin, [...args], {
-    cwd,
-    encoding: 'utf8',
-    timeout: timeoutS * 1000,
-    // SIGKILL, а не SIGINT з методички: OpenCode на SIGINT не завершився, і spawnSync чекав без кінця —
-    // прогін t-02 (13.11, Gemini 3.8 Flash) висів 40 хв при timeout_s = 900. Незавершений хід — ціна гарантованої зупинки.
-    killSignal: 'SIGKILL',
-    maxBuffer: 64 * 1024 * 1024,
-    shell: process.platform === 'win32',
+/** Відмова провайдера за квотою (HTTP 429). Рядок — дослівно з agent.log t-03/t-13 (15–16.11.2026). */
+export const QUOTA_MARKER = /exceeded your current quota|RESOURCE_EXHAUSTED/i;
+
+/**
+ * Спільна обвʼязка процесу (крок 03 — шар задачі). Два зупинювачі харнеса, бо в OpenCode власного
+ * таймауту прогону немає:
+ * 1) таймаут за ГОДИННИКОМ СТІНИ. Раніше тут був spawnSync({ timeout }) — його таймер рахує лише час,
+ *    поки Mac не спить: t-05-1794673862321 тривав 1698 с при timeout_s = 900. Тепер раз на 2 с порівнюємо Date.now();
+ * 2) перша відмова за квотою → убиваємо одразу. OpenCode сам повторює 429 (t-13-1794832724738: 11 спроб, 112 с)
+ *    — це «гамселити в стіну»; квота за секунди не повернеться.
+ * SIGKILL, а не SIGINT: OpenCode на SIGINT не завершився (t-02, 13.11, висів 40 хв). Незавершений хід — ціна гарантії;
+ * що саме агент встиг, видно з patch.diff і agent.log, які пишемо завжди.
+ */
+export function spawnAgent(bin: string, args: readonly string[], cwd: string, timeoutS: number, pollMs = 2000): Promise<AgentResult> {
+  return new Promise((done) => {
+    const child = spawn(bin, [...args], { cwd, shell: process.platform === 'win32', stdio: ['ignore', 'pipe', 'pipe'] });
+    let stdout = '';
+    let stderr = '';
+    let stop: 'timeout' | 'quota' | null = null;
+    const started = Date.now();
+    const kill = (why: 'timeout' | 'quota') => {
+      if (stop !== null) return;
+      stop = why;
+      child.kill('SIGKILL');
+    };
+    child.stdout.setEncoding('utf8').on('data', (d: string) => {
+      stdout += d;
+      if (QUOTA_MARKER.test(d)) kill('quota');
+    });
+    child.stderr.setEncoding('utf8').on('data', (d: string) => {
+      stderr += d;
+      if (QUOTA_MARKER.test(d)) kill('quota');
+    });
+    const timer = setInterval(() => {
+      if (Date.now() - started > timeoutS * 1000) kill('timeout');
+    }, pollMs);
+    child.on('error', (e) => {
+      stderr += `\n${String(e)}`;
+    });
+    child.on('close', (code) => {
+      clearInterval(timer);
+      done({ exitCode: code ?? 1, stdout, stderr, timedOut: stop === 'timeout', quotaStop: stop === 'quota' });
+    });
   });
-  return {
-    exitCode: r.status ?? 1,
-    stdout: r.stdout ?? '',
-    stderr: r.stderr ?? '',
-    timedOut: r.error !== undefined && (r.error as NodeJS.ErrnoException).code === 'ETIMEDOUT',
-  };
 }
 
 /**
@@ -154,18 +182,17 @@ export function readMeta(stdout: string): Pick<RunRecord, 'session_id' | 'input_
 }
 
 /** Межа ходів чи бюджету — не падіння. Рядки розпізнавання — дослівно з виводу агента (factory.md). */
-const BUDGET_MARKERS = [
-  /Budget limit reached/i,
-  /max(imum)? (turns|steps)/i,
-  // Gemini, безкоштовний рівень: «You exceeded your current quota … requests per day limit exceeded on Free Tier»
-  // (13.11.2026, gemini-3.6-flash, limit: 20) — це межа бюджету, а не збій агента.
-  /exceeded your current quota/i,
-];
+const BUDGET_MARKERS = [/Budget limit reached/i, /max(imum)? (turns|steps)/i];
 
+/**
+ * Квота (429) — окремий клас з кроку 03: це умова спрацювання брейкера, а не «не пощастило».
+ * До кроку 03 вона йшла як budget_or_turns (13.11.2026, gemini-3.6-flash, limit: 20 на день).
+ */
 export function classify(res: AgentResult): ExitStatus {
   if (res.timedOut) return 'timeout';
-  if (res.exitCode === 0) return 'ok';
   const text = `${res.stdout}\n${res.stderr}`;
+  if (res.quotaStop === true || QUOTA_MARKER.test(text)) return 'quota';
+  if (res.exitCode === 0) return 'ok';
   return BUDGET_MARKERS.some((re) => re.test(text)) ? 'budget_or_turns' : 'agent_failed';
 }
 
@@ -177,10 +204,10 @@ export function checkAcceptance(task: Task, cwd: string): { cmd: string; exit: n
   });
 }
 
-export function runTask(
+export async function runTask(
   task: Task,
   opts: { runner: AgentRunner; agentPath: string; worktree: string; outDir: string; check?: typeof checkAcceptance },
-): RunRecord {
+): Promise<RunRecord> {
   const dir = join(opts.outDir, `${task.id}-${Date.now()}`);
   mkdirSync(dir, { recursive: true });
   const started = new Date();
@@ -188,7 +215,7 @@ export function runTask(
   // Навіть якщо runner кинув виняток — журнал має бути.
   let res: AgentResult;
   try {
-    res = opts.runner(task, opts.worktree);
+    res = await opts.runner(task, opts.worktree);
   } catch (e) {
     res = { exitCode: 1, stdout: '', stderr: `runner кинув виняток: ${String(e)}`, timedOut: false };
   }

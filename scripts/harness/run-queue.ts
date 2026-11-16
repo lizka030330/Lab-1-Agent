@@ -3,11 +3,15 @@
  *   npx tsx scripts/harness/run-queue.ts docs/lab3/tasks.jsonl --id t-01 [--no-push]
  * Дерево — від поточного коміту (HEAD), на окремій гілці harness/<id>-<мітка>: так повторний прогін
  * тієї самої задачі не конфліктує з попередньою гілкою.
+ * Крок 03: перед кожною задачею питаємо circuit breaker (src/harness/breaker.ts), після — повідомляємо результат;
+ * брейкер відкрився — черга стоп. Кожне зупинення — рядок у docs/lab3/stop-log.jsonl. Ctrl+C прибирає worktree.
  */
 import { execFileSync } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, readFileSync, symlinkSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
+import { mayRun, record } from '../../src/harness/breaker';
+import { logStop } from '../../src/harness/stop';
 import { opencodeRunner, OPENCODE_MODEL, runTask, type Task } from './run-task';
 
 const args = process.argv.slice(2);
@@ -26,21 +30,48 @@ if (tasks.length === 0) throw new Error(`у ${file} немає задач${onlyI
 
 const ROOT = resolve('.');
 const git = (a: string[], cwd = ROOT) => execFileSync('git', a, { cwd, encoding: 'utf8' });
-// Нові теки docs/lab3/runs/ від попередніх прогонів не заважають: дерево береться від HEAD, а вони в нього не потрапляють.
-const dirtyBefore = git(['status', '--porcelain']).split('\n').filter((l) => l.trim() !== '' && !l.includes('docs/lab3/runs/'));
+// Нові теки docs/lab3/runs/, стан брейкера й журнал зупинень пише сама черга — вони не заважають:
+// дерево береться від HEAD, а вони в нього не потрапляють.
+const OWN = ['docs/lab3/runs/', '.harness/', 'docs/lab3/stop-log.jsonl'];
+const dirtyOf = () => git(['status', '--porcelain']).split('\n').filter((l) => l.trim() !== '' && !OWN.some((o) => l.includes(o)));
+const dirtyBefore = dirtyOf();
 if (dirtyBefore.length > 0) {
   throw new Error(`основний checkout не чистий: закомітьте зміни, інакше дерево прогону не побачить їх\n${dirtyBefore.join('\n')}`);
 }
 
+// Ctrl+C посеред прогону: прибираємо дерево, а не лишаємо його руками (13.11 лишився worktree t-02)
+let currentTree: string | null = null;
+process.once('SIGINT', () => {
+  if (currentTree !== null) {
+    try {
+      git(['worktree', 'remove', currentTree, '--force']);
+      console.error(`\nCtrl+C: дерево ${currentTree} прибрано`);
+    } catch (e) {
+      console.error(`\nCtrl+C: не вдалося прибрати ${currentTree}: ${String(e)}`);
+    }
+  }
+  process.exit(130);
+});
+
 for (const task of tasks) {
+  // шар харнеса: брейкер вирішує, чи брати задачу взагалі
+  const gate = mayRun();
+  if (!gate.allow) {
+    logStop({ taskId: task.id, layer: 'харнес', limit: 'circuit breaker', value: gate.why, next: 'задачу не запущено, черга зупинена' });
+    console.log(`${task.id}: БРЕЙКЕР — ${gate.why}. Черга зупинена.`);
+    break;
+  }
+  if (gate.probe) console.log(`${task.id}: ${gate.why}`);
   const stamp = Date.now();
   const branch = `harness/${task.id}-${stamp}`;
   const tree = resolve(ROOT, '..', 'harness-runs', `${task.id}-${stamp}`);
   git(['worktree', 'add', '-b', branch, tree, 'HEAD']);
+  currentTree = tree;
+  let opened = false;
   try {
     // залежності — посиланням на основне дерево (у .gitignore як «node_modules»)
     if (!existsSync(join(tree, 'node_modules'))) symlinkSync(join(ROOT, 'node_modules'), join(tree, 'node_modules'));
-    const rec = runTask(task, { runner: opencodeRunner, agentPath: `opencode+${OPENCODE_MODEL}`, worktree: tree, outDir: join(ROOT, 'runs') });
+    const rec = await runTask(task, { runner: opencodeRunner, agentPath: `opencode+${OPENCODE_MODEL}`, worktree: tree, outDir: join(ROOT, 'runs') });
     // відібраний артефакт — у репозиторій; сира runs/ лишається в .gitignore
     const keep = join(ROOT, 'docs', 'lab3', 'runs', `${task.id}-${new Date(rec.started_at).getTime()}`);
     mkdirSync(keep, { recursive: true });
@@ -59,11 +90,31 @@ for (const task of tasks) {
       if (push) git(['push', '-u', 'origin', branch], tree);
     }
     console.log(`${task.id}: ${rec.exit_status}, ${rec.duration_s} с, acceptance ${rec.acceptance_passed ? 'pass' : 'fail'}, змінено файлів: ${staged === '' ? 0 : staged.split('\n').length} → ${keep}`);
+
+    // шар задачі: таймаут чи квота — рядок у журнал зупинень
+    const run = `docs/lab3/runs/${task.id}-${new Date(rec.started_at).getTime()}`;
+    if (rec.exit_status === 'timeout') {
+      logStop({ taskId: task.id, layer: 'задача', limit: 'timeout_s (годинник стіни)', value: Math.min(task.budget.timeout_s, Number(process.env.HARNESS_MAX_TIMEOUT_S) || Infinity), duration_s: rec.duration_s, run, next: 'агента вбито (SIGKILL), артефакт записано, результат — брейкеру' });
+    }
+    if (rec.exit_status === 'quota') {
+      logStop({ taskId: task.id, layer: 'задача', limit: 'квота провайдера (429)', value: OPENCODE_MODEL, duration_s: rec.duration_s, run, next: 'агента вбито на першій відмові, результат — брейкеру' });
+    }
+    // шар харнеса: результат — брейкеру
+    const failure = rec.exit_status === 'ok' ? 'acceptance_fail' : rec.exit_status;
+    const b = record({ ok: rec.acceptance_passed, failure });
+    if (b.state === 'open') {
+      opened = true;
+      logStop({ taskId: task.id, layer: 'харнес', limit: 'circuit breaker', value: b.trip ?? 'open', cooldown_min: b.cooldownMin, run, next: `брейкер open, черга зупинена; наступна спроба — пробна задача через ${b.cooldownMin} хв` });
+      console.log(`БРЕЙКЕР ВІДКРИТО: ${b.trip}. Черга зупинена; пробна задача — не раніше ніж через ${b.cooldownMin} хв.`);
+    }
   } finally {
     git(['worktree', 'remove', tree, '--force']);
+    currentTree = null;
   }
+  if (opened) break;
 }
 
+
 // Ізоляція: основний checkout після прогону має лишитися без змін, крім нових тек docs/lab3/runs/.
-const dirty = git(['status', '--porcelain']).split('\n').filter((l) => l.trim() !== '' && !l.includes('docs/lab3/runs/'));
-console.log(dirty.length === 0 ? 'основний checkout: чистий (крім нових docs/lab3/runs/)' : `УВАГА, основний checkout змінено:\n${dirty.join('\n')}`);
+const dirty = dirtyOf();
+console.log(dirty.length === 0 ? 'основний checkout: чистий (крім docs/lab3/runs/, .harness/, stop-log)' : `УВАГА, основний checkout змінено:\n${dirty.join('\n')}`);

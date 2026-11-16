@@ -2,6 +2,9 @@
 description: Агент фабрики задач Лаб. 3. Виконує ОДНУ задачу з черги docs/lab3/tasks.jsonl в ізольованому git worktree. Редагує файли, запускає лише перелічені команди перевірки; усе інше заборонено.
 mode: primary
 temperature: 0.2
+# крок 03, шар задачі: межа агентних кроків OpenCode (docs: opencode.ai/docs/agents, «Max steps»).
+# На межі OpenCode забирає інструменти й просить підсумок — це НЕ помилка; зупинку видно з acceptance.
+steps: 12
 tools:
   "lab2-corpus_*": false
   "context7_*": false

@@ -1,0 +1,23 @@
+diff --git a/src/metrics.ts b/src/metrics.ts
+index 746dcdf..99c4db2 100644
+--- a/src/metrics.ts
++++ b/src/metrics.ts
+@@ -47,6 +47,18 @@ export function mean(values: readonly number[]): number {
+   return values.reduce((sum, v) => sum + v, 0) / values.length;
+ }
+ 
++export function median(values: readonly number[]): number {
++  if (values.length === 0) {
++    throw new RangeError('медіана порожнього переліку не визначена — скільки запитів ви взяли?');
++  }
++  const sorted = [...values].sort((a, b) => a - b);
++  const mid = Math.floor(sorted.length / 2);
++  if (sorted.length % 2 === 0) {
++    return (sorted[mid - 1] + sorted[mid]) / 2;
++  }
++  return sorted[mid];
++}
++
+ /**
+  * nDCG@k для НЕбінарної релевантності: `gains` — оцінка кожного документа (0, 1, 2…).
+  * Беріть лише тоді, коли ці оцінки у вас справді розставлені рукою.
