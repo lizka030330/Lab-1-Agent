@@ -21,7 +21,8 @@
     "verify": "tsx scripts/verify.ts docs/lab2/verify-input.diff",
     "index": "tsx scripts/build-index.ts",
     "mcp": "tsx src/mcp/server.ts",
-    "verify:harness": "tsx scripts/harness/verify-run.ts"
+    "verify:harness": "tsx scripts/harness/verify-run.ts",
+    "harness:stop-demo": "tsx scripts/harness/stop-demo.ts"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.87",
