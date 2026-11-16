@@ -1,0 +1,34 @@
+{
+  "run": "docs/lab3/runs/t-12-1794832390793",
+  "task_id": "t-12",
+  "judge_model": "ollama/qwen3-8b-16k",
+  "judged_at": "2026-11-16T12:37:48.474Z",
+  "ms": 96991,
+  "blocked": false,
+  "results": [
+    {
+      "id": "C1",
+      "verdict": "pass",
+      "reason": "Функція refusalRate використовує лише isRefusal для визначення відмов, не дублює логіку та не порівнює з REFUSAL_TEXT.",
+      "evidence": "src/rag/answer.ts\n+  const refusalCount = answers.filter((answer) => isRefusal(answer)).length;\n+  return refusalCount / answers.length;"
+    },
+    {
+      "id": "C2",
+      "verdict": "pass",
+      "reason": "Функція refusalRate правильно кидає RangeError для порожнього масиву з українським повідомленням.",
+      "evidence": "src/rag/answer.ts: throw new RangeError('Масив відповідей не може бути порожнім.')"
+    },
+    {
+      "id": "C3",
+      "verdict": "pass",
+      "reason": "Тести відповідають реалізації, назви describe/it написані українською, файл створено.",
+      "evidence": "tests/refusal-rate.test.ts: expect(() => refusalRate([])).toThrow('Масив відповідей не може бути порожнім.')"
+    },
+    {
+      "id": "C4",
+      "verdict": "pass",
+      "reason": "Файл src/rag/answer.ts не змінено окрім додавання функції refusalRate, інші функції та константи залишились без змін. Файл tests/refusal-rate.test.ts додано, інших файлів не торкається.",
+      "evidence": "src/rag/answer.ts: додана функція refusalRate, існуюча isRefusal не змінена; tests/refusal-rate.test.ts: новий файл, інших файлів у diff немає"
+    }
+  ]
+}
