@@ -1,0 +1,10 @@
+{
+  "state": "closed",
+  "sameFails": 1,
+  "noProgress": 1,
+  "lastFailure": "step_limit",
+  "openedAt": null,
+  "trip": null,
+  "cooldownMin": 30,
+  "probeTaken": false
+}

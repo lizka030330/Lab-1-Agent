@@ -1,0 +1,2 @@
+{"at":"2026-11-16T13:05:07.221Z","taskId":"stop-demo","layer":"прогін","limit":"isStepCount","value":3,"at_step":3}
+{"at":"2026-11-16T13:05:07.244Z","taskId":"stop-demo","layer":"харнес","limit":"isStepCount → брейкер","value":3,"model":"ollama/qwen3-8b-16k","tool_calls":3,"next":"задачу позначено step_limit (не здано), брейкер: closed, однакових відмов підряд: 1"}
