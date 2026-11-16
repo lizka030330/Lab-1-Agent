@@ -1,0 +1,22 @@
+{
+  "run": "docs/lab3/runs/t-04-1794770711854",
+  "task_id": "t-04",
+  "judge_model": "ollama/qwen3-8b-16k",
+  "judged_at": "2026-11-15T19:27:30.010Z",
+  "ms": 38764,
+  "blocked": false,
+  "results": [
+    {
+      "id": "C1",
+      "verdict": "pass",
+      "reason": "У test-файлі присутні усі вимоги: перевірки для topK=0, topK=2.5, topK=10 та 500-символьного query з використанням searchInput.safeParse",
+      "evidence": "tests/mcp-limits.test.ts: expect(searchInput.safeParse(...).success).toBe(...) для всіх випадків"
+    },
+    {
+      "id": "C2",
+      "verdict": "pass",
+      "reason": "Файл src/mcp/tools.ts не змінено, зміни внесено тільки в tests/mcp-limits.test.ts",
+      "evidence": "diff --git a/tests/mcp-limits.test.ts b/tests/mcp-limits.test.ts\nnew file mode 100644"
+    }
+  ]
+}

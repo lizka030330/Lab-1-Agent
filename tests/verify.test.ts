@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import type { Model } from '../src/agent/agent-loop';
-import { isBlocked } from '../src/verify/schema';
+import { isBlocked, isBlockedFailOnly } from '../src/verify/schema';
 import { filterDiff, findSecret, judgeCriterion, parseCriteria, verifyDiff } from '../src/verify/verify';
 
 const SPEC = [
@@ -81,7 +81,13 @@ describe('брама', () => {
     const criteria = parseCriteria(SPEC);
     const red = await verifyDiff(fake([verdict('A1', 'pass'), verdict('A2', 'fail')]), criteria, 'diff');
     const green = await verifyDiff(fake([verdict('A1', 'pass'), verdict('A2', 'unknown', '')]), criteria, 'diff');
+    // Лаб. 2 (CI-брама по spec.md): блокує лише fail
+    expect(isBlockedFailOnly(red)).toBe(true);
+    expect(isBlockedFailOnly(green)).toBe(false);
+    // Лаб. 3 (харнес): блокує все, що не pass — unknown теж
     expect(isBlocked(red)).toBe(true);
-    expect(isBlocked(green)).toBe(false);
+    expect(isBlocked(green)).toBe(true);
+    const ok = { id: 'C1', verdict: 'pass' as const, reason: 'є', evidence: 'src/x.ts:1' };
+    expect(isBlocked({ results: [ok, { ...ok, id: 'C2' }] })).toBe(false);
   });
 });

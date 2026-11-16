@@ -20,7 +20,8 @@
     "log:import": "tsx scripts/transcript-to-jsonl.ts",
     "verify": "tsx scripts/verify.ts docs/lab2/verify-input.diff",
     "index": "tsx scripts/build-index.ts",
-    "mcp": "tsx src/mcp/server.ts"
+    "mcp": "tsx src/mcp/server.ts",
+    "verify:harness": "tsx scripts/harness/verify-run.ts"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.87",

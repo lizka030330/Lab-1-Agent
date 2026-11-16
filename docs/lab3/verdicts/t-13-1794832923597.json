@@ -1,0 +1,28 @@
+{
+  "run": "docs/lab3/runs/t-13-1794832923597",
+  "task_id": "t-13",
+  "judge_model": "ollama/qwen3-8b-16k",
+  "judged_at": "2026-11-16T12:45:15.541Z",
+  "ms": 79979,
+  "blocked": false,
+  "results": [
+    {
+      "id": "C1",
+      "verdict": "pass",
+      "reason": "Функція chunkStats в src/rag/chunk.ts експортована, виконує обчислення за умовами: count, avgChars (округлено Math.round), maxChars, та повертає { count: 0, avgChars: 0, maxChars: 0 } для порожнього масиву. Тести в tests/chunk-stats.test.ts відповідають вимогам.",
+      "evidence": "src/rag/chunk.ts\n@@ -167,3 +167,21 @@ export function chunkDocument... \nexport function chunkStats... \n\n\n\ntest/chunk-stats.test.ts\n@@ -0,0 +1,18 @@ ..."
+    },
+    {
+      "id": "C2",
+      "verdict": "pass",
+      "reason": "Тестовий файл створено, умови тестів відповідають критерію, назви describe/it написані українською.",
+      "evidence": "tests/chunk-stats.test.ts: it('повертає нулі для порожнього масиву'), it('обчислює статистику для трьох фрагментів заданої довжини')"
+    },
+    {
+      "id": "C3",
+      "verdict": "pass",
+      "reason": "Функції RULE та chunkDocument не змінено, додано лише нову chunkStats та тестовий файл.",
+      "evidence": "src/rag/chunk.ts: додано chunkStats під chunkDocument, вихідні функції незмінені; tests/chunk-stats.test.ts: створено новим файлом"
+    }
+  ]
+}

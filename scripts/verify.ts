@@ -12,7 +12,7 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 
 import { chatCompletionsModel } from '../src/agent/adapters';
-import { isBlocked, verifyReport } from '../src/verify/schema';
+import { isBlockedFailOnly, verifyReport } from '../src/verify/schema';
 import { filterDiff, findSecret, parseCriteria, reportTable, verifyDiff } from '../src/verify/verify';
 
 const args = process.argv.slice(2);
@@ -50,7 +50,7 @@ const report = verifyReport.parse(await verifyDiff(model, criteria, diff, Number
 writeFileSync('docs/lab2/verify-report.json', `${JSON.stringify({ model: modelId, file, ...report }, null, 2)}\n`, 'utf8');
 console.log(reportTable(report));
 
-if (isBlocked(report)) {
+if (isBlockedFailOnly(report)) { // Лаб. 2: блокує лише fail — див. коментар у src/verify/schema.ts
   console.error('\nБРАМА: є fail — зміну не зливати.');
   process.exit(1);
 }

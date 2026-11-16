@@ -1,0 +1,28 @@
+{
+  "run": "docs/lab3/runs/t-05-1794769349047",
+  "task_id": "t-05",
+  "judge_model": "ollama/qwen3-8b-16k",
+  "judged_at": "2026-11-15T19:11:00.608Z",
+  "ms": 82732,
+  "blocked": false,
+  "results": [
+    {
+      "id": "C1",
+      "verdict": "pass",
+      "reason": "Функція precisionAtK в src/metrics.ts реалізована згідно з критерієм: кидає RangeError для k <= 0, використовує docsAtK для отримання перших k документів та рахує пропорцію збочених документів. У tests/metrics.test.ts додано три тесту, які перевіряють основні випадки: обчислення, обробку k <= 0 та повернення 0 у випадках відсутності результатів.",
+      "evidence": "src/metrics.ts: функція precisionAtK з обробкою k <= 0 та використанням docsAtK; tests/metrics.test.ts: тести на RangeError, обчислення та 0 якщо немає результатів."
+    },
+    {
+      "id": "C2",
+      "verdict": "pass",
+      "reason": "У tests/metrics.test.ts додано три тести для precisionAtK: обчислення точності, перевірка кидання RangeError та випадок порожніх даних.",
+      "evidence": "tests/metrics.test.ts:+++ b/tests/metrics.test.ts@@ -43,6 +44,23 @@ describe('recall@k', () => {\n+  it('обчислює ...')\n+  it('кидає ...')\n+  it('повертає 0 ...')\n+}"
+    },
+    {
+      "id": "C3",
+      "verdict": "pass",
+      "reason": "Функції src/metrics.ts не змінено, додано нову функцію precisionAtK без змін існуючих.",
+      "evidence": "src/metrics.ts: функції recallAtK, reciprocalRank зберігся без змін; додано precisionAtK без порушення існуючих функцій"
+    }
+  ]
+}

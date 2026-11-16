@@ -1,0 +1,34 @@
+{
+  "run": "docs/lab3/runs/t-10-1794771662190",
+  "task_id": "t-10",
+  "judge_model": "ollama/qwen3-8b-16k",
+  "judged_at": "2026-11-15T19:46:54.983Z",
+  "ms": 133315,
+  "blocked": false,
+  "results": [
+    {
+      "id": "C1",
+      "verdict": "pass",
+      "reason": "Функція tokenize тепер об'єднує апострофи в єдиний ʼ та не розриває слова з апострофом між літерами.",
+      "evidence": "src/rag/bm25.ts: const normalized = cleaned.replace(/['’ʼ]/g, 'ʼ');"
+    },
+    {
+      "id": "C2",
+      "verdict": "pass",
+      "reason": "Апостроф на краях слова видалено, інші правила збережено.",
+      "evidence": "src/rag/bm25.ts: const cleaned = t.replace(/^['’ʼ]+|['’ʼ]+$/g, ''); і тест 'ignores apostrophe at the beginning or end'"
+    },
+    {
+      "id": "C3",
+      "verdict": "pass",
+      "reason": "Файл tests/tokenize-apostrophe.test.ts створено з тестами на всі три форми апострофа та апостроф на краю слова. Очікування тестів відповідають задачі: токени нормалізовані до ʼ (U+02BC).",
+      "evidence": "tests/tokenize-apostrophe.test.ts: тест 'handles all three forms of apostrophe between letters' та 'ignores apostrophe at the beginning or end'"
+    },
+    {
+      "id": "C4",
+      "verdict": "pass",
+      "reason": "Наявні тести не змінено, створено новий тестовий файл як передбачено, інших файлів не торкається",
+      "evidence": "tests/tokenize-apostrophe.test.ts"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "run": "docs/lab3/runs/t-09-1794771088122",
+  "task_id": "t-09",
+  "judge_model": "ollama/qwen3-8b-16k",
+  "judged_at": "2026-11-15T19:36:44.323Z",
+  "ms": 190286,
+  "blocked": false,
+  "results": [
+    {
+      "id": "C1",
+      "verdict": "pass",
+      "reason": "Тести в tests/within-tolerance.test.ts відповідають усім вимогам критерію C1, включаючи перевірки на межі 10%, 5%, а також помилку при actual=0. Було додано тест для errorPct, але він не порушує вимоги критерію, оскільки C1 не забороняє додаткові перевірки.",
+      "evidence": "tests/within-tolerance.test.ts: expect(() => withinTolerance(100, 0)).toThrow(RangeError);"
+    },
+    {
+      "id": "C2",
+      "verdict": "pass",
+      "reason": "Тести відповідають реалізації: межа включна (110/100 → true, 111/100 → false), maxPct=5 (105/100 → true, 106/100 → false), actual=0 → RangeError. Проверено, що тест контролює виняток для actual=0 у both withinTolerance та errorPct.",
+      "evidence": "tests/within-tolerance.test.ts: expect(() => withinTolerance(100, 0)).toThrow(RangeError); expect(() => errorPct(100, 0)).toThrow(RangeError);"
+    },
+    {
+      "id": "C3",
+      "verdict": "pass",
+      "reason": "Файл src/cost.ts не змінювався, як вимагає критерій C3.",
+      "evidence": "diff не містить змін у src/cost.ts"
+    }
+  ]
+}

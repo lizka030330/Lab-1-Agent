@@ -1,0 +1,28 @@
+{
+  "run": "docs/lab3/runs/t-03-1794770534050",
+  "task_id": "t-03",
+  "judge_model": "ollama/qwen3-8b-16k",
+  "judged_at": "2026-11-15T19:24:18.932Z",
+  "ms": 66723,
+  "blocked": false,
+  "results": [
+    {
+      "id": "C1",
+      "verdict": "pass",
+      "reason": "Функція citedDocIds визначена в src/rag/cite.ts, використовує citedIds та повертає унікальні docId у порядку появи",
+      "evidence": "src/rag/cite.ts:export function citedDocIds(answer: string): string[] {\n  const ids = citedIds(answer);\n  ..."
+    },
+    {
+      "id": "C2",
+      "verdict": "pass",
+      "reason": "У tests/cited-doc-ids.test.ts реалізовано всі три тестові сценарії з критерію: перевірка порожнього масиву, двох цитат одного доку (виключає дублікати) та кількох ID в одних дужках.",
+      "evidence": "tests/cited-doc-ids.test.ts:3-18"
+    },
+    {
+      "id": "C3",
+      "verdict": "pass",
+      "reason": "Функції citedIds та validateAnswer не змінено, додано нову функцію citedDocIds, що відповідає вимогам критерію.",
+      "evidence": "src/rag/cite.ts: створено нову функцію без змін існуючих, тестові файли не торкаються існуючих функцій"
+    }
+  ]
+}

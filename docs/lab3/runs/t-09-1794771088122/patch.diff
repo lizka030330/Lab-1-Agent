@@ -1,0 +1,28 @@
+diff --git a/tests/within-tolerance.test.ts b/tests/within-tolerance.test.ts
+new file mode 100644
+index 0000000..274d359
+--- /dev/null
++++ b/tests/within-tolerance.test.ts
+@@ -0,0 +1,22 @@
++import { describe, expect, it } from 'vitest';
++import { errorPct, withinTolerance } from '../src/cost';
++
++describe('withinTolerance', () => {
++  it('110 при фактичних 100 — true (межа 10% включна)', () => {
++    expect(withinTolerance(110, 100)).toBe(true);
++  });
++
++  it('111 при фактичних 100 — false', () => {
++    expect(withinTolerance(111, 100)).toBe(false);
++  });
++
++  it('з maxPct = 5: 105 при 100 — true, 106 при 100 — false', () => {
++    expect(withinTolerance(105, 100, 5)).toBe(true);
++    expect(withinTolerance(106, 100, 5)).toBe(false);
++  });
++
++  it('actual = 0 кидає RangeError', () => {
++    expect(() => withinTolerance(100, 0)).toThrow(RangeError);
++    expect(() => errorPct(100, 0)).toThrow(RangeError);
++  });
++});
