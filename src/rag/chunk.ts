@@ -167,3 +167,21 @@ export function chunkDocument(docId: string, raw: string, rule: ChunkRule = RULE
     text: text.slice(part.span.start, part.span.end),
   }));
 }
+
+export function chunkStats(chunks: readonly Chunk[]): { count: number; avgChars: number; maxChars: number } {
+  const count = chunks.length;
+  if (count === 0) {
+    return { count: 0, avgChars: 0, maxChars: 0 };
+  }
+  let totalChars = 0;
+  let maxChars = 0;
+  for (const chunk of chunks) {
+    const len = chunk.text.length;
+    totalChars += len;
+    if (len > maxChars) {
+      maxChars = len;
+    }
+  }
+  const avgChars = Math.round(totalChars / count);
+  return { count, avgChars, maxChars };
+}
