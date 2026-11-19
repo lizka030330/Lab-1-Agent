@@ -71,7 +71,23 @@ Fowler, «CircuitBreaker» (06.03.2014): closed / open / half-open, патерн
 
 ### 4. CI — стан брейкера їздить артефактом
 
-_Очікує прогону `harness.yml` (Actions → harness → Run workflow)._
+Робочий процес `harness.yml` з'явився в **Run workflow** лише після злиття в `main` (PR #13, `05b2fe3`): кнопка ручного запуску є тільки для файлів з гілки за замовчуванням. Прогони 16.11, гілка `main`, `steps = 3`, агент — `google/gemini-3.5-flash-lite`:
+
+| Прогін | Що сталося | Стан брейкера після |
+|---|---|---|
+| harness #1 | 13 хв 46 с у «Queued» — GitHub не видав машину; я скасувала. Наш ліміт (`timeout-minutes`) на черзі ще не рахує | — (артефакту немає) |
+| [harness #2](https://github.com/lizka030330/Lab-1-Agent/actions/runs/43963575125) | 1 хв 27 с, **червоний**: `Process completed with exit code 2` — `isStepCount(3)` зупинив цикл; `Artifact not found for name: breaker` (у #1 артефакту не було → брейкер стартує closed, `continue-on-error` не зупинив прогін); артефакт `breaker` 261 байт завантажено | `sameFails: 1` |
+| [harness #3](https://github.com/lizka030330/Lab-1-Agent/actions/runs/43964756403) | 1 хв 27 с, **червоний**: знову `exit code 2` від `isStepCount(3)`; помилки «Artifact not found» **немає** — стан з #2 забрано | **`sameFails: 2`**, `noProgress: 2`, `lastFailure: step_limit`, `state: closed` |
+
+Дослівно з кроку «Стан брейкера після прогону» в #3:
+
+```json
+{ "state": "closed", "sameFails": 2, "noProgress": 2, "lastFailure": "step_limit", "openedAt": null, "trip": null, "cooldownMin": 30, "probeTaken": false }
+```
+
+Це доказ, що стан брейкера **їздить між прогонами CI** артефактом: процес у #3 новий, а лічильник продовжився з #2. Третій такий прогін відкрив би брейкер («3 однакові відмови підряд (step_limit)»), і четвертий не запустив би агента (`exit 3`) — я його не робила, щоб не витрачати квоту: той самий перехід уже доведено локально (розділ 2).
+
+Чи це те, що я планувала: так, з однією поправкою — я не врахувала, що `workflow_dispatch` вимагає файлу в `main`, і що прогін може застрягти в черзі GitHub до старту моїх лімітів.
 
 ## Чого я НЕ контролюю
 
