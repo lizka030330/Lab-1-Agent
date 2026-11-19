@@ -7,10 +7,13 @@
  *   EVAL_IDS=t-14,t-15 …                — лише ці задачі (розвідувальний прогін нових задач)
  *
  * Агент — той самий, що у фабриці: OpenCode, агент `harness`, модель HARNESS_MODEL.
- * Відмова провайдера за квотою зупиняє ВЕСЬ прогін з кодом 2: неповний прогін брамі віддавати не можна.
+ * Квоти безкоштовного Gemini — дві різні (19.11.2026, agent.log t-18-1795086963468):
+ *   «input tokens per minute … limit: 250000» — хвилинна: чекаємо й повторюємо ту саму спробу (до 3 разів);
+ *   добова — зупиняє ВЕСЬ прогін з кодом 2: неповний прогін брамі віддавати не можна.
+ * Спроба, обірвана квотою, — не вердикт агента: пишемо її з invalid і в числа не рахуємо.
  */
 import { execFileSync } from 'node:child_process';
-import { existsSync, readFileSync, symlinkSync, writeFileSync, appendFileSync } from 'node:fs';
+import { appendFileSync, cpSync, existsSync, readFileSync, symlinkSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
 import { opencodeRunner, OPENCODE_MODEL, runTask, type Task } from '../harness/run-task';
@@ -20,7 +23,9 @@ import { summarize, type Line } from './summary';
 const K = Number(process.env.EVAL_K ?? 3);
 const ONLY = process.env.EVAL_BUCKET ?? '';
 const IDS = new Set((process.env.EVAL_IDS ?? '').split(',').map((s) => s.trim()).filter(Boolean));
-const PAUSE_S = Number(process.env.EVAL_PAUSE_S ?? 5); // між спробами — щоб не впертися в ліміт запитів на хвилину
+// між спробами: одна спроба — до ~60 тис. вхідних токенів, а хвилинна межа — 250 тис.
+const PAUSE_S = Number(process.env.EVAL_PAUSE_S ?? 30);
+const PER_MINUTE = /per minute/i;
 const BANK = process.argv[2] ?? 'docs/lab3/tasks.jsonl';
 const LOG = process.env.EVAL_LOG ?? 'docs/lab3/evals.jsonl';
 const ROOT = resolve('.');
@@ -54,6 +59,7 @@ const lines: Line[] = [];
 let aborted = false;
 
 outer: for (const task of tasks) {
+  let retries = 0;
   for (let attempt = 1; attempt <= K; attempt += 1) {
     // ЧИСТЕ середовище на КОЖНУ спробу, а не на задачу: інакше друга спроба бачить файли першої.
     const stamp = Date.now();
@@ -64,6 +70,8 @@ outer: for (const task of tasks) {
       if (!existsSync(join(tree, 'node_modules'))) symlinkSync(join(ROOT, 'node_modules'), join(tree, 'node_modules'));
       const rec = await runTask(task, { runner: opencodeRunner, agentPath: `opencode+${OPENCODE_MODEL}`, worktree: tree, outDir: join(ROOT, 'runs') });
       const results = grade({ task, patch: read(rec.artifact_dir, 'patch.diff'), output: read(rec.artifact_dir, 'output.txt'), acceptance: rec.acceptance });
+      const quota = rec.exit_status === 'quota';
+      const perMinute = quota && PER_MINUTE.test(read(rec.artifact_dir, 'agent.log') + read(rec.artifact_dir, 'output.txt'));
       const line = {
         task_id: task.id,
         bucket: task.bucket ?? 'new',
@@ -72,7 +80,8 @@ outer: for (const task of tasks) {
         sha: SHA,
         model: OPENCODE_MODEL,
         // спроба успішна, лише якщо ВСІ оцінювачі з мітки збіглися з міткою
-        pass: results.length > 0 && results.every((r) => r.pass),
+        pass: !quota && results.length > 0 && results.every((r) => r.pass),
+        ...(quota ? { invalid: perMinute ? 'quota_per_minute' : 'quota' } : {}),
         graders: results,
         duration_s: rec.duration_s,
         input_tokens: rec.input_tokens,
@@ -84,13 +93,23 @@ outer: for (const task of tasks) {
         at: new Date().toISOString(),
       };
       appendFileSync(LOG, `${JSON.stringify(line)}\n`);
-      lines.push(line);
+      // EVAL_KEEP=1 — розвідувальний прогін: артефакт стає джерелом (source) нової задачі в банку
+      if (process.env.EVAL_KEEP === '1' && !quota) cpSync(rec.artifact_dir, join(ROOT, 'docs', 'lab3', 'runs', rec.artifact_dir.split('/').pop() ?? task.id), { recursive: true });
+      if (!quota) lines.push(line);
       console.log(`${task.id} #${attempt}: ${line.pass ? 'pass' : 'FAIL'} (${rec.exit_status}, ${rec.duration_s} с) ${results.filter((r) => !r.pass).map((r) => `${r.id}: ${r.detail}`).join('; ')}`);
-      if (rec.exit_status === 'quota') {
-        console.error(`КВОТА: ${OPENCODE_MODEL} відмовив за квотою — прогін зупинено, брамі він не годиться.`);
+      if (perMinute && retries < 3) {
+        retries += 1;
+        console.error(`ХВИЛИННА КВОТА: чекаю 65 с і повторюю ${task.id} #${attempt} (повтор ${retries}/3)`);
+        attempt -= 1; // та сама спроба ще раз — у новому дереві
+        await new Promise((r) => setTimeout(r, 65_000));
+        continue;
+      }
+      if (quota) {
+        console.error(`КВОТА: ${OPENCODE_MODEL} відмовив за квотою (${perMinute ? 'хвилинна, 3 повтори не допомогли' : 'добова'}) — прогін зупинено, брамі він не годиться.`);
         aborted = true;
         break outer;
       }
+      retries = 0;
     } finally {
       git(['worktree', 'remove', tree, '--force']);
       git(['branch', '-D', branch]);

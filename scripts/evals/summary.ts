@@ -13,7 +13,11 @@ export interface Line {
   readonly output_tokens?: number | null;
   readonly cost_usd_estimate?: number | null;
   readonly exit_status?: string;
+  /** спроба обірвана квотою — не вердикт агента, у числа й браму не йде */
+  readonly invalid?: string;
 }
+
+const valid = (lines: readonly Line[]) => lines.filter((l) => l.invalid === undefined);
 
 export interface BucketRow {
   readonly bucket: string;
@@ -35,7 +39,7 @@ export interface TaskTally {
 
 export function tally(lines: readonly Line[]): Map<string, TaskTally> {
   const by = new Map<string, TaskTally>();
-  for (const l of lines) {
+  for (const l of valid(lines)) {
     const c = by.get(l.task_id) ?? { bucket: l.bucket, frozen_at: l.frozen_at, ok: 0, n: 0 };
     by.set(l.task_id, { ...c, ok: c.ok + (l.pass ? 1 : 0), n: c.n + 1 });
   }
@@ -55,7 +59,7 @@ export function summarize(lines: readonly Line[], k: number): BucketRow[] {
   const buckets = [...new Set([...tasks.values()].map((t) => t.bucket))].sort();
   return buckets.map((bucket) => {
     const ts = [...tasks.values()].filter((t) => t.bucket === bucket);
-    const ls = lines.filter((l) => l.bucket === bucket);
+    const ls = valid(lines).filter((l) => l.bucket === bucket);
     const sum = (f: (l: Line) => number | null | undefined) => ls.reduce((n, l) => n + (f(l) ?? 0), 0);
     return {
       bucket,

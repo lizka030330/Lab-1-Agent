@@ -47,3 +47,13 @@ describe('pass@k, pass^k і брама (крок 04)', () => {
     expect(compare([L('e', 1, false, 'edge')], base).ok).toBe(true);
   });
 });
+
+describe('спроби, обірвані квотою (крок 04)', () => {
+  it('invalid-рядки не рахуються ні в числа, ні в браму', () => {
+    const lines: Line[] = [
+      { task_id: 'a', bucket: 'regression', frozen_at: 'f', attempt: 1, pass: false, invalid: 'quota_per_minute' },
+      { task_id: 'a', bucket: 'regression', frozen_at: 'f', attempt: 1, pass: true },
+    ];
+    expect(summarize(lines, 1)[0]).toMatchObject({ tasks: 1, pass_pow_k: 1 });
+  });
+});
