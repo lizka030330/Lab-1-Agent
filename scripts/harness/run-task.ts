@@ -14,6 +14,15 @@ export interface Task {
   readonly acceptance: readonly string[];
   readonly budget: { readonly max_turns: number; readonly max_usd: number; readonly timeout_s: number };
   readonly files?: readonly string[];
+  // ── поля evals (крок 04); необовʼязкові, щоб старі рядки черги парсились далі ──
+  /** еталонна мітка: один ключ на оцінювача, значення — очікуваний результат */
+  readonly label?: Readonly<Record<string, boolean>>;
+  /** звідки задача взялася: тека прогону в docs/lab3/runs/ */
+  readonly source?: string;
+  /** regression — у брамі; new — нова можливість; edge — крайній випадок, рахується окремо */
+  readonly bucket?: 'regression' | 'new' | 'edge';
+  /** дата заморозки РРРР-ММ-ДД */
+  readonly frozen_at?: string;
 }
 
 export interface AgentResult {
