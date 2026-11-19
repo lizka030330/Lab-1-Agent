@@ -1,0 +1,15 @@
+diff --git a/tests/retrieval.test.ts b/tests/retrieval.test.ts
+index a839aaa..5787812 100644
+--- a/tests/retrieval.test.ts
++++ b/tests/retrieval.test.ts
+@@ -13,6 +13,10 @@ describe('bm25 — токенізація першою', () => {
+     expect(tokenize('Що дарують на Хануку?')).toEqual(['що', 'дарують', 'на', 'хануку']);
+     expect(tokenize('Помилка E-418')).toEqual(['помилка', '418']);
+   });
++
++  it("tokenize('я і ти — Ми') повертає ['ти', 'ми'], бо однобуквені токени відкидаються", () => {
++    expect(tokenize('я і ти — Ми')).toEqual(['ти', 'ми']);
++  });
+ });
+ 
+ describe('rrf', () => {
