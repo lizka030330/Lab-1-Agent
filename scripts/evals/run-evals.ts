@@ -5,6 +5,8 @@
  *   EVAL_K=3 npx tsx scripts/evals/run-evals.ts docs/lab3/tasks.jsonl
  *   EVAL_BUCKET=regression EVAL_K=1 …   — лише один кошик (так у CI)
  *   EVAL_IDS=t-14,t-15 …                — лише ці задачі (розвідувальний прогін нових задач)
+ *   EVAL_RESUME=1 …                     — дописати той самий прогін після добової квоти: журнал не стирається,
+ *                                         уже зроблені (валідні) спроби не повторюються
  *
  * Агент — той самий, що у фабриці: OpenCode, агент `harness`, модель HARNESS_MODEL.
  * Квоти безкоштовного Gemini — дві різні (19.11.2026, agent.log t-18-1795086963468):
@@ -54,13 +56,20 @@ for (const t of tasks) {
   if (bad.length > 0) throw new Error(`${t.id}: невідомі оцінювачі в label: ${bad.join(', ')}`);
 }
 
-writeFileSync(LOG, ''); // журнал ОСТАННЬОГО прогону: старі рядки не змішуємо з новими
-const lines: Line[] = [];
+const RESUME = process.env.EVAL_RESUME === '1';
+// журнал ОСТАННЬОГО прогону: старі рядки не змішуємо з новими — крім продовження того самого прогону
+const previous: Line[] = RESUME && existsSync(LOG)
+  ? readFileSync(LOG, 'utf8').split(/\r?\n/).filter((l) => l.trim() !== '').map((l) => JSON.parse(l) as Line)
+  : [];
+if (!RESUME) writeFileSync(LOG, '');
+const lines: Line[] = previous.filter((l) => l.invalid === undefined);
+const done = (id: string) => lines.filter((l) => l.task_id === id).length;
+if (RESUME) console.log(`продовження: у журналі вже ${lines.length} валідних спроб`);
 let aborted = false;
 
 outer: for (const task of tasks) {
   let retries = 0;
-  for (let attempt = 1; attempt <= K; attempt += 1) {
+  for (let attempt = done(task.id) + 1; attempt <= K; attempt += 1) {
     // ЧИСТЕ середовище на КОЖНУ спробу, а не на задачу: інакше друга спроба бачить файли першої.
     const stamp = Date.now();
     const branch = `eval/${task.id}-${attempt}-${stamp}`;
