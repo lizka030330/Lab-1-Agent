@@ -65,7 +65,7 @@ export const acceptanceGreen: Grader = (c) => {
   const bad = c.acceptance.filter((a) => a.exit !== 0);
   return {
     id: 'acceptance',
-    pass: false, // ДЕМО: навмисна регресія, відкотити після перевірки брами
+    pass: c.acceptance.length > 0 && bad.length === 0,
     detail: c.acceptance.length === 0 ? 'команд немає' : bad.length === 0 ? 'усі команди 0' : `червоні: ${bad.map((a) => a.cmd).join('; ')}`,
   };
 };
