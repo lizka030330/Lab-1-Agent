@@ -1,0 +1,128 @@
+{
+  "t-01": {
+    "pow_k": 1,
+    "k": 3,
+    "bucket": "regression",
+    "frozen_at": "2026-11-19"
+  },
+  "t-02": {
+    "pow_k": 1,
+    "k": 3,
+    "bucket": "regression",
+    "frozen_at": "2026-11-19"
+  },
+  "t-03": {
+    "pow_k": 1,
+    "k": 3,
+    "bucket": "regression",
+    "frozen_at": "2026-11-19"
+  },
+  "t-04": {
+    "pow_k": 1,
+    "k": 3,
+    "bucket": "regression",
+    "frozen_at": "2026-11-19"
+  },
+  "t-05": {
+    "pow_k": 1,
+    "k": 3,
+    "bucket": "regression",
+    "frozen_at": "2026-11-19"
+  },
+  "t-06": {
+    "pow_k": 1,
+    "k": 3,
+    "bucket": "regression",
+    "frozen_at": "2026-11-19"
+  },
+  "t-07": {
+    "pow_k": 1,
+    "k": 3,
+    "bucket": "regression",
+    "frozen_at": "2026-11-19"
+  },
+  "t-08": {
+    "pow_k": 1,
+    "k": 3,
+    "bucket": "regression",
+    "frozen_at": "2026-11-19"
+  },
+  "t-09": {
+    "pow_k": 1,
+    "k": 3,
+    "bucket": "regression",
+    "frozen_at": "2026-11-19"
+  },
+  "t-10": {
+    "pow_k": 0.6666666666666666,
+    "k": 3,
+    "bucket": "regression",
+    "frozen_at": "2026-11-19"
+  },
+  "t-11": {
+    "pow_k": 1,
+    "k": 3,
+    "bucket": "regression",
+    "frozen_at": "2026-11-19"
+  },
+  "t-12": {
+    "pow_k": 1,
+    "k": 3,
+    "bucket": "regression",
+    "frozen_at": "2026-11-19"
+  },
+  "t-13": {
+    "pow_k": 1,
+    "k": 3,
+    "bucket": "regression",
+    "frozen_at": "2026-11-19"
+  },
+  "t-14": {
+    "pow_k": 1,
+    "k": 3,
+    "bucket": "edge",
+    "frozen_at": "2026-11-19"
+  },
+  "t-15": {
+    "pow_k": 1,
+    "k": 3,
+    "bucket": "edge",
+    "frozen_at": "2026-11-19"
+  },
+  "t-16": {
+    "pow_k": 0,
+    "k": 3,
+    "bucket": "edge",
+    "frozen_at": "2026-11-19"
+  },
+  "t-17": {
+    "pow_k": 0.6666666666666666,
+    "k": 3,
+    "bucket": "edge",
+    "frozen_at": "2026-11-19"
+  },
+  "t-18": {
+    "pow_k": 0.6666666666666666,
+    "k": 3,
+    "bucket": "edge",
+    "frozen_at": "2026-11-19"
+  },
+  "t-19": {
+    "pow_k": 1,
+    "k": 3,
+    "bucket": "edge",
+    "frozen_at": "2026-11-19"
+  },
+  "t-20": {
+    "pow_k": 1,
+    "k": 3,
+    "bucket": "new",
+    "frozen_at": "2026-11-19"
+  },
+  "t-21": {
+    "pow_k": 1,
+    "k": 3,
+    "bucket": "new",
+    "frozen_at": "2026-11-19"
+  }
+}
