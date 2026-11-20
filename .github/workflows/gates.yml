@@ -7,6 +7,7 @@ name: gates
 on:
   push:
   pull_request:
+  workflow_dispatch: # крок 04: ручний прогін брами evals
 
 # новий push у ту саму гілку скасовує попередній прогін
 concurrency:
@@ -133,3 +134,42 @@ jobs:
           path: |
             gate-record.json
             gate-record/**
+
+  # Крок 04: регресійна брама evals. Агент — справжній (OpenCode + Gemini), тому:
+  # — лише на pull_request (і вручну): push у гілку квоту не витрачає;
+  # — лише кошик regression і k = 1: добова квота ключа (500 запитів gemini-3.5-flash-lite) одна на CI і на локальні
+  #   прогони, а повний банк з k = 3 її не витримує. Повні числа pass@k / pass^k — локально, docs/lab3/evals.md.
+  # Брама — gate.ts: задача regression, що в базовому рівні мала pass^3 = 1, мусить пройти й тут. Без || true
+  # і без continue-on-error: інакше збірка зелена завжди, а брами не існує.
+  evals:
+    needs: tests # неявний success(): на червоних тестах не стартує
+    if: ${{ github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30 # типове — 360; 13 задач × ~1 хв + встановлення
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: OpenCode — та сама версія, що локально
+        timeout-minutes: 3
+        run: npm install -g opencode-ai@1.18.34 && opencode --version
+      - name: Детерміновані оцінювачі на замороженому банку (regression, k = 1)
+        timeout-minutes: 25
+        env:
+          EVAL_K: '1'
+          EVAL_BUCKET: regression
+          EVAL_LOG: docs/lab3/evals-ci.jsonl
+          HARNESS_MODEL: google/gemini-3.5-flash-lite
+          GOOGLE_GENERATIVE_AI_API_KEY: ${{ secrets.GOOGLE_GENERATIVE_AI_API_KEY }}
+        run: |
+          npx tsx scripts/evals/run-evals.ts docs/lab3/tasks.jsonl
+          npx tsx scripts/evals/gate.ts
+      - if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: evals
+          path: docs/lab3/evals-ci.jsonl
+          if-no-files-found: ignore

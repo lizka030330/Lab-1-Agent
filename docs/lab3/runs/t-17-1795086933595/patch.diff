@@ -1,0 +1,12 @@
+diff --git a/src/metrics.ts b/src/metrics.ts
+index 746dcdf..564863b 100644
+--- a/src/metrics.ts
++++ b/src/metrics.ts
+@@ -40,6 +40,7 @@ export function reciprocalRank(hits: readonly Hit[], mustCite: readonly string[]
+   return i === -1 ? 0 : 1 / (i + 1);
+ }
+ 
++/** Повертає середнє арифметичне значення; кидає RangeError на порожньому переліку. */
+ export function mean(values: readonly number[]): number {
+   if (values.length === 0) {
+     throw new RangeError('середнє порожнього переліку не визначено — скільки запитів ви взяли?');
