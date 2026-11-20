@@ -145,7 +145,7 @@ jobs:
     needs: tests # неявний success(): на червоних тестах не стартує
     if: ${{ github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 30 # типове — 360; 13 задач × ~1 хв + встановлення
+    timeout-minutes: 50 # типове — 360; 13 задач × ~1–2 хв + встановлення (t-08 за 25 хв не встигав)
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -157,7 +157,7 @@ jobs:
         timeout-minutes: 3
         run: npm install -g opencode-ai@1.18.34 && opencode --version
       - name: Детерміновані оцінювачі на замороженому банку (regression, k = 1)
-        timeout-minutes: 25
+        timeout-minutes: 45
         env:
           EVAL_K: '1'
           EVAL_BUCKET: regression
