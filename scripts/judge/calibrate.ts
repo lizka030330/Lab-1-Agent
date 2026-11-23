@@ -1,6 +1,6 @@
 /**
  * Калібрування судді (Лаб. 3, крок 05). Один суддя на вимір, окремий запит на кожен випадок і вимір.
- * Суддя бачить лише докази з артефакта, рубрику «до» і текст задачі. Мої мітки і попередні вердикти він не бачить.
+ * Суддя бачить лише докази з артефакта, рубрику «після» ітерації і текст задачі. Мої мітки і попередні вердикти він не бачить.
  *
  *   npx tsx scripts/judge/calibrate.ts
  *
@@ -27,7 +27,7 @@ const readJsonl = <T,>(p: string): T[] =>
 
 const cases = readJsonl<Case>('docs/lab3/judge-cases.jsonl');
 const tasks = new Map(readJsonl<Task>('docs/lab3/tasks.jsonl').map((t) => [t.id, t]));
-const rubric = readFileSync('docs/lab3/judge-rubric-before.md', 'utf8');
+const rubric = readFileSync('docs/lab3/judge-rubric-after.md', 'utf8');
 
 const model = chatCompletionsModel({
   url: `${process.env.OLLAMA_BASE_URL || 'http://localhost:11434'}/v1/chat/completions`,
@@ -94,6 +94,7 @@ function evidenceFor(c: Case, dim: Dim): string {
   const text = finalText(`${dir}/output.txt`);
   return [
     `Задача: ${task.input}`,
+    `run.json: exit_status=${String(run.exit_status)}, acceptance_passed=${String(run.acceptance_passed)}`,
     text ? `Фінальний текст агента:\n${text.slice(0, 3000)}` : '(фінального тексту агента немає)',
   ].join('\n');
 }
