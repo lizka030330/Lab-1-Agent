@@ -38,7 +38,7 @@ export interface AgentResult {
 /** Запуск агента. У тестах підмінюється підставним. */
 export type AgentRunner = (task: Task, cwd: string) => AgentResult | Promise<AgentResult>;
 
-export type ExitStatus = 'ok' | 'agent_failed' | 'timeout' | 'quota' | 'budget_or_turns' | 'provider_error';
+export type ExitStatus = 'ok' | 'agent_failed' | 'timeout' | 'quota' | 'budget_or_turns';
 
 export interface RunRecord {
   readonly task_id: string;
@@ -191,14 +191,14 @@ export function readMeta(stdout: string): Pick<RunRecord, 'session_id' | 'input_
 }
 
 /** Межа ходів чи бюджету — не падіння. Рядки розпізнавання — дослівно з виводу агента (factory.md). */
-const BUDGET_MARKERS = [/Budget limit reached/i, /max(imum)? (turns|steps)/i];
-
 /**
- * Крок 06: помилка середовища, а не агента. З 23.11.2026 OpenCode 1.18.34 з Gemini (3.6 Flash і 3.5 Flash-Lite)
- * періодично отримує цю відповідь API — у 30 прогонах 13–17.11 її немає, від трасування не залежить
- * (docs/lab3/errors.md). Окремий клас, щоб такий прогін не рахувався відмовою агента; acceptance — як завжди.
+ * Крок 06: на межі `steps` OpenCode просить у моделі підсумок запитом, що закінчується ходом моделі, а Gemini
+ * такий запит відхиляє. Тож ця помилка API — це спрацювання НАШОГО ліміту кроків, а не відмова агента:
+ * усі 11 таких прогонів 23.11.2026 зупинились на 11-му кроці при steps: 12 (docs/lab3/errors.md).
  */
-export const PROVIDER_ERROR_MARKER = /Requests ending with a model turn are not supported/i;
+const STEP_LIMIT_ON_GEMINI = /Requests ending with a model turn are not supported/i;
+const BUDGET_MARKERS = [/Budget limit reached/i, /max(imum)? (turns|steps)/i, STEP_LIMIT_ON_GEMINI];
+
 
 /**
  * Квота (429) — окремий клас з кроку 03: це умова спрацювання брейкера, а не «не пощастило».
@@ -209,7 +209,6 @@ export function classify(res: AgentResult): ExitStatus {
   const text = `${res.stdout}\n${res.stderr}`;
   if (res.quotaStop === true || QUOTA_MARKER.test(text)) return 'quota';
   if (res.exitCode === 0) return 'ok';
-  if (PROVIDER_ERROR_MARKER.test(text)) return 'provider_error';
   return BUDGET_MARKERS.some((re) => re.test(text)) ? 'budget_or_turns' : 'agent_failed';
 }
 

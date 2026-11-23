@@ -108,9 +108,9 @@ describe('spawnAgent (крок 03, шар задачі): зупинювачі х
     expect(classify(res)).toBe('quota');
   });
 
-  it('помилка API середовища — окремий клас provider_error, а не agent_failed (крок 06)', () => {
+  it('межа кроків OpenCode на Gemini (помилка «model turn») — budget_or_turns, а не agent_failed (крок 06)', () => {
     const res = { exitCode: 1, stdout: '', stderr: 'error="AI_APICallError: Requests ending with a model turn are not supported."', timedOut: false };
-    expect(classify(res)).toBe('provider_error');
+    expect(classify(res)).toBe('budget_or_turns');
     expect(classify({ ...res, stderr: 'інша помилка' })).toBe('agent_failed');
   });
 

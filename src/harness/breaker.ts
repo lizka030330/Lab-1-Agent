@@ -32,7 +32,7 @@ export interface Breaker {
 export interface Outcome {
   /** Задача зелена: acceptance пройдено. */
   readonly ok: boolean;
-  /** Клас відмови: timeout, quota, agent_failed, budget_or_turns, provider_error, step_limit… */
+  /** Клас відмови: timeout, quota, agent_failed, budget_or_turns, step_limit… */
   readonly failure?: string;
 }
 

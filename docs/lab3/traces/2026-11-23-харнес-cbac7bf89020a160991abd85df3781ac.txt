@@ -1,0 +1,28 @@
+клас: харнес
+чому: та сама межа на іншій моделі (gemini-3.5-flash-lite): причина не в моделі
+
+task_id: t-05
+артефакт: docs/lab3/runs/t-05-1795471998886
+trace_id: cbac7bf89020a160991abd85df3781ac
+session_id: ses_df58773a2ffewolHBpANnxvx45  (ключ зв'язку з трасою opencode.turn у Langfuse)
+agent_path: opencode+google/gemini-3.5-flash-lite
+started_at: 2026-11-23T22:13:18.886Z
+duration_s: 41
+exit_status: agent_failed  (записано до коміту, що відносить цю помилку до budget_or_turns)
+кроків агента (step_start в output.txt): 11  при steps: 12 у .opencode/agents/harness.md
+викликів інструментів (tool_use): 13
+acceptance_passed: True
+acceptance:
+  exit 0: grep -q 'export function precisionAtK' src/metrics.ts
+  exit 0: grep -q 'precisionAtK' tests/metrics.test.ts
+  exit 0: npm run typecheck
+  exit 0: npm test -- tests/metrics.test.ts
+input_tokens: 41782  output_tokens: 1791
+змінені файли (patch.diff): src/metrics.ts, tests/metrics.test.ts
+agent.log, рядки level=ERROR (лише тип і текст помилки):
+  process: Requests ending with a model turn are not supported.
+  stream error: AI_APICallError: Requests ending with a model turn are not supported.
+agent.log, трасування плагіна:
+  "OTEL tracing initialized → https://cloud.langfuse.com"
+
+Вміст промптів і відповідей сюди не переноситься: репозиторій публічний.
