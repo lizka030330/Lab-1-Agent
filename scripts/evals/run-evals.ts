@@ -28,6 +28,8 @@ const IDS = new Set((process.env.EVAL_IDS ?? '').split(',').map((s) => s.trim())
 // між спробами: одна спроба — до ~60 тис. вхідних токенів, а хвилинна межа — 250 тис.
 const PAUSE_S = Number(process.env.EVAL_PAUSE_S ?? 30);
 const PER_MINUTE = /per minute/i;
+// Перевантаження моделі (Google 503 / 429): не вердикт агента, а стан сервісу. Пишемо з invalid.
+const OVERLOAD = /UNAVAILABLE|high demand|HTTP 503|HTTP 429|"code": 503/i;
 const BANK = process.argv[2] ?? 'docs/lab3/tasks.jsonl';
 const LOG = process.env.EVAL_LOG ?? 'docs/lab3/evals.jsonl';
 const ROOT = resolve('.');
@@ -81,6 +83,7 @@ outer: for (const task of tasks) {
       const results = grade({ task, patch: read(rec.artifact_dir, 'patch.diff'), output: read(rec.artifact_dir, 'output.txt'), acceptance: rec.acceptance });
       const quota = rec.exit_status === 'quota';
       const perMinute = quota && PER_MINUTE.test(read(rec.artifact_dir, 'agent.log') + read(rec.artifact_dir, 'output.txt'));
+      const overloaded = !quota && OVERLOAD.test(read(rec.artifact_dir, 'agent.log') + read(rec.artifact_dir, 'output.txt'));
       const line = {
         task_id: task.id,
         bucket: task.bucket ?? 'new',
@@ -89,8 +92,8 @@ outer: for (const task of tasks) {
         sha: SHA,
         model: OPENCODE_MODEL,
         // спроба успішна, лише якщо ВСІ оцінювачі з мітки збіглися з міткою
-        pass: !quota && results.length > 0 && results.every((r) => r.pass),
-        ...(quota ? { invalid: perMinute ? 'quota_per_minute' : 'quota' } : {}),
+        pass: !quota && !overloaded && results.length > 0 && results.every((r) => r.pass),
+        ...(quota ? { invalid: perMinute ? 'quota_per_minute' : 'quota' } : overloaded ? { invalid: 'overloaded' } : {}),
         graders: results,
         duration_s: rec.duration_s,
         input_tokens: rec.input_tokens,
@@ -104,11 +107,11 @@ outer: for (const task of tasks) {
       appendFileSync(LOG, `${JSON.stringify(line)}\n`);
       // EVAL_KEEP=1 — розвідувальний прогін: артефакт стає джерелом (source) нової задачі в банку
       if (process.env.EVAL_KEEP === '1' && !quota) cpSync(rec.artifact_dir, join(ROOT, 'docs', 'lab3', 'runs', rec.artifact_dir.split('/').pop() ?? task.id), { recursive: true });
-      if (!quota) lines.push(line);
+      if (!quota && !overloaded) lines.push(line);
       console.log(`${task.id} #${attempt}: ${line.pass ? 'pass' : 'FAIL'} (${rec.exit_status}, ${rec.duration_s} с) ${results.filter((r) => !r.pass).map((r) => `${r.id}: ${r.detail}`).join('; ')}`);
-      if (perMinute && retries < 3) {
+      if ((perMinute || overloaded) && retries < 3) {
         retries += 1;
-        console.error(`ХВИЛИННА КВОТА: чекаю 65 с і повторюю ${task.id} #${attempt} (повтор ${retries}/3)`);
+        console.error(`${overloaded ? 'МОДЕЛЬ ПЕРЕВАНТАЖЕНА (503/429)' : 'ХВИЛИННА КВОТА'}: чекаю 65 с і повторюю ${task.id} #${attempt} (повтор ${retries}/3)`);
         attempt -= 1; // та сама спроба ще раз — у новому дереві
         await new Promise((r) => setTimeout(r, 65_000));
         continue;
