@@ -38,7 +38,7 @@ export interface AgentResult {
 /** Запуск агента. У тестах підмінюється підставним. */
 export type AgentRunner = (task: Task, cwd: string) => AgentResult | Promise<AgentResult>;
 
-export type ExitStatus = 'ok' | 'agent_failed' | 'timeout' | 'quota' | 'budget_or_turns';
+export type ExitStatus = 'ok' | 'agent_failed' | 'timeout' | 'quota' | 'budget_or_turns' | 'provider_error';
 
 export interface RunRecord {
   readonly task_id: string;
@@ -194,6 +194,13 @@ export function readMeta(stdout: string): Pick<RunRecord, 'session_id' | 'input_
 const BUDGET_MARKERS = [/Budget limit reached/i, /max(imum)? (turns|steps)/i];
 
 /**
+ * Крок 06: помилка середовища, а не агента. З 23.11.2026 OpenCode 1.18.34 з Gemini (3.6 Flash і 3.5 Flash-Lite)
+ * періодично отримує цю відповідь API — у 30 прогонах 13–17.11 її немає, від трасування не залежить
+ * (docs/lab3/errors.md). Окремий клас, щоб такий прогін не рахувався відмовою агента; acceptance — як завжди.
+ */
+export const PROVIDER_ERROR_MARKER = /Requests ending with a model turn are not supported/i;
+
+/**
  * Квота (429) — окремий клас з кроку 03: це умова спрацювання брейкера, а не «не пощастило».
  * До кроку 03 вона йшла як budget_or_turns (13.11.2026, gemini-3.6-flash, limit: 20 на день).
  */
@@ -202,6 +209,7 @@ export function classify(res: AgentResult): ExitStatus {
   const text = `${res.stdout}\n${res.stderr}`;
   if (res.quotaStop === true || QUOTA_MARKER.test(text)) return 'quota';
   if (res.exitCode === 0) return 'ok';
+  if (PROVIDER_ERROR_MARKER.test(text)) return 'provider_error';
   return BUDGET_MARKERS.some((re) => re.test(text)) ? 'budget_or_turns' : 'agent_failed';
 }
 
