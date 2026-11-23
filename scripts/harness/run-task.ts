@@ -215,7 +215,7 @@ export function checkAcceptance(task: Task, cwd: string): { cmd: string; exit: n
 
 export async function runTask(
   task: Task,
-  opts: { runner: AgentRunner; agentPath: string; worktree: string; outDir: string; check?: typeof checkAcceptance },
+  opts: { runner: AgentRunner; agentPath: string; worktree: string; outDir: string; check?: typeof checkAcceptance; traceId?: string | null },
 ): Promise<RunRecord> {
   const dir = join(opts.outDir, `${task.id}-${Date.now()}`);
   mkdirSync(dir, { recursive: true });
@@ -257,7 +257,7 @@ export async function runTask(
     acceptance,
     acceptance_passed: acceptance.length > 0 && acceptance.every((a) => a.exit === 0),
     ...readMeta(res.stdout),
-    trace_id: null, // ← крок 06
+    trace_id: opts.traceId ?? null, // ← крок 06: ідентифікатор спана прогону
     gates: {}, // ← крок 01
   };
   writeFileSync(join(dir, 'run.json'), `${JSON.stringify(record, null, 2)}\n`, 'utf8');
