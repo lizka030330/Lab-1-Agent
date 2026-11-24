@@ -1,0 +1,227 @@
+{
+  "taskId": "q2-single-v3",
+  "question_id": "q2",
+  "mode": "single",
+  "label": "single-v3",
+  "at": "2026-11-24T20:23:08.141Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 24,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": true,
+  "wall_ms": 171640,
+  "fanout_wall_ms": 69335,
+  "compute_ms": 171583,
+  "verifier_ms": 89423,
+  "calls": 8,
+  "steps": 19,
+  "input_tokens": 96787,
+  "output_tokens": 5359,
+  "cache_read_tokens": 55183,
+  "unreported_calls": 0,
+  "usd_estimate": 0.09268649999999999,
+  "quality_facts": 1,
+  "claims_total": 6,
+  "claims_pass": 5,
+  "lanes": [
+    {
+      "lane": "all",
+      "ok": true,
+      "ms": 69335,
+      "steps": 18,
+      "inputTokens": 95686,
+      "outputTokens": 4093,
+      "textChars": 2284,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "stop",
+          "text": 2284,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "unknown",
+      "reason": "Доказ не містить інформації про ліміт кількості комбінацій, лише вказує на вирішення проблеми з великих комбінацій",
+      "evidence": "commit:22a9679 message: \"Reject large optional route combinations (#424)\""
+    },
+    {
+      "id": "c2",
+      "verdict": "pass",
+      "reason": "У функції pathToRegexp() створюється локальна змінна combinations.",
+      "evidence": "src/index.ts#L450: let combinations = 0;"
+    },
+    {
+      "id": "c3",
+      "verdict": "pass",
+      "reason": "Умова в доказі прямо вказує на поріг 256 для запуску обмежень.",
+      "evidence": "src/index.ts#L460: if (combinations >= 256) {"
+    },
+    {
+      "id": "c4",
+      "verdict": "pass",
+      "reason": "У доказу зазначено, що при досягненні ліміту викидається помилка з потрібним повідомленням та оригінальним шляхом.",
+      "evidence": "src/index.ts#L461: throw new PathError(\"Too many path combinations\", data.originalPath);"
+    },
+    {
+      "id": "c5",
+      "verdict": "pass",
+      "reason": "Лічильник combinations інкрементується після обробки кожної альтернативи.",
+      "evidence": "combinations++"
+    },
+    {
+      "id": "c6",
+      "verdict": "pass",
+      "reason": "Тест створює 10 необхідних груп за допомогою масиву з 10 елементів '{/x}'.",
+      "evidence": "new Array(10).fill(\"{/x}\").join(\"\")"
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Ліміт кількості комбінацій необов'язкових маршрутів з'явився у коміті 22a9679.",
+      "evidence": "commit:22a9679"
+    },
+    {
+      "id": "c2",
+      "text": "У функції pathToRegexp() створюється локальний лічильник combinations.",
+      "evidence": "src/index.ts#L450"
+    },
+    {
+      "id": "c3",
+      "text": "Обмеження кількості альтернативних шляхів спрацьовує при combinations >= 256.",
+      "evidence": "src/index.ts#L460"
+    },
+    {
+      "id": "c4",
+      "text": "При досягненні ліміту викидається помилка new PathError(\"Too many path combinations\", data.originalPath).",
+      "evidence": "src/index.ts#L461"
+    },
+    {
+      "id": "c5",
+      "text": "Лічильник combinations інкрементується після обробки кожної альтернативи шляху.",
+      "evidence": "src/index.ts#L472"
+    },
+    {
+      "id": "c6",
+      "text": "Тест для перевірки викидання помилки при перевищенні ліміту генерує 10 необов'язкових груп.",
+      "evidence": "src/index.spec.ts#L215-L221"
+    }
+  ]
+}

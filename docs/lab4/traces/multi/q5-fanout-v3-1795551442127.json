@@ -1,0 +1,274 @@
+{
+  "taskId": "q5-fanout-v3",
+  "question_id": "q5",
+  "mode": "fanout",
+  "label": "fanout-v3",
+  "at": "2026-11-24T20:17:22.127Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 6,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": true,
+  "wall_ms": 159955,
+  "fanout_wall_ms": 38584,
+  "compute_ms": 233926,
+  "verifier_ms": 96566,
+  "calls": 9,
+  "steps": 25,
+  "input_tokens": 92759,
+  "output_tokens": 11836,
+  "cache_read_tokens": 28719,
+  "unreported_calls": 0,
+  "usd_estimate": 0.11395424999999999,
+  "quality_facts": 1,
+  "claims_total": 4,
+  "claims_pass": 3,
+  "lanes": [
+    {
+      "lane": "history",
+      "ok": true,
+      "ms": 26816,
+      "steps": 6,
+      "inputTokens": 21545,
+      "outputTokens": 2152,
+      "textChars": 1095,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 3,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "summary:stop",
+          "text": 1095,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    },
+    {
+      "lane": "module",
+      "ok": true,
+      "ms": 38582,
+      "steps": 6,
+      "inputTokens": 31215,
+      "outputTokens": 3497,
+      "textChars": 1816,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 3,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "summary:stop",
+          "text": 1816,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    },
+    {
+      "lane": "tests",
+      "ok": true,
+      "ms": 20463,
+      "steps": 6,
+      "inputTokens": 10061,
+      "outputTokens": 1311,
+      "textChars": 1796,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "summary:stop",
+          "text": 1796,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    },
+    {
+      "lane": "deps",
+      "ok": true,
+      "ms": 26750,
+      "steps": 6,
+      "inputTokens": 27428,
+      "outputTokens": 1933,
+      "textChars": 1374,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 4,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "summary:stop",
+          "text": 1374,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "pass",
+      "reason": "Доказ показує, що файл index.ts було видалено з кореня, а src/index.ts додано у коміті 4f33bc4.",
+      "evidence": "index.ts             |   495 --\nsrc/index.ts         |   512 +++"
+    },
+    {
+      "id": "c2",
+      "verdict": "pass",
+      "reason": "У доказу відсутній блок dependencies, наявний лише devDependencies",
+      "evidence": "package.json#L37: \"devDependencies\": { ... }"
+    },
+    {
+      "id": "c3",
+      "verdict": "pass",
+      "reason": "Файл не містить жодного імпортного statements",
+      "evidence": "Перші 100 рядків коду не містять ключових слів import чи require"
+    },
+    {
+      "id": "c4",
+      "verdict": "unknown",
+      "reason": "суддя двічі повернув невалідну відповідь: JSON не відповідає схемі",
+      "evidence": ""
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Кореневий файл index.ts було перенесено до каталогу src/ під назвою src/index.ts у коміті 4f33bc4.",
+      "evidence": "commit:4f33bc4"
+    },
+    {
+      "id": "c2",
+      "text": "У файлі package.json відсутній блок runtime-залежностей dependencies та наявний лише перелік devDependencies.",
+      "evidence": "package.json#L37-L49"
+    },
+    {
+      "id": "c3",
+      "text": "Модуль src/index.ts є повністю автономним і не містить сторонніх імпортів під час виконання.",
+      "evidence": "src/index.ts#L1-L100"
+    },
+    {
+      "id": "c4",
+      "text": "Реалізація src/index.ts спирається на вбудовані можливості середовища, зокрема регулярні вирази з Unicode-властивостями ID_START та ID_CONTINUE.",
+      "evidence": "src/index.ts#L3-L5"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "taskId": "q2-fanout",
+  "question_id": "q2",
+  "mode": "fanout",
+  "label": "fanout",
+  "at": "2026-11-24T19:49:02.107Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 6,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": false,
+  "wall_ms": 90980,
+  "fanout_wall_ms": 21176,
+  "compute_ms": 136168,
+  "verifier_ms": 14579,
+  "calls": 6,
+  "steps": 25,
+  "input_tokens": 54720,
+  "output_tokens": 8765,
+  "cache_read_tokens": 3575,
+  "unreported_calls": 0,
+  "usd_estimate": 0.07390875,
+  "quality_facts": 0,
+  "claims_total": 1,
+  "claims_pass": 1,
+  "lanes": [
+    {
+      "lane": "history",
+      "ok": true,
+      "ms": 14665,
+      "steps": 6,
+      "inputTokens": 11562,
+      "outputTokens": 574,
+      "textChars": 0
+    },
+    {
+      "lane": "module",
+      "ok": true,
+      "ms": 15426,
+      "steps": 6,
+      "inputTokens": 14639,
+      "outputTokens": 504,
+      "textChars": 0
+    },
+    {
+      "lane": "tests",
+      "ok": true,
+      "ms": 15144,
+      "steps": 6,
+      "inputTokens": 14329,
+      "outputTokens": 521,
+      "textChars": 0
+    },
+    {
+      "lane": "deps",
+      "ok": true,
+      "ms": 21174,
+      "steps": 6,
+      "inputTokens": 13970,
+      "outputTokens": 1359,
+      "textChars": 0
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "pass",
+      "reason": "Доказ підтверджує відсутність даних про коміт, оскільки сам коміт не знайдено у форку",
+      "evidence": "коміт 0000000 не знайдено у форку"
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "У наданих матеріалах читачів відсутні будь-які дані про обмеження комбінацій шляху, текст помилки та коміт її появи.",
+      "evidence": "commit:0000000"
+    }
+  ]
+}

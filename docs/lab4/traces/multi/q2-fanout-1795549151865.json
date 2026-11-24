@@ -1,0 +1,85 @@
+{
+  "taskId": "q2-fanout",
+  "question_id": "q2",
+  "mode": "fanout",
+  "label": "fanout",
+  "at": "2026-11-24T19:39:11.865Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 6,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": true,
+  "wall_ms": 65250,
+  "fanout_wall_ms": 17678,
+  "compute_ms": 110132,
+  "verifier_ms": 13988,
+  "calls": 6,
+  "steps": 25,
+  "input_tokens": 58431,
+  "output_tokens": 6158,
+  "cache_read_tokens": 11618,
+  "unreported_calls": 0,
+  "usd_estimate": 0.06691575,
+  "quality_facts": 0,
+  "claims_total": 1,
+  "claims_pass": 0,
+  "lanes": [
+    {
+      "lane": "history",
+      "ok": true,
+      "ms": 16603,
+      "steps": 6,
+      "inputTokens": 11406,
+      "outputTokens": 627
+    },
+    {
+      "lane": "module",
+      "ok": true,
+      "ms": 13147,
+      "steps": 6,
+      "inputTokens": 17539,
+      "outputTokens": 459
+    },
+    {
+      "lane": "tests",
+      "ok": true,
+      "ms": 17676,
+      "steps": 6,
+      "inputTokens": 12783,
+      "outputTokens": 731
+    },
+    {
+      "lane": "deps",
+      "ok": true,
+      "ms": 15136,
+      "steps": 6,
+      "inputTokens": 16483,
+      "outputTokens": 797
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "unknown",
+      "reason": "Доказ відсутній через помилку доступу до файлу",
+      "evidence": "ENOENT: no such file or directory, open '/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp/history'"
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "У наданих смугах читачів бракує даних про обмеження кількості комбінацій шляху, викид помилки та відповідний коміт.",
+      "evidence": "history#L1"
+    }
+  ]
+}

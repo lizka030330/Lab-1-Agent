@@ -61,4 +61,22 @@ describe('fanOut (Лаб. 4, крок 03)', () => {
     expect(r.failed).toHaveLength(4);
     expect(r.spent).toMatchObject({ calls: 4, unreported: 4 });
   });
+
+  it('якщо гілка вичерпала кроки на інструменти — підсумок окремим запитом без інструментів, у межах stepsPerBranch', async () => {
+    let n = 0;
+    const model = new MockLanguageModelV4({
+      doGenerate: async (o) =>
+        (o.tools?.length ?? 0) === 0
+          ? ok('підсумок смуги')
+          : { ...ok(''), content: [{ type: 'tool-call', toolCallId: `c${n++}`, toolName: 'read_file', input: '{}' }], finishReason: { unified: 'tool-calls', raw: undefined } },
+    });
+    const { tool } = await import('ai');
+    const { z } = await import('zod');
+    const tools = { read_file: tool({ inputSchema: z.object({}), execute: async () => 'вміст файлу' }) };
+    const r = await fanOut({ model, readOnlyTools: tools, rounds: [[{ lane: 'module', prompt: 'p' }]], budget: { ...DEFAULT_BUDGET, stepsPerBranch: 3 }, taskId: 't' });
+    expect(r.out).toEqual([{ lane: 'module', text: 'підсумок смуги' }]);
+    expect(r.lanes[0]).toMatchObject({ steps: 3, textChars: 'підсумок смуги'.length });
+    expect(model.doGenerateCalls).toHaveLength(3); // 2 з інструментами + 1 підсумок
+    expect(JSON.stringify(model.doGenerateCalls[2]?.prompt)).toContain('вміст файлу'); // виводи інструментів передано текстом
+  });
 });

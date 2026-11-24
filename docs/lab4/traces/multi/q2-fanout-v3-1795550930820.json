@@ -1,0 +1,274 @@
+{
+  "taskId": "q2-fanout-v3",
+  "question_id": "q2",
+  "mode": "fanout",
+  "label": "fanout-v3",
+  "at": "2026-11-24T20:08:50.819Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 6,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": false,
+  "wall_ms": 104726,
+  "fanout_wall_ms": 29424,
+  "compute_ms": 167008,
+  "verifier_ms": 61213,
+  "calls": 9,
+  "steps": 25,
+  "input_tokens": 58215,
+  "output_tokens": 7282,
+  "cache_read_tokens": 7093,
+  "unreported_calls": 0,
+  "usd_estimate": 0.07096875,
+  "quality_facts": 1,
+  "claims_total": 4,
+  "claims_pass": 4,
+  "lanes": [
+    {
+      "lane": "history",
+      "ok": true,
+      "ms": 17758,
+      "steps": 6,
+      "inputTokens": 10755,
+      "outputTokens": 974,
+      "textChars": 962,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "summary:stop",
+          "text": 962,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    },
+    {
+      "lane": "module",
+      "ok": true,
+      "ms": 18218,
+      "steps": 6,
+      "inputTokens": 15301,
+      "outputTokens": 993,
+      "textChars": 1448,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "summary:stop",
+          "text": 1448,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    },
+    {
+      "lane": "tests",
+      "ok": true,
+      "ms": 26360,
+      "steps": 6,
+      "inputTokens": 14338,
+      "outputTokens": 1530,
+      "textChars": 1058,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "summary:stop",
+          "text": 1058,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    },
+    {
+      "lane": "deps",
+      "ok": true,
+      "ms": 29422,
+      "steps": 6,
+      "inputTokens": 15661,
+      "outputTokens": 2179,
+      "textChars": 1775,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "summary:stop",
+          "text": 1775,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "pass",
+      "reason": "Умова if (combinations >= 256) прямо реалізує перевірку обмеження кількості комбінацій.",
+      "evidence": "src/index.ts#L460"
+    },
+    {
+      "id": "c2",
+      "verdict": "pass",
+      "reason": "Код прямо викидає помилку PathError з вказаною повідомленням та даними.",
+      "evidence": "src/index.ts#L461"
+    },
+    {
+      "id": "c3",
+      "verdict": "pass",
+      "reason": "Коміт введений обмеження на велику кількість необов'язкових маршрутів",
+      "evidence": "22a9679 2026-03-26 Blake Embrey Reject large optional route combinations (#424)"
+    },
+    {
+      "id": "c4",
+      "verdict": "pass",
+      "reason": "Тест перевіряє викидання помилки при перевищенні ліміту комбінацій у pathToRegexp",
+      "evidence": "expect(() => pathToRegexp(segments)).toThrow(new PathError(\"Too many path combinations\", segments))"
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Обмеження кількості комбінацій перевіряється у коді за допомогою умови if (combinations >= 256).",
+      "evidence": "src/index.ts#L460"
+    },
+    {
+      "id": "c2",
+      "text": "При досягненні ліміту викидається помилка new PathError(\"Too many path combinations\", data.originalPath).",
+      "evidence": "src/index.ts#L461"
+    },
+    {
+      "id": "c3",
+      "text": "Обмеження кількості комбінацій необовʼязкових маршрутів зʼявилося в коміті 22a9679.",
+      "evidence": "commit:22a9679"
+    },
+    {
+      "id": "c4",
+      "text": "Тест на викидання помилки при перевищенні ліміту комбінацій міститься у блоці перевірки pathToRegexp.",
+      "evidence": "src/index.spec.ts#L215-L221"
+    }
+  ]
+}

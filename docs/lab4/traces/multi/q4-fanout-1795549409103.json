@@ -1,0 +1,85 @@
+{
+  "taskId": "q4-fanout",
+  "question_id": "q4",
+  "mode": "fanout",
+  "label": "fanout",
+  "at": "2026-11-24T19:43:29.103Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 6,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": true,
+  "wall_ms": 94368,
+  "fanout_wall_ms": 19346,
+  "compute_ms": 143692,
+  "verifier_ms": 11703,
+  "calls": 6,
+  "steps": 25,
+  "input_tokens": 62155,
+  "output_tokens": 8534,
+  "cache_read_tokens": 13612,
+  "unreported_calls": 0,
+  "usd_estimate": 0.07861875,
+  "quality_facts": 0,
+  "claims_total": 1,
+  "claims_pass": 0,
+  "lanes": [
+    {
+      "lane": "history",
+      "ok": true,
+      "ms": 17099,
+      "steps": 6,
+      "inputTokens": 13929,
+      "outputTokens": 582
+    },
+    {
+      "lane": "module",
+      "ok": true,
+      "ms": 15718,
+      "steps": 6,
+      "inputTokens": 17189,
+      "outputTokens": 453
+    },
+    {
+      "lane": "tests",
+      "ok": true,
+      "ms": 16509,
+      "steps": 6,
+      "inputTokens": 13134,
+      "outputTokens": 715
+    },
+    {
+      "lane": "deps",
+      "ok": true,
+      "ms": 19344,
+      "steps": 6,
+      "inputTokens": 17684,
+      "outputTokens": 1065
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "unknown",
+      "reason": "Доказ порожній або недоступний, немає інформації для перевірки твердження",
+      "evidence": "доказ «» не у форматі path#L10, path#L10-L20 або commit:<sha>"
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "У наданих результатах читачів відсутні дані про функцію compile() та її тести.",
+      "evidence": ""
+    }
+  ]
+}

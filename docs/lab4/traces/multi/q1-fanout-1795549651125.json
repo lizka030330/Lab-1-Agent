@@ -1,0 +1,89 @@
+{
+  "taskId": "q1-fanout",
+  "question_id": "q1",
+  "mode": "fanout",
+  "label": "fanout",
+  "at": "2026-11-24T19:47:31.125Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 6,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": true,
+  "wall_ms": 58930,
+  "fanout_wall_ms": 20098,
+  "compute_ms": 104574,
+  "verifier_ms": 18278,
+  "calls": 6,
+  "steps": 25,
+  "input_tokens": 68497,
+  "output_tokens": 4827,
+  "cache_read_tokens": 10663,
+  "unreported_calls": 0,
+  "usd_estimate": 0.06947400000000001,
+  "quality_facts": 0,
+  "claims_total": 1,
+  "claims_pass": 0,
+  "lanes": [
+    {
+      "lane": "history",
+      "ok": true,
+      "ms": 15078,
+      "steps": 6,
+      "inputTokens": 12738,
+      "outputTokens": 595,
+      "textChars": 0
+    },
+    {
+      "lane": "module",
+      "ok": true,
+      "ms": 20095,
+      "steps": 6,
+      "inputTokens": 24232,
+      "outputTokens": 1162,
+      "textChars": 0
+    },
+    {
+      "lane": "tests",
+      "ok": true,
+      "ms": 14193,
+      "steps": 6,
+      "inputTokens": 13762,
+      "outputTokens": 544,
+      "textChars": 0
+    },
+    {
+      "lane": "deps",
+      "ok": true,
+      "ms": 16378,
+      "steps": 6,
+      "inputTokens": 17546,
+      "outputTokens": 715,
+      "textChars": 0
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "unknown",
+      "reason": "Доказ не містить інформації про порожні смуги, функцію match(), тестування декодування або історію змін.",
+      "evidence": "const DEFAULT_DELIMITER = \"/\";"
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "У наданих результатах читачів відсутні дані щодо функціонування match(), тестів декодування та історії змін src/index.ts через порожні смуги.",
+      "evidence": "src/index.ts#L1"
+    }
+  ]
+}

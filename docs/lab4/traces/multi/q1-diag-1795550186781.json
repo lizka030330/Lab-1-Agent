@@ -1,0 +1,241 @@
+{
+  "taskId": "q1-diag",
+  "question_id": "q1",
+  "mode": "fanout",
+  "label": "diag",
+  "at": "2026-11-24T19:56:26.781Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 6,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": true,
+  "wall_ms": 64206,
+  "fanout_wall_ms": 21863,
+  "compute_ms": 118274,
+  "verifier_ms": 13108,
+  "calls": 6,
+  "steps": 25,
+  "input_tokens": 75611,
+  "output_tokens": 6423,
+  "cache_read_tokens": 14083,
+  "unreported_calls": 0,
+  "usd_estimate": 0.0807945,
+  "quality_facts": 0,
+  "claims_total": 1,
+  "claims_pass": 0,
+  "lanes": [
+    {
+      "lane": "history",
+      "ok": true,
+      "ms": 21276,
+      "steps": 6,
+      "inputTokens": 18861,
+      "outputTokens": 1057,
+      "textChars": 0,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 2,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 2,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 2,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 2,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 2,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        }
+      ]
+    },
+    {
+      "lane": "module",
+      "ok": true,
+      "ms": 21860,
+      "steps": 6,
+      "inputTokens": 20354,
+      "outputTokens": 1141,
+      "textChars": 0,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        }
+      ]
+    },
+    {
+      "lane": "tests",
+      "ok": true,
+      "ms": 14746,
+      "steps": 6,
+      "inputTokens": 15230,
+      "outputTokens": 690,
+      "textChars": 0,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        }
+      ]
+    },
+    {
+      "lane": "deps",
+      "ok": true,
+      "ms": 18052,
+      "steps": 6,
+      "inputTokens": 20947,
+      "outputTokens": 893,
+      "textChars": 0,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 2,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 2,
+          "reasoning": 0
+        }
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "unknown",
+      "reason": "Доказ не містить інформації про реалізацію match(), тестування декодування або історію змін файлу",
+      "evidence": "Лінія 1: const DEFAULT_DELIMITER = \"/\""
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "У наданих результатах читачів бракує даних щодо реалізації match(), тестів декодування та історії змін файлу src/index.ts.",
+      "evidence": "src/index.ts#L1"
+    }
+  ]
+}

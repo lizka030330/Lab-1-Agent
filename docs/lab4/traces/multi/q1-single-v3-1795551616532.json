@@ -1,0 +1,204 @@
+{
+  "taskId": "q1-single-v3",
+  "question_id": "q1",
+  "mode": "single",
+  "label": "single-v3",
+  "at": "2026-11-24T20:20:16.532Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 24,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": false,
+  "wall_ms": 173156,
+  "fanout_wall_ms": 66524,
+  "compute_ms": 173096,
+  "verifier_ms": 82999,
+  "calls": 7,
+  "steps": 17,
+  "input_tokens": 97012,
+  "output_tokens": 6632,
+  "cache_read_tokens": 57818,
+  "unreported_calls": 0,
+  "usd_estimate": 0.09762900000000001,
+  "quality_facts": 1,
+  "claims_total": 5,
+  "claims_pass": 5,
+  "lanes": [
+    {
+      "lane": "all",
+      "ok": true,
+      "ms": 66524,
+      "steps": 16,
+      "inputTokens": 95508,
+      "outputTokens": 4504,
+      "textChars": 3381,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 2,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "stop",
+          "text": 3381,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "pass",
+      "reason": "У доказу вказується, що параметр 'decode' має за замовчуванням функцію decodeURIComponent.",
+      "evidence": "const { decode = decodeURIComponent, delimiter = DEFAULT_DELIMITER } ="
+    },
+    {
+      "id": "c2",
+      "verdict": "pass",
+      "reason": "Відсутність try/catch навколо декодування параметра призводить до падіння при помилковому URI.",
+      "evidence": "params[key.name] = decoder(m[i]);"
+    },
+    {
+      "id": "c3",
+      "verdict": "pass",
+      "reason": "Тест перевіряє виникнення помилки 'URI malformed' при битому %-кодуванні в параметрі",
+      "evidence": "expect(() => match('/:test')('/caf%C3')).toThrowError('URI malformed')"
+    },
+    {
+      "id": "c4",
+      "verdict": "pass",
+      "reason": "Тестовий сценарій перевіряє декодування UTF-8 у параметрах через перетворення \"%C3%A9\" у \"é\".",
+      "evidence": "input: \"/caf%C3%A9\", expected: { params: { test: \"café\" } }"
+    },
+    {
+      "id": "c5",
+      "verdict": "pass",
+      "reason": "Доказ показує, що файл src/index.ts був змінений у коміті з датою 2026-11-21.",
+      "evidence": "c439054 2026-11-21 Gal Be Escape..."
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "У match() типовим декодером параметрів призначається функція decodeURIComponent.",
+      "evidence": "src/index.ts#L406"
+    },
+    {
+      "id": "c2",
+      "text": "Через відсутність блоку try/catch під час декодування параметра бите %-кодування призводить до падіння з помилкою URI malformed.",
+      "evidence": "src/index.ts#L423-L430"
+    },
+    {
+      "id": "c3",
+      "text": "Тести в characterization.spec.ts перевіряють виникнення URI malformed при битому %-кодуванні параметра.",
+      "evidence": "src/characterization.spec.ts#L75-L77"
+    },
+    {
+      "id": "c4",
+      "text": "Сценарії в cases.spec.ts тестують успішне декодування UTF-8 у значеннях параметрів.",
+      "evidence": "src/cases.spec.ts#L486-L491"
+    },
+    {
+      "id": "c5",
+      "text": "Остання зміна файлу src/index.ts відбулася 2026-11-21.",
+      "evidence": "commit:c439054"
+    }
+  ]
+}

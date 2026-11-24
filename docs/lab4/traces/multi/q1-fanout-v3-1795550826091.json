@@ -1,0 +1,296 @@
+{
+  "taskId": "q1-fanout-v3",
+  "question_id": "q1",
+  "mode": "fanout",
+  "label": "fanout-v3",
+  "at": "2026-11-24T20:07:06.090Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 6,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": false,
+  "wall_ms": 170751,
+  "fanout_wall_ms": 33280,
+  "compute_ms": 246603,
+  "verifier_ms": 115082,
+  "calls": 11,
+  "steps": 25,
+  "input_tokens": 66642,
+  "output_tokens": 9581,
+  "cache_read_tokens": 9542,
+  "unreported_calls": 0,
+  "usd_estimate": 0.08591025,
+  "quality_facts": 0.6666666666666666,
+  "claims_total": 6,
+  "claims_pass": 6,
+  "lanes": [
+    {
+      "lane": "history",
+      "ok": true,
+      "ms": 30191,
+      "steps": 6,
+      "inputTokens": 12330,
+      "outputTokens": 2455,
+      "textChars": 1130,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "summary:stop",
+          "text": 1130,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    },
+    {
+      "lane": "module",
+      "ok": true,
+      "ms": 21742,
+      "steps": 6,
+      "inputTokens": 19491,
+      "outputTokens": 1203,
+      "textChars": 1999,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 2,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "summary:stop",
+          "text": 1999,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    },
+    {
+      "lane": "tests",
+      "ok": true,
+      "ms": 23981,
+      "steps": 6,
+      "inputTokens": 15909,
+      "outputTokens": 1165,
+      "textChars": 1498,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "summary:stop",
+          "text": 1498,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    },
+    {
+      "lane": "deps",
+      "ok": true,
+      "ms": 33277,
+      "steps": 6,
+      "inputTokens": 16275,
+      "outputTokens": 2697,
+      "textChars": 1618,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "summary:stop",
+          "text": 1618,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "pass",
+      "reason": "У коді встановлено за замовчуванням функцію decodeURIComponent для параметра decode.",
+      "evidence": "const { decode = decodeURIComponent, delimiter = DEFAULT_DELIMITER } ="
+    },
+    {
+      "id": "c2",
+      "verdict": "pass",
+      "reason": "Декодер викликаний без обробки помилок, що призводить до викидання помилки при некоректному %-кодуванні.",
+      "evidence": "params[key.name] = decoder(m[i]);"
+    },
+    {
+      "id": "c3",
+      "verdict": "pass",
+      "reason": "Тест виконує перевірку помилки 'URI malformed' при битому %-кодуванні.",
+      "evidence": "expect(() => match('/:test')('/caf%C3')).toThrowError('URI malformed')"
+    },
+    {
+      "id": "c4",
+      "verdict": "pass",
+      "reason": "Тест прямо перевіряє викидання помилки 'URI malformed' для битого %-кодування в wildcard.",
+      "evidence": "expect(() => match(\"/*splat\")(\"/bar/caf%C3\")).toThrowError(\"URI malformed\");"
+    },
+    {
+      "id": "c5",
+      "verdict": "pass",
+      "reason": "Тестовий випадок з decode: false зберігає сирій рядок без декодування.",
+      "evidence": "src/cases.spec.ts#L1275: input: \"/caf%C3%A9\", expected: { path: \"/caf%C3%A9\" }"
+    },
+    {
+      "id": "c6",
+      "verdict": "pass",
+      "reason": "Доказ показує, що файл був змінений у коміті з датою 2026-11-21.",
+      "evidence": "c439054 2026-11-21 Gal Be Escape..."
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "У src/index.ts функцією декодування параметрів за замовчуванням є decodeURIComponent.",
+      "evidence": "src/index.ts#L406"
+    },
+    {
+      "id": "c2",
+      "text": "Декодер у match() викликається без блоку try/catch, тому при некоректному %-кодуванні викидається помилка \"URI malformed\".",
+      "evidence": "src/index.ts#L428"
+    },
+    {
+      "id": "c3",
+      "text": "Помилка \"URI malformed\" через бите %-кодування у параметрі перевіряється тестом у src/characterization.spec.ts.",
+      "evidence": "src/characterization.spec.ts#L75-L77"
+    },
+    {
+      "id": "c4",
+      "text": "Викидання \"URI malformed\" у разі битого %-кодування у wildcard зафіксовано окремим тестом.",
+      "evidence": "src/characterization.spec.ts#L83-L85"
+    },
+    {
+      "id": "c5",
+      "text": "Збереження сирого рядка без декодування при опції decode: false перевіряється серед тестових кейсів у src/cases.spec.ts.",
+      "evidence": "src/cases.spec.ts#L1271-L1279"
+    },
+    {
+      "id": "c6",
+      "text": "Файл src/index.ts востаннє змінювали 2026-11-21 у коміті c439054.",
+      "evidence": "commit:c439054"
+    }
+  ]
+}

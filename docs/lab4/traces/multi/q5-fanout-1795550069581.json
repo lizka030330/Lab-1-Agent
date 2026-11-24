@@ -1,0 +1,89 @@
+{
+  "taskId": "q5-fanout",
+  "question_id": "q5",
+  "mode": "fanout",
+  "label": "fanout",
+  "at": "2026-11-24T19:54:29.581Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 6,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": false,
+  "wall_ms": 53095,
+  "fanout_wall_ms": 21599,
+  "compute_ms": 104784,
+  "verifier_ms": 14391,
+  "calls": 6,
+  "steps": 25,
+  "input_tokens": 84970,
+  "output_tokens": 5749,
+  "cache_read_tokens": 23086,
+  "unreported_calls": 0,
+  "usd_estimate": 0.08528625000000001,
+  "quality_facts": 0.5,
+  "claims_total": 1,
+  "claims_pass": 1,
+  "lanes": [
+    {
+      "lane": "history",
+      "ok": true,
+      "ms": 18175,
+      "steps": 6,
+      "inputTokens": 27058,
+      "outputTokens": 894,
+      "textChars": 0
+    },
+    {
+      "lane": "module",
+      "ok": true,
+      "ms": 19013,
+      "steps": 6,
+      "inputTokens": 28227,
+      "outputTokens": 953,
+      "textChars": 0
+    },
+    {
+      "lane": "tests",
+      "ok": true,
+      "ms": 14502,
+      "steps": 6,
+      "inputTokens": 9448,
+      "outputTokens": 602,
+      "textChars": 0
+    },
+    {
+      "lane": "deps",
+      "ok": true,
+      "ms": 21598,
+      "steps": 6,
+      "inputTokens": 20027,
+      "outputTokens": 1284,
+      "textChars": 0
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "pass",
+      "reason": "Доказ містить лише код константи, а не метадані про історію змін, залежності чи перенесення файлу.",
+      "evidence": "src/index.ts#L1"
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "У наданих смугах читачів відсутні будь-які дані щодо історії змін, залежностей та перенесення файлу src/index.ts.",
+      "evidence": "src/index.ts#L1"
+    }
+  ]
+}

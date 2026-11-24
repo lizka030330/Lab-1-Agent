@@ -1,0 +1,252 @@
+{
+  "taskId": "q4-single-v3",
+  "question_id": "q4",
+  "mode": "single",
+  "label": "single-v3",
+  "at": "2026-11-24T20:29:16.641Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 24,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": false,
+  "wall_ms": 167235,
+  "fanout_wall_ms": 71356,
+  "compute_ms": 167230,
+  "verifier_ms": 76016,
+  "calls": 7,
+  "steps": 25,
+  "input_tokens": 202970,
+  "output_tokens": 5948,
+  "cache_read_tokens": 136372,
+  "unreported_calls": 0,
+  "usd_estimate": 0.1745325,
+  "quality_facts": 0.3333333333333333,
+  "claims_total": 5,
+  "claims_pass": 5,
+  "lanes": [
+    {
+      "lane": "all",
+      "ok": true,
+      "ms": 71356,
+      "steps": 24,
+      "inputTokens": 201647,
+      "outputTokens": 3618,
+      "textChars": 3110,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "summary:stop",
+          "text": 3110,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "pass",
+      "reason": "Умова перевіряє відсутність значення та додає ім'я токена до списку missing, потім повертає порожній рядок",
+      "evidence": "363: if (value == null) { ... 365: return \"\";"
+    },
+    {
+      "id": "c2",
+      "verdict": "pass",
+      "reason": "Доказ показує, що у разі непорожнього масиву missing генерується TypeError з переліком відсутніх параметрів.",
+      "evidence": "269: if (missing.length) { ... 270: throw new TypeError(...)"
+    },
+    {
+      "id": "c3",
+      "verdict": "pass",
+      "reason": "Після зміни довжини missing, її довжина скидається до попереднього значення len, що очищає масив.",
+      "evidence": "missing.length = len; // Reset optional group."
+    },
+    {
+      "id": "c4",
+      "verdict": "pass",
+      "reason": "Тест перевіряє викидання помилки з конкретним повідомленням при відсутності параметра 'b'.",
+      "evidence": "expect(() => { toPath(); }).toThrow(new TypeError(\"Missing parameters: b\"))"
+    },
+    {
+      "id": "c5",
+      "verdict": "pass",
+      "reason": "Тести підтверджують, що для випадків undefined або відсутності параметру очікується порожній рядок.",
+      "evidence": "371: { input: undefined, expected: \"\" }, 372: { input: {}, expected: \"\" }, 373: { input: { test: undefined }, expected: \"\" }"
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Якщо значення параметра відсутнє, токен додає своє ім'я до списку missing і повертає порожній рядок.",
+      "evidence": "src/index.ts#L363-L366"
+    },
+    {
+      "id": "c2",
+      "text": "Якщо масив missing не порожній, compile() викидає TypeError з переліком відсутніх параметрів.",
+      "evidence": "src/index.ts#L269-L271"
+    },
+    {
+      "id": "c3",
+      "text": "Для необов'язкових груп за наявності відсутніх параметрів масив missing очищається до попередньої довжини, а група повертає порожній рядок.",
+      "evidence": "src/index.ts#L318-L325"
+    },
+    {
+      "id": "c4",
+      "text": "Тест перевіряє викидання помилки 'Missing parameters: b' у разі відсутності обов'язкового параметра.",
+      "evidence": "src/index.spec.ts#L121-L128"
+    },
+    {
+      "id": "c5",
+      "text": "Табличні тести підтверджують, що шаблон {/:test} повертає порожній рядок, якщо параметр не передано або передано undefined.",
+      "evidence": "src/cases.spec.ts#L368-L373"
+    }
+  ]
+}

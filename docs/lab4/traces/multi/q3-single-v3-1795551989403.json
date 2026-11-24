@@ -1,0 +1,227 @@
+{
+  "taskId": "q3-single-v3",
+  "question_id": "q3",
+  "mode": "single",
+  "label": "single-v3",
+  "at": "2026-11-24T20:26:29.402Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 24,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": true,
+  "wall_ms": 201254,
+  "fanout_wall_ms": 73016,
+  "compute_ms": 201188,
+  "verifier_ms": 109106,
+  "calls": 8,
+  "steps": 19,
+  "input_tokens": 118094,
+  "output_tokens": 6709,
+  "cache_read_tokens": 74796,
+  "unreported_calls": 0,
+  "usd_estimate": 0.11372925,
+  "quality_facts": 0.6666666666666666,
+  "claims_total": 6,
+  "claims_pass": 5,
+  "lanes": [
+    {
+      "lane": "all",
+      "ok": true,
+      "ms": 73016,
+      "steps": 18,
+      "inputTokens": 116702,
+      "outputTokens": 4447,
+      "textChars": 3099,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "stop",
+          "text": 3099,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "pass",
+      "reason": "Функція parse() забороняє використання зазначених символів через прямою перевіркою в коді",
+      "evidence": "229: if \"}()[]+?!\".includes(char) {"
+    },
+    {
+      "id": "c2",
+      "verdict": "pass",
+      "reason": "Доказ показує, що неекранований '\\'' у кінці шаблону викликає помилку парсера",
+      "evidence": "Unexpected end after \\ at index ${index}"
+    },
+    {
+      "id": "c3",
+      "verdict": "pass",
+      "reason": "Клас PathError прямо визначений як наслідник TypeError",
+      "evidence": "export class PathError extends TypeError { ... }"
+    },
+    {
+      "id": "c4",
+      "verdict": "unknown",
+      "reason": "Доказ не містить інформації про назву класу помилки",
+      "evidence": "Commit message та зміни файлів не вказують на ім'я класу PathError"
+    },
+    {
+      "id": "c5",
+      "verdict": "pass",
+      "reason": "Тест перевіряє викидання PathError для 8 спецсимволів за допомогою it.each",
+      "evidence": "it.each([...])('should throw on unexpected character %s', (char) => { ... })"
+    },
+    {
+      "id": "c6",
+      "verdict": "pass",
+      "reason": "Тести на помилку з кінцевим зворотним слешем присутні у файлі src/index.spec.ts",
+      "evidence": "src/index.spec.ts#L81: \"it(\\\"should throw on eol backslash\\\", () => {\""
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Функція parse() без екранування символом \\ забороняє 8 спецсимволів: }, (, ), [, ], +, ? та !",
+      "evidence": "src/index.ts#L229-L231"
+    },
+    {
+      "id": "c2",
+      "text": "Неекранований зворотний слеш \\ у кінці шаблону є неприпустимим і призводить до помилки парсера",
+      "evidence": "src/index.ts#L170-L177"
+    },
+    {
+      "id": "c3",
+      "text": "Для помилок розбору шаблону використовується клас PathError, який успадковує вбудований TypeError",
+      "evidence": "src/index.ts#L128-L139"
+    },
+    {
+      "id": "c4",
+      "text": "Клас помилки PathError було введено в проєкт у коміті commit:2a7f2a4",
+      "evidence": "commit:2a7f2a4"
+    },
+    {
+      "id": "c5",
+      "text": "Тест it.each у блоці describe(\"parse errors\") перевіряє викидання PathError для кожного з 8 заборонених спецсимволів",
+      "evidence": "src/index.spec.ts#L111-L118"
+    },
+    {
+      "id": "c6",
+      "text": "Тести на помилку у разі наявності кінцевого зворотного слеша \\ розташовані в тестовому файлі src/index.spec.ts",
+      "evidence": "src/index.spec.ts#L81-L103"
+    }
+  ]
+}

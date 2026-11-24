@@ -1,0 +1,107 @@
+{
+  "taskId": "q5-fanout",
+  "question_id": "q5",
+  "mode": "fanout",
+  "label": "fanout",
+  "at": "2026-11-24T19:45:18.382Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 6,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": true,
+  "wall_ms": 109242,
+  "fanout_wall_ms": 38650,
+  "compute_ms": 158383,
+  "verifier_ms": 63721,
+  "calls": 8,
+  "steps": 25,
+  "input_tokens": 73855,
+  "output_tokens": 5436,
+  "cache_read_tokens": 25062,
+  "unreported_calls": 0,
+  "usd_estimate": 0.07577625,
+  "quality_facts": 0.5,
+  "claims_total": 3,
+  "claims_pass": 2,
+  "lanes": [
+    {
+      "lane": "history",
+      "ok": true,
+      "ms": 14569,
+      "steps": 6,
+      "inputTokens": 15041,
+      "outputTokens": 529
+    },
+    {
+      "lane": "module",
+      "ok": true,
+      "ms": 18491,
+      "steps": 6,
+      "inputTokens": 27343,
+      "outputTokens": 836
+    },
+    {
+      "lane": "tests",
+      "ok": true,
+      "ms": 16086,
+      "steps": 6,
+      "inputTokens": 10229,
+      "outputTokens": 790
+    },
+    {
+      "lane": "deps",
+      "ok": true,
+      "ms": 38647,
+      "steps": 6,
+      "inputTokens": 20478,
+      "outputTokens": 2868
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "pass",
+      "reason": "У package.json відсутня секція dependencies",
+      "evidence": "package.json#L1-L68: ...\"type\": \"module\", \"exports\": \"./dist/index.js\", \"main\": \"dist/index.js\", \"typings\": \"dist/index.d.ts\", \"files\": [...]"
+    },
+    {
+      "id": "c2",
+      "verdict": "pass",
+      "reason": "Файл не має жодних імпортів, усі функції та типи визначені вбудовано.",
+      "evidence": "Немає рядків з 'import' або 'require'"
+    },
+    {
+      "id": "c3",
+      "verdict": "unknown",
+      "reason": "Доказ вказує лише на devDependencies, але не відображає залежності з полів dependencies або peerDependencies, що необхідно для підтвердження твердження про всі залежності.",
+      "evidence": "package.json#L37-L49"
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "У package.json відсутня секція dependencies, отже проєкт має 0 сторонніх runtime-залежностей.",
+      "evidence": "package.json#L1-L68"
+    },
+    {
+      "id": "c2",
+      "text": "Файл src/index.ts не містить жодного імпорту та не залежить від зовнішніх бібліотек під час виконання.",
+      "evidence": "src/index.ts#L1-L100"
+    },
+    {
+      "id": "c3",
+      "text": "Усі залежності репозиторію є інструментами розробки та перелічені в devDependencies.",
+      "evidence": "package.json#L37-L49"
+    }
+  ]
+}

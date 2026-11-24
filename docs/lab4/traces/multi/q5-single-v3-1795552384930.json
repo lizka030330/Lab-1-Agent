@@ -1,0 +1,257 @@
+{
+  "taskId": "q5-single-v3",
+  "question_id": "q5",
+  "mode": "single",
+  "label": "single-v3",
+  "at": "2026-11-24T20:33:04.929Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 24,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": false,
+  "wall_ms": 228286,
+  "fanout_wall_ms": 90782,
+  "compute_ms": 228171,
+  "verifier_ms": 109758,
+  "calls": 8,
+  "steps": 24,
+  "input_tokens": 218917,
+  "output_tokens": 7519,
+  "cache_read_tokens": 162595,
+  "unreported_calls": 0,
+  "usd_estimate": 0.192384,
+  "quality_facts": 1,
+  "claims_total": 6,
+  "claims_pass": 6,
+  "lanes": [
+    {
+      "lane": "all",
+      "ok": true,
+      "ms": 90782,
+      "steps": 23,
+      "inputTokens": 217562,
+      "outputTokens": 4988,
+      "textChars": 2976,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 2,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "stop",
+          "text": 2976,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "pass",
+      "reason": "Доказ показує зміни в файлах index.ts та src/index.ts, що підтверджує перенесення.",
+      "evidence": "index.ts | 495 --, src/index.ts | 512 ++"
+    },
+    {
+      "id": "c2",
+      "verdict": "pass",
+      "reason": "У коміті cc0df28 зазначено перейменування index.js у index.ts",
+      "evidence": "index.js => index.ts"
+    },
+    {
+      "id": "c3",
+      "verdict": "pass",
+      "reason": "У маніфесті package.json відсутній ключ \"dependencies\" або \"devDependencies\".",
+      "evidence": "package.json#L1-L31: ...\"type\": \"module\", \"exports\": \"./dist/index.js\", \"main\": \"dist/index.js\", \"typings\": \"dist/index.d.ts\", \"files\": [\"dist/\"], \"scripts\": {\"bench\": \"vitest bench\", \"build\": \"ts-scripts build\", \"format\": \"ts-scripts format\", \"lint\": \"ts-scripts lint\","
+    },
+    {
+      "id": "c4",
+      "verdict": "pass",
+      "reason": "Вихідний код не містить інструкцій import або імпортів зовнішніх модулів",
+      "evidence": "Перші 6 рядків файлу складаються з констант та типів, а не імпортів"
+    },
+    {
+      "id": "c5",
+      "verdict": "pass",
+      "reason": "Функція compile використовує стандартну encodeURIComponent через значення за замовчуванням.",
+      "evidence": "const { encode = encodeURIComponent, delimiter = DEFAULT_DELIMITER } ="
+    },
+    {
+      "id": "c6",
+      "verdict": "pass",
+      "reason": "Доказ показує, що функція використовує decodeURIComponent як за замовчуванням.",
+      "evidence": "const { decode = decodeURIComponent, delimiter = DEFAULT_DELIMITER } ="
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Перенесення index.ts до директорії src/index.ts було виконано в коміті 4f33bc4 під час стандартизації конфігурації TypeScript.",
+      "evidence": "commit:4f33bc4"
+    },
+    {
+      "id": "c2",
+      "text": "Перейменування index.js на index.ts у корені репозиторію відбулося в коміті cc0df28.",
+      "evidence": "commit:cc0df28"
+    },
+    {
+      "id": "c3",
+      "text": "У маніфесті package.json повністю відсутня секція dependencies, тобто runtime-залежності пакетів не оголошені.",
+      "evidence": "package.json#L1-L68"
+    },
+    {
+      "id": "c4",
+      "text": "Вихідний код src/index.ts не містить жодної інструкції import і не імпортує зовнішніх модулів.",
+      "evidence": "src/index.ts#L1-L697"
+    },
+    {
+      "id": "c5",
+      "text": "Під час виконання функція compile спирається на стандартну глобальну функцію encodeURIComponent.",
+      "evidence": "src/index.ts#L260"
+    },
+    {
+      "id": "c6",
+      "text": "Функція match під час виконання використовує стандартну вбудовану функцію decodeURIComponent.",
+      "evidence": "src/index.ts#L406"
+    }
+  ]
+}

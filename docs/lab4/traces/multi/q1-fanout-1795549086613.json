@@ -1,0 +1,85 @@
+{
+  "taskId": "q1-fanout",
+  "question_id": "q1",
+  "mode": "fanout",
+  "label": "fanout",
+  "at": "2026-11-24T19:38:06.613Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 6,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": true,
+  "wall_ms": 56924,
+  "fanout_wall_ms": 19577,
+  "compute_ms": 107724,
+  "verifier_ms": 19588,
+  "calls": 6,
+  "steps": 25,
+  "input_tokens": 68310,
+  "output_tokens": 4141,
+  "cache_read_tokens": 18948,
+  "unreported_calls": 0,
+  "usd_estimate": 0.06676125,
+  "quality_facts": 0,
+  "claims_total": 1,
+  "claims_pass": 0,
+  "lanes": [
+    {
+      "lane": "history",
+      "ok": true,
+      "ms": 17976,
+      "steps": 6,
+      "inputTokens": 12381,
+      "outputTokens": 612
+    },
+    {
+      "lane": "module",
+      "ok": true,
+      "ms": 19575,
+      "steps": 6,
+      "inputTokens": 22903,
+      "outputTokens": 586
+    },
+    {
+      "lane": "tests",
+      "ok": true,
+      "ms": 17968,
+      "steps": 6,
+      "inputTokens": 16339,
+      "outputTokens": 734
+    },
+    {
+      "lane": "deps",
+      "ok": true,
+      "ms": 14860,
+      "steps": 6,
+      "inputTokens": 16468,
+      "outputTokens": 561
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "unknown",
+      "reason": "Доказ не містить інформації про смуги history, module, tests або deps",
+      "evidence": "src/index.ts#L1: const DEFAULT_DELIMITER = \"/\""
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "У наданих матеріалах читачів відсутні дані зі смуг history, module, tests та deps для аналізу поведінки коду та історії змін.",
+      "evidence": "src/index.ts#L1"
+    }
+  ]
+}

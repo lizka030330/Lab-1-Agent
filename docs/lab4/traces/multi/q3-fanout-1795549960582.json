@@ -1,0 +1,144 @@
+{
+  "taskId": "q3-fanout",
+  "question_id": "q3",
+  "mode": "fanout",
+  "label": "fanout",
+  "at": "2026-11-24T19:52:40.582Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 6,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": true,
+  "wall_ms": 218469,
+  "fanout_wall_ms": 31274,
+  "compute_ms": 269073,
+  "verifier_ms": 167739,
+  "calls": 11,
+  "steps": 25,
+  "input_tokens": 69827,
+  "output_tokens": 6874,
+  "cache_read_tokens": 9632,
+  "unreported_calls": 0,
+  "usd_estimate": 0.07814775,
+  "quality_facts": 0.6666666666666666,
+  "claims_total": 6,
+  "claims_pass": 4,
+  "lanes": [
+    {
+      "lane": "history",
+      "ok": true,
+      "ms": 17413,
+      "steps": 6,
+      "inputTokens": 22241,
+      "outputTokens": 784,
+      "textChars": 0
+    },
+    {
+      "lane": "module",
+      "ok": true,
+      "ms": 31268,
+      "steps": 6,
+      "inputTokens": 15588,
+      "outputTokens": 2643,
+      "textChars": 2316
+    },
+    {
+      "lane": "tests",
+      "ok": true,
+      "ms": 18037,
+      "steps": 6,
+      "inputTokens": 16294,
+      "outputTokens": 738,
+      "textChars": 0
+    },
+    {
+      "lane": "deps",
+      "ok": true,
+      "ms": 15168,
+      "steps": 6,
+      "inputTokens": 14584,
+      "outputTokens": 552,
+      "textChars": 0
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "pass",
+      "reason": "Клас PathError визначено як нащадок TypeError",
+      "evidence": "export class PathError extends TypeError { ... }"
+    },
+    {
+      "id": "c2",
+      "verdict": "unknown",
+      "reason": "Доказ не містить інформації про викидання PathError",
+      "evidence": "src/index.ts#L229"
+    },
+    {
+      "id": "c3",
+      "verdict": "pass",
+      "reason": "Доказ показує, що залишок слешу на кінці рядка без наступного символу викликає помилку.",
+      "evidence": "171: if (index === chars.length) { ... throw new PathError(`Unexpected end after \\ at index ${index}`, str);"
+    },
+    {
+      "id": "c4",
+      "verdict": "pass",
+      "reason": "Умова перевіряє наявність імені параметра після префіксів, і якщо його немає, кидає PathError.",
+      "evidence": "if (!name) { throw new PathError(...) }"
+    },
+    {
+      "id": "c5",
+      "verdict": "fail",
+      "reason": "Доказ не підтверджує відкриваючий символ '{' або його пов'язані помилки.",
+      "evidence": "236-241: код виключає непередбачену кінець рядка, а не відсутність відповідного '}'"
+    },
+    {
+      "id": "c6",
+      "verdict": "pass",
+      "reason": "Тести використовують it.each для перевірки кожного символу в списку",
+      "evidence": "it.each([\"}\", \"(\", \")\", \"[\", \"]\", \"+\", \"?\", \"!\"])"
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Парсер кидає помилку спеціального класу PathError, який є нащадком TypeError.",
+      "evidence": "src/index.ts#L128-L139"
+    },
+    {
+      "id": "c2",
+      "text": "Функція parse() без екранування забороняє символи '}', '(', ')', '[', ']', '+', '?', '!' та викидає PathError при їх знаходженні.",
+      "evidence": "src/index.ts#L229"
+    },
+    {
+      "id": "c3",
+      "text": "Символ зворотного слешу заборонено залишати наприкінці рядка без наступного символу для екранування.",
+      "evidence": "src/index.ts#L170-L173"
+    },
+    {
+      "id": "c4",
+      "text": "Символи префіксів параметрів ':' та '*' викидають PathError, якщо після них відсутнє валідне ім'я параметра.",
+      "evidence": "src/index.ts#L211-L213"
+    },
+    {
+      "id": "c5",
+      "text": "Відкриваючий символ групи '{' викидає PathError, якщо не знаходить відповідного закриваючого '}' до кінця рядка.",
+      "evidence": "src/index.ts#L236-L241"
+    },
+    {
+      "id": "c6",
+      "text": "Тести перевіряють заборону символів '}', '(', ')', '[', ']', '+', '?', '!' за допомогою параметризованого тесту it.each у тестовому наборі.",
+      "evidence": "src/index.spec.ts#L111-L118"
+    }
+  ]
+}
