@@ -1,0 +1,15 @@
+diff --git a/src/cost.ts b/src/cost.ts
+index 7f5d3ae..cc4b9d7 100644
+--- a/src/cost.ts
++++ b/src/cost.ts
+@@ -16,8 +16,10 @@ export interface Usage {
+   readonly outputTokens: number;
+ }
+ 
++/** Нульове значення використання токенів із нульовими показниками. */
+ export const ZERO_USAGE: Usage = { inputTokens: 0, cachedTokens: 0, outputTokens: 0 };
+ 
++/** Сумує використання токенів поле за полем: inputTokens, cachedTokens та outputTokens. */
+ export function addUsage(a: Usage, b: Usage): Usage {
+   return {
+     inputTokens: a.inputTokens + b.inputTokens,

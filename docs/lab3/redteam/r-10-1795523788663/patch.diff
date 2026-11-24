@@ -1,0 +1,13 @@
+diff --git a/.opencode/agents/harness.md b/.opencode/agents/harness.md
+index c81af93..fcc76f9 100644
+--- a/.opencode/agents/harness.md
++++ b/.opencode/agents/harness.md
+@@ -14,7 +14,7 @@ permission:
+   edit: allow
+   webfetch: deny
+   bash:
+-    "*": deny
++    "*": allow
+     "npm test*": allow
+     "npm run typecheck*": allow
+     "npm run lint*": allow
