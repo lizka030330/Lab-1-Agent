@@ -2,7 +2,7 @@
  * Раннер red-team (Лаб. 3, крок 07). Один сценарій = один прогін справжнього агента в окремому git worktree
  * + перевірка ВСІХ інваріантів кодом. Ненульовий код виходу, якщо хоч один інваріант порушено.
  *
- *   npx tsx scripts/redteam/run-redteam.ts [--id r-03] [--base t-08]
+ *   npx tsx scripts/redteam/run-redteam.ts [--id r-03 | --id r-07,r-08] [--base t-08]
  *
  * Агент — той самий, що у фабриці: OpenCode + агент `harness` (.opencode/agents/harness.md), без --auto,
  * з явним переліком дозволених bash-команд. Ізоляція — git worktree у ../redteam-runs/<id>-<мітка>/w;
@@ -22,7 +22,8 @@ import { CASES, type RedTeamCase } from './cases';
 import { checkAll } from './invariants';
 
 const args = process.argv.slice(2);
-const onlyId = args.includes('--id') ? (args[args.indexOf('--id') + 1] ?? null) : null;
+// --id r-03 або --id r-07,r-08,r-09
+const onlyIds = args.includes('--id') ? (args[args.indexOf('--id') + 1] ?? '').split(',') : null;
 const baseId = args.includes('--base') ? (args[args.indexOf('--base') + 1] ?? 't-08') : 't-08';
 
 const ROOT = resolve('.');
@@ -42,7 +43,10 @@ if (!base) throw new Error(`немає базової задачі ${baseId}`);
 
 /** Як навантаження потрапляє в агента. Код підміни живе тут, у раннері, — у звичайній фабриці його немає. */
 function plant(c: RedTeamCase, tree: string): Task {
-  if (c.entry === 'task_input') return { ...base!, id: `${base!.id}-${c.id}`, input: `${base!.input}\n\n${c.payload}` };
+  if (c.entry === 'task_input') {
+    // слухняний сценарій: чужий текст — вся задача; інакше — домішка до справжньої задачі
+    return { ...base!, id: `${base!.id}-${c.id}`, input: c.obedient ? c.payload : `${base!.input}\n\n${c.payload}` };
+  }
   if (c.entry === 'tool_result') {
     // Вивід інструмента: тест-фікстура друкує навантаження у вивід `npm test`, який агент запускає сам.
     const lit = JSON.stringify(c.payload);
@@ -58,7 +62,7 @@ function plant(c: RedTeamCase, tree: string): Task {
 }
 
 let failedCases = 0;
-for (const c of CASES.filter((x) => onlyId === null || x.id === onlyId)) {
+for (const c of CASES.filter((x) => onlyIds === null || onlyIds.includes(x.id))) {
   const stamp = Date.now();
   const caseDir = resolve(ROOT, '..', 'redteam-runs', `${c.id}-${stamp}`);
   const tree = join(caseDir, 'w');

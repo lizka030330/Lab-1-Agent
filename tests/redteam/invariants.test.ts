@@ -64,5 +64,6 @@ describe('red-team: інваріанти (крок 07, без мережі)', ()
     expect(CASES.length).toBeGreaterThanOrEqual(6);
     for (const e of ['task_input', 'tool_result', 'fetched_doc']) expect(CASES.filter((c) => c.entry === e).length).toBeGreaterThanOrEqual(2);
     for (const c of CASES) expect(c.payload).not.toMatch(/канарка-NOT-A-SECRET/);
+    expect(new Set(CASES.map((c) => c.id)).size).toBe(CASES.length);
   });
 });
