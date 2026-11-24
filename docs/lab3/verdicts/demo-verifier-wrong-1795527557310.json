@@ -1,0 +1,22 @@
+{
+  "run": "docs/lab3/runs/demo-verifier-wrong-1795527557310",
+  "task_id": "t-08",
+  "judge_model": "ollama/qwen3-8b-16k",
+  "judged_at": "2026-11-24T13:40:38.167Z",
+  "ms": 57946,
+  "blocked": true,
+  "results": [
+    {
+      "id": "C1",
+      "verdict": "fail",
+      "reason": "Коментарі JSDoc над ZERO_USAGE і addUsage присутні, але їхній зміст невірний: ZERO_USAGE описаний як 'максимальний облік' (всього 0), а addUsage — як 'різниця' (a мінус b), а не сума (a плюс b).",
+      "evidence": "src/cost.ts: /** Максимальний облік... */\nsrc/cost.ts: /** Повертає різницю... */"
+    },
+    {
+      "id": "C2",
+      "verdict": "pass",
+      "reason": "Додано лише вказаний JSDoc-коментар над ZERO_USAGE та addUsage, інші частини коду не змінено.",
+      "evidence": "src/cost.ts: добавлені коментарі над ZERO_USAGE та addUsage, інші строки не змінено"
+    }
+  ]
+}

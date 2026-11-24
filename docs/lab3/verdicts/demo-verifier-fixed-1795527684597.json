@@ -1,0 +1,22 @@
+{
+  "run": "docs/lab3/runs/demo-verifier-fixed-1795527684597",
+  "task_id": "t-08",
+  "judge_model": "ollama/qwen3-8b-16k",
+  "judged_at": "2026-11-24T13:42:12.328Z",
+  "ms": 33314,
+  "blocked": false,
+  "results": [
+    {
+      "id": "C1",
+      "verdict": "pass",
+      "reason": "У файлі src/cost.ts належно додано JSDoc-коментарі над ZERO_USAGE та addUsage з правильним змістом.",
+      "evidence": "src/cost.ts\n+/** Нульовий облік... */\n+/** Поелементна сума... */"
+    },
+    {
+      "id": "C2",
+      "verdict": "pass",
+      "reason": "Додані JSDoc-коментарі тальки для ZERO_USAGE та addUsage, інші частини src/cost.ts не змінено.",
+      "evidence": "src/cost.ts: додані коментарі лише над ZERO_USAGE та addUsage, інші рядки не змінено"
+    }
+  ]
+}

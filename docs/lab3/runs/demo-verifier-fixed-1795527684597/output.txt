@@ -1,0 +1,1 @@
+ДЕМОНСТРАЦІЯ: зміну написала людина скриптом scripts/harness/demo-verifier-stop.ts (fixed), агент не запускався.
