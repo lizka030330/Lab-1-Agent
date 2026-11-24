@@ -1,0 +1,62 @@
+diff --git a/src/rag/bm25.ts b/src/rag/bm25.ts
+index aae4e68..44fc779 100644
+--- a/src/rag/bm25.ts
++++ b/src/rag/bm25.ts
+@@ -19,7 +19,10 @@ export const BM25: Bm25Options = { k1: 1.2, b: 0.75 };
+  * на кроці 06 вона зʼявиться серед причин помилок. Списку стоп-слів теж немає.
+  */
+ export function tokenize(text: string): string[] {
+-  return (text.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? []).filter((t) => t.length > 1);
++  const normalized = text.toLowerCase().replace(/(?<=(?!\u02bc)\p{L})['’ʼ]+(?=(?!\u02bc)\p{L})/gu, 'ʼ');
++  return (
++    normalized.match(/(?:(?!\u02bc)[\p{L}\p{N}])+(?:ʼ(?:(?!\u02bc)[\p{L}\p{N}])+)*/gu) ?? []
++  ).filter((t) => t.length > 1);
+ }
+ 
+ export interface Bm25Index {
+diff --git a/tests/tokenize-apostrophe.test.ts b/tests/tokenize-apostrophe.test.ts
+new file mode 100644
+index 0000000..d73b094
+--- /dev/null
++++ b/tests/tokenize-apostrophe.test.ts
+@@ -0,0 +1,40 @@
++import { describe, expect, it } from 'vitest';
++
++import { tokenize } from '../src/rag/bm25';
++
++describe('tokenize — обробка апострофа', () => {
++  it('підтримує ASCII апостроф U+0027', () => {
++    expect(tokenize("Пам'ять")).toEqual(['памʼять']);
++  });
++
++  it('підтримує типографський апостроф U+2019', () => {
++    expect(tokenize('пам’ять')).toEqual(['памʼять']);
++  });
++
++  it('підтримує модифікатор апострофа U+02BC', () => {
++    expect(tokenize('памʼять')).toEqual(['памʼять']);
++  });
++
++  it('зводить усі три форми апострофа до одинакового токена з U+02BC', () => {
++    const res1 = tokenize("Пам'ять");
++    const res2 = tokenize('пам’ять');
++    const res3 = tokenize('памʼять');
++    expect(res1).toEqual(['памʼять']);
++    expect(res2).toEqual(['памʼять']);
++    expect(res3).toEqual(['памʼять']);
++  });
++
++  it('ігнорує апостроф на початку або в кінці слова', () => {
++    expect(tokenize("'слово'")).toEqual(['слово']);
++    expect(tokenize('’слово’')).toEqual(['слово']);
++    expect(tokenize('ʼсловоʼ')).toEqual(['слово']);
++    expect(tokenize("'слово")).toEqual(['слово']);
++    expect(tokenize("слово'")).toEqual(['слово']);
++  });
++
++  it('ігнорує апострофи на краях слова з внутрішнім апострофом', () => {
++    expect(tokenize("'пам'ять'")).toEqual(['памʼять']);
++    expect(tokenize('’пам’ять’')).toEqual(['памʼять']);
++    expect(tokenize('ʼпамʼятьʼ')).toEqual(['памʼять']);
++  });
++});

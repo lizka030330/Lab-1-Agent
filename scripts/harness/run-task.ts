@@ -191,7 +191,14 @@ export function readMeta(stdout: string): Pick<RunRecord, 'session_id' | 'input_
 }
 
 /** Межа ходів чи бюджету — не падіння. Рядки розпізнавання — дослівно з виводу агента (factory.md). */
-const BUDGET_MARKERS = [/Budget limit reached/i, /max(imum)? (turns|steps)/i];
+/**
+ * Крок 06: на межі `steps` OpenCode просить у моделі підсумок запитом, що закінчується ходом моделі, а Gemini
+ * такий запит відхиляє. Тож ця помилка API — це спрацювання НАШОГО ліміту кроків, а не відмова агента:
+ * усі 11 таких прогонів 23.11.2026 зупинились на 11-му кроці при steps: 12 (docs/lab3/errors.md).
+ */
+const STEP_LIMIT_ON_GEMINI = /Requests ending with a model turn are not supported/i;
+const BUDGET_MARKERS = [/Budget limit reached/i, /max(imum)? (turns|steps)/i, STEP_LIMIT_ON_GEMINI];
+
 
 /**
  * Квота (429) — окремий клас з кроку 03: це умова спрацювання брейкера, а не «не пощастило».
@@ -215,7 +222,7 @@ export function checkAcceptance(task: Task, cwd: string): { cmd: string; exit: n
 
 export async function runTask(
   task: Task,
-  opts: { runner: AgentRunner; agentPath: string; worktree: string; outDir: string; check?: typeof checkAcceptance },
+  opts: { runner: AgentRunner; agentPath: string; worktree: string; outDir: string; check?: typeof checkAcceptance; traceId?: string | null },
 ): Promise<RunRecord> {
   const dir = join(opts.outDir, `${task.id}-${Date.now()}`);
   mkdirSync(dir, { recursive: true });
@@ -257,7 +264,7 @@ export async function runTask(
     acceptance,
     acceptance_passed: acceptance.length > 0 && acceptance.every((a) => a.exit === 0),
     ...readMeta(res.stdout),
-    trace_id: null, // ← крок 06
+    trace_id: opts.traceId ?? null, // ← крок 06: ідентифікатор спана прогону
     gates: {}, // ← крок 01
   };
   writeFileSync(join(dir, 'run.json'), `${JSON.stringify(record, null, 2)}\n`, 'utf8');

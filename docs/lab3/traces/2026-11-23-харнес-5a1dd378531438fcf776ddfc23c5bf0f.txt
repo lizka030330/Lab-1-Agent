@@ -1,0 +1,28 @@
+клас: харнес
+чому: межа steps: 12 (11 кроків, потім запит на підсумок відхилено); acceptance pass
+
+task_id: t-12
+артефакт: docs/lab3/runs/t-12-1795470669309
+trace_id: 5a1dd378531438fcf776ddfc23c5bf0f
+session_id: ses_df59bbda5ffeswjyGFgvsL7Tu6  (ключ зв'язку з трасою opencode.turn у Langfuse)
+agent_path: opencode+google/gemini-3.6-flash
+started_at: 2026-11-23T21:51:09.309Z
+duration_s: 43.2
+exit_status: agent_failed  (записано до коміту, що відносить цю помилку до budget_or_turns)
+кроків агента (step_start в output.txt): 11  при steps: 12 у .opencode/agents/harness.md
+викликів інструментів (tool_use): 11
+acceptance_passed: True
+acceptance:
+  exit 0: grep -q 'export function refusalRate' src/rag/answer.ts
+  exit 0: test -f tests/refusal-rate.test.ts
+  exit 0: npm run typecheck
+  exit 0: npm test -- tests/refusal-rate.test.ts
+input_tokens: 51852  output_tokens: 1300
+змінені файли (patch.diff): src/rag/answer.ts, tests/refusal-rate.test.ts
+agent.log, рядки level=ERROR (лише тип і текст помилки):
+  process: Requests ending with a model turn are not supported.
+  stream error: AI_APICallError: Requests ending with a model turn are not supported.
+agent.log, трасування плагіна:
+  "OTEL tracing initialized → https://cloud.langfuse.com"
+
+Вміст промптів і відповідей сюди не переноситься: репозиторій публічний.

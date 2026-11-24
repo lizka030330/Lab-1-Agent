@@ -1,0 +1,26 @@
+клас: модель
+чому: агент змінив tests/metrics.test.ts, і тест падає; у трьох повторах тієї самої задачі агент відмовився за 5–7 кроків, нічого не змінивши. Межа кроків тут лише момент зупинки: неправильна дія вже зроблена
+
+task_id: t-16
+артефакт: docs/lab3/runs/t-16-1795470839093
+trace_id: ae46975cf8270390b32889cacbab8d01
+session_id: ses_df5992671ffea9kMfjrYwKf6Gw  (ключ зв'язку з трасою opencode.turn у Langfuse)
+agent_path: opencode+google/gemini-3.6-flash
+started_at: 2026-11-23T21:53:59.093Z
+duration_s: 46.7
+exit_status: agent_failed  (записано до коміту, що відносить цю помилку до budget_or_turns)
+кроків агента (step_start в output.txt): 11  при steps: 12 у .opencode/agents/harness.md
+викликів інструментів (tool_use): 11
+acceptance_passed: False
+acceptance:
+  exit 0: test -f tests/metrics.test.ts
+  exit 1: npm test -- tests/metrics.test.ts
+input_tokens: 47256  output_tokens: 363
+змінені файли (patch.diff): tests/metrics.test.ts
+agent.log, рядки level=ERROR (лише тип і текст помилки):
+  process: Requests ending with a model turn are not supported.
+  stream error: AI_APICallError: Requests ending with a model turn are not supported.
+agent.log, трасування плагіна:
+  "OTEL tracing initialized → https://cloud.langfuse.com"
+
+Вміст промптів і відповідей сюди не переноситься: репозиторій публічний.

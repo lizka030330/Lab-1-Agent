@@ -1,0 +1,35 @@
+diff --git a/tests/bm25.test.ts b/tests/bm25.test.ts
+new file mode 100644
+index 0000000..6171cc3
+--- /dev/null
++++ b/tests/bm25.test.ts
+@@ -0,0 +1,29 @@
++import { describe, expect, it } from 'vitest';
++
++import { tokenize } from '../src/rag/bm25';
++
++describe('tokenize', () => {
++  it('переводить у нижній регістр', () => {
++    expect(tokenize('ТЕСТУВАННЯ ТЕКСТУ Hello World')).toEqual(['тестування', 'тексту', 'hello', 'world']);
++  });
++
++  it('розбиває за пунктуацією й пробілами', () => {
++    expect(tokenize('перше, друге! третє... четверте: пʼяте? шосте-сьоме')).toEqual([
++      'перше',
++      'друге',
++      'третє',
++      'четверте',
++      'пʼяте',
++      'шосте',
++      'сьоме',
++    ]);
++  });
++
++  it('зберігає кирилицю й цифри', () => {
++    expect(tokenize('Україна 2026 рік 100%')).toEqual(['україна', '2026', 'рік', '100']);
++  });
++
++  it('відкидає токени з одного символу', () => {
++    expect(tokenize('я і ти а б 123 5 х')).toEqual(['ти', '123']);
++  });
++});

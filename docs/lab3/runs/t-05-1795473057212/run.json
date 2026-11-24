@@ -1,0 +1,34 @@
+{
+  "task_id": "t-05",
+  "agent_path": "opencode+google/gemini-3.6-flash",
+  "artifact_dir": "/Users/lizaefremenko/Desktop/IT STEP/AI/Lab-1-Agent/runs/t-05-1795473057211",
+  "started_at": "2026-11-23T22:30:57.212Z",
+  "ended_at": "2026-11-23T22:31:47.543Z",
+  "duration_s": 50.3,
+  "exit_status": "ok",
+  "acceptance": [
+    {
+      "cmd": "grep -q 'export function precisionAtK' src/metrics.ts",
+      "exit": 0
+    },
+    {
+      "cmd": "grep -q 'precisionAtK' tests/metrics.test.ts",
+      "exit": 0
+    },
+    {
+      "cmd": "npm run typecheck",
+      "exit": 0
+    },
+    {
+      "cmd": "npm test -- tests/metrics.test.ts",
+      "exit": 0
+    }
+  ],
+  "acceptance_passed": true,
+  "session_id": "ses_df577464affeU5sWBWD7TrC5Ji",
+  "input_tokens": 52938,
+  "output_tokens": 2247,
+  "cost_usd_estimate": 0.066389175,
+  "trace_id": "e98a236aaade32502c9f02df2bcfd15b",
+  "gates": {}
+}

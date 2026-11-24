@@ -13,6 +13,8 @@ import { join, resolve } from 'node:path';
 import { mayRun, record } from '../../src/harness/breaker';
 import { logStop } from '../../src/harness/stop';
 import { opencodeRunner, OPENCODE_MODEL, runTask, type Task } from './run-task';
+import { trace } from '@opentelemetry/api';
+import './otel';
 
 const args = process.argv.slice(2);
 const file = args.find((a) => a.endsWith('.jsonl')) ?? 'docs/lab3/tasks.jsonl';
@@ -71,7 +73,17 @@ for (const task of tasks) {
   try {
     // залежності — посиланням на основне дерево (у .gitignore як «node_modules»)
     if (!existsSync(join(tree, 'node_modules'))) symlinkSync(join(ROOT, 'node_modules'), join(tree, 'node_modules'));
-    const rec = await runTask(task, { runner: opencodeRunner, agentPath: `opencode+${OPENCODE_MODEL}`, worktree: tree, outDir: join(ROOT, 'runs') });
+    const tracer = trace.getTracer('harness');
+    const rec = await tracer.startActiveSpan(`task ${task.id}`, async (span) => {
+      try {
+        const ctx = span.spanContext();
+        // без запущеного SDK ідентифікатор нульовий — тоді пишемо null, а не фальшиве значення
+        const traceId = /[^0]/.test(ctx.traceId) ? ctx.traceId : null;
+        return await runTask(task, { runner: opencodeRunner, agentPath: `opencode+${OPENCODE_MODEL}`, worktree: tree, outDir: join(ROOT, 'runs'), traceId });
+      } finally {
+        span.end();
+      }
+    });
     // відібраний артефакт — у репозиторій; сира runs/ лишається в .gitignore
     const keep = join(ROOT, 'docs', 'lab3', 'runs', `${task.id}-${new Date(rec.started_at).getTime()}`);
     mkdirSync(keep, { recursive: true });

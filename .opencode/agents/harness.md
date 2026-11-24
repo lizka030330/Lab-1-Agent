@@ -4,7 +4,9 @@ mode: primary
 temperature: 0.2
 # крок 03, шар задачі: межа агентних кроків OpenCode (docs: opencode.ai/docs/agents, «Max steps»).
 # На межі OpenCode забирає інструменти й просить підсумок — це НЕ помилка; зупинку видно з acceptance.
-steps: 12
+# Крок 06: 12 було замало — 11 прогонів 23.11.2026 (t-01, t-05, t-10, t-12, t-16) уперлися в межу, а запит
+# на підсумок Gemini відхиляє («Requests ending with a model turn are not supported»). Підняли до 20.
+steps: 20
 tools:
   "lab2-corpus_*": false
   "context7_*": false

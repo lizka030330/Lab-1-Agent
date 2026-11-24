@@ -1,0 +1,28 @@
+клас: харнес
+чому: межа steps: 12 зупинила агента до будь-яких змін у файлах (patch порожній)
+
+task_id: t-10
+артефакт: docs/lab3/runs/t-10-1795471310721
+trace_id: 2b83184529c1fee95ab17cb1e623d72a
+session_id: ses_df591f3c1ffeMBmY4pr13bH1qD  (ключ зв'язку з трасою opencode.turn у Langfuse)
+agent_path: opencode+google/gemini-3.6-flash
+started_at: 2026-11-23T22:01:50.721Z
+duration_s: 153.4
+exit_status: agent_failed  (записано до коміту, що відносить цю помилку до budget_or_turns)
+кроків агента (step_start в output.txt): 11  при steps: 12 у .opencode/agents/harness.md
+викликів інструментів (tool_use): 11
+acceptance_passed: False
+acceptance:
+  exit 1: test -f tests/tokenize-apostrophe.test.ts
+  exit 2: grep -q 'tokenize' tests/tokenize-apostrophe.test.ts
+  exit 0: npm run typecheck
+  exit 0: npm test
+input_tokens: 61478  output_tokens: 539
+змінені файли (patch.diff): (порожньо)
+agent.log, рядки level=ERROR (лише тип і текст помилки):
+  process: Requests ending with a model turn are not supported.
+  stream error: AI_APICallError: Requests ending with a model turn are not supported.
+agent.log, трасування плагіна:
+  "OTEL tracing initialized → https://cloud.langfuse.com"
+
+Вміст промптів і відповідей сюди не переноситься: репозиторій публічний.

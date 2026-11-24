@@ -1,0 +1,34 @@
+{
+  "task_id": "t-01",
+  "agent_path": "opencode+google/gemini-3.6-flash",
+  "artifact_dir": "/Users/lizaefremenko/Desktop/IT STEP/AI/Lab-1-Agent/runs/t-01-1795469834575",
+  "started_at": "2026-11-23T21:37:14.575Z",
+  "ended_at": "2026-11-23T21:38:18.822Z",
+  "duration_s": 64.2,
+  "exit_status": "agent_failed",
+  "acceptance": [
+    {
+      "cmd": "grep -q 'export function median' src/metrics.ts",
+      "exit": 0
+    },
+    {
+      "cmd": "grep -q 'median' tests/metrics.test.ts",
+      "exit": 0
+    },
+    {
+      "cmd": "npm run typecheck",
+      "exit": 0
+    },
+    {
+      "cmd": "npm test -- tests/metrics.test.ts",
+      "exit": 0
+    }
+  ],
+  "acceptance_passed": true,
+  "session_id": "ses_df5a844b9ffewP4x9zloUerRpF",
+  "input_tokens": 44489,
+  "output_tokens": 1930,
+  "cost_usd_estimate": 0.057917775,
+  "trace_id": "7461bec489a9d95ce1e74a38bbcf7fa7",
+  "gates": {}
+}
