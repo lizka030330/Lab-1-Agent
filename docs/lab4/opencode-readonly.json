@@ -1,0 +1,43 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "$comment": "Лаб. 4 · крок 00 · режим читання для чужого репозиторію (форк path-to-regexp). Запуск: OPENCODE_CONFIG=<шлях до цього файлу> opencode --agent lab4-readonly у теці форка. opencode типово дозволяє (\"Most permissions default to allow\"), а Plan не обмежує shell, тому правила складено вручну: \"*\" першим, конкретні після нього (\"last matching rule wins\").",
+  "agent": {
+    "lab4-readonly": {
+      "description": "Лаб. 4 крок 00: тільки читання чужого коду. Нічого не змінює.",
+      "mode": "primary",
+      "model": "google/gemini-3.6-flash",
+      "temperature": 0.1,
+      "steps": 30,
+      "tools": {
+        "write": false,
+        "edit": false,
+        "patch": false,
+        "todowrite": false
+      },
+      "permission": {
+        "read": {
+          "*": "allow",
+          "*.env": "deny",
+          "*.env.*": "deny"
+        },
+        "edit": "deny",
+        "webfetch": "deny",
+        "external_directory": "deny",
+        "bash": {
+          "*": "deny",
+          "git log*": "allow",
+          "git show*": "allow",
+          "git blame*": "allow",
+          "git rev-parse*": "allow",
+          "git status*": "allow",
+          "ls*": "allow",
+          "grep*": "allow",
+          "wc*": "allow",
+          "git log*--output*": "deny",
+          "git show*--output*": "deny",
+          "*>*": "deny"
+        }
+      }
+    }
+  }
+}
