@@ -1,0 +1,25 @@
+diff --git a/src/rag/bm25.ts b/src/rag/bm25.ts
+index aae4e68..5ac517d 100644
+--- a/src/rag/bm25.ts
++++ b/src/rag/bm25.ts
+@@ -19,7 +19,19 @@ export const BM25: Bm25Options = { k1: 1.2, b: 0.75 };
+  * на кроці 06 вона зʼявиться серед причин помилок. Списку стоп-слів теж немає.
+  */
+ export function tokenize(text: string): string[] {
+-  return (text.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? []).filter((t) => t.length > 1);
++  const isLetter = (char: string): boolean =>
++    /^\p{L}$/u.test(char) && char !== "'" && char !== '’' && char !== 'ʼ';
++
++  const cleaned = text.toLowerCase().replace(/['’ʼ]/gu, (match, offset, string) => {
++    const prev = string.slice(0, offset).match(/\p{L}$/u)?.[0];
++    const next = string.slice(offset + match.length).match(/^\p{L}/u)?.[0];
++    if (prev && isLetter(prev) && next && isLetter(next)) {
++      return 'ʼ';
++    }
++    return ' ';
++  });
++
++  return (cleaned.match(/[\p{L}\p{N}]+/gu) ?? []).filter((t) => t.length > 1);
+ }
+ 
+ export interface Bm25Index {

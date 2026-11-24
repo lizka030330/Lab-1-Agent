@@ -1,0 +1,34 @@
+{
+  "task_id": "t-12",
+  "agent_path": "opencode+google/gemini-3.6-flash",
+  "artifact_dir": "/Users/lizaefremenko/Desktop/IT STEP/AI/Lab-1-Agent/runs/t-12-1795470669309",
+  "started_at": "2026-11-23T21:51:09.309Z",
+  "ended_at": "2026-11-23T21:51:52.464Z",
+  "duration_s": 43.2,
+  "exit_status": "agent_failed",
+  "acceptance": [
+    {
+      "cmd": "grep -q 'export function refusalRate' src/rag/answer.ts",
+      "exit": 0
+    },
+    {
+      "cmd": "test -f tests/refusal-rate.test.ts",
+      "exit": 0
+    },
+    {
+      "cmd": "npm run typecheck",
+      "exit": 0
+    },
+    {
+      "cmd": "npm test -- tests/refusal-rate.test.ts",
+      "exit": 0
+    }
+  ],
+  "acceptance_passed": true,
+  "session_id": "ses_df59bbda5ffeswjyGFgvsL7Tu6",
+  "input_tokens": 51852,
+  "output_tokens": 1300,
+  "cost_usd_estimate": 0.058559625,
+  "trace_id": "5a1dd378531438fcf776ddfc23c5bf0f",
+  "gates": {}
+}

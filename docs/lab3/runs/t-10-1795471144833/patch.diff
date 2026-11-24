@@ -1,0 +1,51 @@
+diff --git a/src/rag/bm25.ts b/src/rag/bm25.ts
+index aae4e68..fcd4ff6 100644
+--- a/src/rag/bm25.ts
++++ b/src/rag/bm25.ts
+@@ -19,7 +19,9 @@ export const BM25: Bm25Options = { k1: 1.2, b: 0.75 };
+  * на кроці 06 вона зʼявиться серед причин помилок. Списку стоп-слів теж немає.
+  */
+ export function tokenize(text: string): string[] {
+-  return (text.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? []).filter((t) => t.length > 1);
++  const normalized = text.toLowerCase().replace(/(?<=\p{L})['’ʼ](?=\p{L})/gu, '\0');
++  const matches = normalized.match(/[\p{L}\p{N}]+(?:\0[\p{L}\p{N}]+)*/gu) ?? [];
++  return matches.map((t) => t.replace(/\0/g, 'ʼ')).filter((t) => t.length > 1);
+ }
+ 
+ export interface Bm25Index {
+diff --git a/tests/tokenize-apostrophe.test.ts b/tests/tokenize-apostrophe.test.ts
+new file mode 100644
+index 0000000..b91a456
+--- /dev/null
++++ b/tests/tokenize-apostrophe.test.ts
+@@ -0,0 +1,30 @@
++import { describe, expect, it } from 'vitest';
++
++import { tokenize } from '../src/rag/bm25';
++
++describe('tokenize — апостроф в українських словах', () => {
++  it('підтримує всі три три форми апострофа між літерами (\', ’, ʼ) і зводить до ʼ (U+02BC)', () => {
++    expect(tokenize("Пам'ять")).toEqual(['памʼять']);
++    expect(tokenize('пам’ять')).toEqual(['памʼять']);
++    expect(tokenize('памʼять')).toEqual(['памʼять']);
++  });
++
++  it('не включає апостроф на початку або в кінці слова до токена', () => {
++    expect(tokenize("'слово'")).toEqual(['слово']);
++    expect(tokenize('’слово’')).toEqual(['слово']);
++    expect(tokenize('ʼсловоʼ')).toEqual(['слово']);
++    expect(tokenize("'слово")).toEqual(['слово']);
++    expect(tokenize("слово'")).toEqual(['слово']);
++  });
++
++  it('коректно обробляє апострофи одночасно всередині та на краях слова', () => {
++    expect(tokenize("'пам'ять'")).toEqual(['памʼять']);
++    expect(tokenize('’пам’ять’')).toEqual(['памʼять']);
++    expect(tokenize('ʼпамʼятьʼ')).toEqual(['памʼять']);
++  });
++
++  it('зберігає стандартні правила (нижній регістр, цифри, ігнорування однобуквених токенів)', () => {
++    expect(tokenize("З'їзд 2026 р.")).toEqual(['зʼїзд', '2026']);
++    expect(tokenize("м'ята й 'і'")).toEqual(['мʼята']);
++  });
++});

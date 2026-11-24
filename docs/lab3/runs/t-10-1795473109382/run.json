@@ -1,0 +1,34 @@
+{
+  "task_id": "t-10",
+  "agent_path": "opencode+google/gemini-3.6-flash",
+  "artifact_dir": "/Users/lizaefremenko/Desktop/IT STEP/AI/Lab-1-Agent/runs/t-10-1795473109382",
+  "started_at": "2026-11-23T22:31:49.382Z",
+  "ended_at": "2026-11-23T22:34:17.466Z",
+  "duration_s": 148.1,
+  "exit_status": "budget_or_turns",
+  "acceptance": [
+    {
+      "cmd": "test -f tests/tokenize-apostrophe.test.ts",
+      "exit": 0
+    },
+    {
+      "cmd": "grep -q 'tokenize' tests/tokenize-apostrophe.test.ts",
+      "exit": 0
+    },
+    {
+      "cmd": "npm run typecheck",
+      "exit": 0
+    },
+    {
+      "cmd": "npm test",
+      "exit": 0
+    }
+  ],
+  "acceptance_passed": true,
+  "session_id": "ses_df57681beffeLjO5bb8Ceqqdot",
+  "input_tokens": 74428,
+  "output_tokens": 1789,
+  "cost_usd_estimate": 0.17768437500000003,
+  "trace_id": "685ff5cea5bfaf16d22be83fc5bb4764",
+  "gates": {}
+}

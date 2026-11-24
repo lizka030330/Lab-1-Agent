@@ -1,0 +1,54 @@
+diff --git a/src/metrics.ts b/src/metrics.ts
+index 746dcdf..d881b45 100644
+--- a/src/metrics.ts
++++ b/src/metrics.ts
+@@ -31,6 +31,17 @@ export function recallAtK(hits: readonly Hit[], mustCite: readonly string[], k:
+   return found / mustCite.length;
+ }
+ 
++/** precision@k: частка документів серед перших k (після склеювання), що входять у must_cite. */
++export function precisionAtK(hits: readonly Hit[], mustCite: readonly string[], k: number): number {
++  if (k <= 0) {
++    throw new RangeError('k має бути більшим за нуль');
++  }
++  const docs = docsAtK(hits, k);
++  if (docs.length === 0) return 0;
++  const found = docs.filter((id) => mustCite.includes(id)).length;
++  return found / docs.length;
++}
++
+ /** Обернений ранг першого влучання серед топ-k ФРАГМЕНТІВ. Немає влучань — 0. */
+ export function reciprocalRank(hits: readonly Hit[], mustCite: readonly string[], k: number): number {
+   if (mustCite.length === 0) {
+diff --git a/tests/metrics.test.ts b/tests/metrics.test.ts
+index 95383c5..811bb20 100644
+--- a/tests/metrics.test.ts
++++ b/tests/metrics.test.ts
+@@ -4,6 +4,7 @@ import {
+   docsAtK,
+   mean,
+   ndcgAtK,
++  precisionAtK,
+   proportionCI95,
+   recallAtK,
+   reciprocalRank,
+@@ -43,6 +44,19 @@ describe('recall@k', () => {
+   });
+ });
+ 
++describe('precision@k', () => {
++  it('частка релевантних документів серед знайдених перших k', () => {
++    expect(precisionAtK(hits, ['doc-07'], 4)).toBeCloseTo(1 / 3, 10);
++    expect(precisionAtK(hits, ['doc-07', 'doc-02'], 4)).toBeCloseTo(2 / 3, 10);
++    expect(precisionAtK(hits, ['doc-07'], 2)).toBe(1);
++  });
++
++  it('для k <= 0 кидає RangeError', () => {
++    expect(() => precisionAtK(hits, ['doc-07'], 0)).toThrow(RangeError);
++    expect(() => precisionAtK(hits, ['doc-07'], -1)).toThrow(RangeError);
++  });
++});
++
+ describe('MRR', () => {
+   it('рахує ранг першого влучання по фрагментах', () => {
+     expect(reciprocalRank(hits, ['doc-07'], 4)).toBeCloseTo(1, 10);

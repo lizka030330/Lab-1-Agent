@@ -1,0 +1,26 @@
+{
+  "task_id": "t-16",
+  "agent_path": "opencode+google/gemini-3.6-flash",
+  "artifact_dir": "/Users/lizaefremenko/Desktop/IT STEP/AI/Lab-1-Agent/runs/t-16-1795471465843",
+  "started_at": "2026-11-23T22:04:25.843Z",
+  "ended_at": "2026-11-23T22:05:20.367Z",
+  "duration_s": 54.5,
+  "exit_status": "ok",
+  "acceptance": [
+    {
+      "cmd": "test -f tests/metrics.test.ts",
+      "exit": 0
+    },
+    {
+      "cmd": "npm test -- tests/metrics.test.ts",
+      "exit": 0
+    }
+  ],
+  "acceptance_passed": true,
+  "session_id": "ses_df58f8ac2ffesWVDVvLwJjLqTX",
+  "input_tokens": 39686,
+  "output_tokens": 1439,
+  "cost_usd_estimate": 0.054401399999999996,
+  "trace_id": "e509e84daed73bf606c37c9a6480bf99",
+  "gates": {}
+}

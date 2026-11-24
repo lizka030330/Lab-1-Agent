@@ -1,0 +1,54 @@
+diff --git a/src/rag/cite.ts b/src/rag/cite.ts
+index 3226e97..1092735 100644
+--- a/src/rag/cite.ts
++++ b/src/rag/cite.ts
+@@ -50,6 +50,23 @@ export function citedIds(answer: string): string[] {
+   return ids;
+ }
+ 
++/**
++  * Унікальні docId (частина id до символу #) з цитат відповіді,
++  * у порядку першої появи.
++  */
++export function citedDocIds(answer: string): string[] {
++  const docIds: string[] = [];
++  const seen = new Set<string>();
++  for (const id of citedIds(answer)) {
++    const docId = id.split('#')[0];
++    if (docId && !seen.has(docId)) {
++      seen.add(docId);
++      docIds.push(docId);
++    }
++  }
++  return docIds;
++}
++
+ /**
+  * Відповідь без цитати і відповідь із цитатою на невидане — помилки.
+  * Повертає перелік проблем; порожній означає «зелено».
+diff --git a/tests/cited-doc-ids.test.ts b/tests/cited-doc-ids.test.ts
+new file mode 100644
+index 0000000..4b0fefc
+--- /dev/null
++++ b/tests/cited-doc-ids.test.ts
+@@ -0,0 +1,20 @@
++import { describe, expect, it } from 'vitest';
++
++import { citedDocIds } from '../src/rag/cite';
++
++describe('citedDocIds', () => {
++  it('дві цитати одного документа дають один docId', () => {
++    const answer = 'Текст із першою цитатою [korovai#0001] та другою цитатою [korovai#0003].';
++    expect(citedDocIds(answer)).toEqual(['korovai']);
++  });
++
++  it('кілька id в одних дужках', () => {
++    const answer = 'Текст із кількома цитатами [st-nicholas#0000, st-nicholas-day#0005].';
++    expect(citedDocIds(answer)).toEqual(['st-nicholas', 'st-nicholas-day']);
++  });
++
++  it('відповідь без цитат дає порожній масив', () => {
++    const answer = 'Просто текст відповіді без жодних цитат.';
++    expect(citedDocIds(answer)).toEqual([]);
++  });
++});

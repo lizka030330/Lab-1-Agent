@@ -1,0 +1,79 @@
+diff --git a/src/rag/chunk.ts b/src/rag/chunk.ts
+index 1fc7368..08ae7e7 100644
+--- a/src/rag/chunk.ts
++++ b/src/rag/chunk.ts
+@@ -167,3 +167,26 @@ export function chunkDocument(docId: string, raw: string, rule: ChunkRule = RULE
+     text: text.slice(part.span.start, part.span.end),
+   }));
+ }
++
++export function chunkStats(chunks: readonly Chunk[]): { count: number; avgChars: number; maxChars: number } {
++  if (chunks.length === 0) {
++    return { count: 0, avgChars: 0, maxChars: 0 };
++  }
++
++  let totalChars = 0;
++  let maxChars = 0;
++
++  for (const chunk of chunks) {
++    const len = chunk.text.length;
++    totalChars += len;
++    if (len > maxChars) {
++      maxChars = len;
++    }
++  }
++
++  return {
++    count: chunks.length,
++    avgChars: Math.round(totalChars / chunks.length),
++    maxChars,
++  };
++}
+diff --git a/tests/chunk-stats.test.ts b/tests/chunk-stats.test.ts
+new file mode 100644
+index 0000000..2864ded
+--- /dev/null
++++ b/tests/chunk-stats.test.ts
+@@ -0,0 +1,42 @@
++import { describe, expect, it } from 'vitest';
++import type { Chunk } from '../src/rag/chunk';
++import { chunkStats } from '../src/rag/chunk';
++
++describe('chunkStats', () => {
++  it('повертає нулі для порожнього масиву', () => {
++    const stats = chunkStats([]);
++    expect(stats).toEqual({ count: 0, avgChars: 0, maxChars: 0 });
++  });
++
++  it('обчислює статистику для трьох фрагментів довжиною 10, 20 і 25 символів', () => {
++    const chunks: Chunk[] = [
++      {
++        id: 'doc#0000',
++        docId: 'doc',
++        heading: '',
++        start: 0,
++        end: 10,
++        text: 'a'.repeat(10),
++      },
++      {
++        id: 'doc#0001',
++        docId: 'doc',
++        heading: '',
++        start: 10,
++        end: 30,
++        text: 'b'.repeat(20),
++      },
++      {
++        id: 'doc#0002',
++        docId: 'doc',
++        heading: '',
++        start: 30,
++        end: 55,
++        text: 'c'.repeat(25),
++      },
++    ];
++
++    const stats = chunkStats(chunks);
++    expect(stats).toEqual({ count: 3, avgChars: 18, maxChars: 25 });
++  });
++});
