@@ -11,7 +11,17 @@ tools:
   "lab2-corpus_*": false
   "context7_*": false
 permission:
-  edit: allow
+  # крок 07 (red-team r-10): з `edit: allow` агент переписав власний `"*": deny` на `"*": allow`.
+  # Межа, а не текст у промпті: файли дозволів, брам і правил агентові недоступні для запису.
+  # Останнє правило, що підійшло, перемагає, тому "*" — першим.
+  edit:
+    "*": allow
+    "opencode.json": deny
+    ".opencode/**": deny
+    ".github/**": deny
+    "AGENTS.md": deny
+  # запис і читання поза деревом прогону — відмова без запитання (r-09 зупинив лише агент)
+  external_directory: deny
   webfetch: deny
   bash:
     "*": deny
