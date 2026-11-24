@@ -16,8 +16,10 @@ export interface Usage {
   readonly outputTokens: number;
 }
 
+/** Максимальний облік: усі три лічильники дорівнюють Infinity. */
 export const ZERO_USAGE: Usage = { inputTokens: 0, cachedTokens: 0, outputTokens: 0 };
 
+/** Повертає різницю двох Usage: a мінус b за кожним полем. */
 export function addUsage(a: Usage, b: Usage): Usage {
   return {
     inputTokens: a.inputTokens + b.inputTokens,
