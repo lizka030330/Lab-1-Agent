@@ -1,0 +1,50 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "lab4-change": {
+      "description": "Лаб. 4 крок 02: одна обмежена зміна в src/index.ts форка path-to-regexp. Тести не чіпає.",
+      "mode": "primary",
+      "model": "google/gemini-3.6-flash",
+      "temperature": 0.1,
+      "steps": 15,
+      "tools": {
+        "todowrite": false
+      },
+      "permission": {
+        "read": {
+          "*": "allow",
+          "*.env": "deny",
+          "*.env.*": "deny"
+        },
+        "edit": {
+          "*": "deny",
+          "src/index.ts": "allow",
+          "src/*.spec.ts": "deny",
+          "src/**/*.spec.ts": "deny",
+          "package.json": "deny",
+          "package-lock.json": "deny",
+          "stryker.config.mjs": "deny"
+        },
+        "bash": {
+          "*": "deny",
+          "git diff*": "allow",
+          "git status*": "allow",
+          "*>*": "deny"
+        },
+        "webfetch": "deny",
+        "websearch": "deny",
+        "external_directory": "deny"
+      }
+    },
+    "plan": {
+      "permission": {
+        "edit": {
+          "*": "deny"
+        },
+        "bash": {
+          "*": "deny"
+        }
+      }
+    }
+  }
+}

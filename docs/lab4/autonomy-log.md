@@ -29,3 +29,15 @@
 - **Що я перевірила і чим:** 8/8 зелені на незміненому коді (`src/index.ts` відсутній у `git diff --stat c439054`); хук `lint-staged` при коміті тестів нічого не змінив (`git diff 5d106d4 16f2a46`); числа мутаційного прогону — зі звіту `mutation.json`, а не з екрана.
 - **Правило, що забороняє агентові правити тести/код:** на рівні конфігурації для цього інструмента — немає; компенсація — перегляд дифа перед кожним комітом і розділення комітів (тести / інструмент / код).
 - **Докази:** `docs/lab4/characterization.md`; у форку — `src/characterization.spec.ts`, `reports/lab4/characterization-blind-run.txt`, `reports/lab4/stryker-run-1.txt`, `reports/lab4/stryker-run-2.txt`, `reports/mutation/`.
+
+## Сесія 3 — 2026-11-24 · крок 02 · обмежена зміна агентом у worktree
+
+- **Репозиторій, у якому працював агент:** форк `lizka030330/path-to-regexp`, окреме робоче дерево `~/Desktop/IT STEP/AI/path-to-regexp-change` (гілка `lab4/change`, від `ae3e0a0`); основний checkout форка агент не бачив (`external_directory: deny`) і після сесії він чистий (0 змін).
+- **Інструмент і модель:** OpenCode **1.19.6**, `opencode run` (неінтерактивно, **без `--auto`**), `google/gemini-3.6-flash`.
+- **Режим дозволів:** агент `lab4-change` з [`docs/lab4/opencode-change.json`](opencode-change.json): `edit` — `"*": "deny"`, дозволено лише `"src/index.ts"`; явно заборонено `src/*.spec.ts`, `src/**/*.spec.ts`, `package.json`, `package-lock.json`, `stryker.config.mjs`; `bash` — `"*": "deny"`, дозволено лише `git diff*`, `git status*`; `webfetch`, `websearch`, `external_directory` — `deny`; `steps: 15`. Запускати тести агентові заборонено свідомо: диф я переглядала до першого прогону тестів.
+- **Ізоляція:** `git worktree add -b lab4/change ../path-to-regexp-change ae3e0a0`.
+- **Час:** прогін 1 — 19:48:52–19:49:40; прогін 2 (виправлення за переглядом) — 19:51:03–19:51:19.
+- **Що агент зробив сам:** прочитав `src/index.ts`, `src/decode-error.spec.ts`, `src/characterization.spec.ts`; змінив `src/index.ts` (обгортка `decodeParam` з `try/catch`), показав `git diff` і пояснив рядки; у прогоні 2 додав `if (!(err instanceof URIError)) throw err;`. Інших файлів не змінював (`git status --short`: лише ` M src/index.ts`). Відносний взірець `"src/index.ts": "allow"` дав збіг.
+- **Втручання:** після прогону 1 я зупинила роботу до тестів: перегляд показав, що `catch` перетворює будь-яку помилку користувацького `decode` на `URIError` (перевірено запуском версій до/після на тих самих входах). Агентові дано вузьке зауваження → прогін 2. Відкинуто й записано в `change.md` §5: `{ cause: err }`, прибрати `(err as Error)`, різниця тексту на `decode: 42`.
+- **Що робила я:** план відкоту (`rollback.md` §1, коміт `e2a773a`) — до зміни; новий тест окремим комітом `26f6f61` (червоний, 2 failed); перегляд дифа; прогони тестів після зміни (8/8, 3/3, 558, 1.91 kB); коміт зміни `291b8d3` (1 файл); навчальний відкот на `lab4/rollback-drill` (`671ec0c`): характеризація зелена, новий тест червоний, файл на місці, 1 с.
+- **Докази:** `docs/lab4/change.md`, `docs/lab4/rollback.md`; у форку — гілки `lab4/change` і `lab4/rollback-drill` з логами в `reports/lab4/`.
