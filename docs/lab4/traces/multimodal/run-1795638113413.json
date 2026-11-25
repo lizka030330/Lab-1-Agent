@@ -1,0 +1,289 @@
+{
+  "summary": {
+    "at": "2026-11-25T20:21:53.409Z",
+    "base": "https://lab-1-agent-git-lab4-step-00-efremka.vercel.app",
+    "total": 13,
+    "passed": 0,
+    "unknownExpected": 2,
+    "unknownOk": 0,
+    "latency_median_ms": 1412,
+    "latency_max_ms": 3092
+  },
+  "rows": [
+    {
+      "id": "mm-01",
+      "file": "page-clear.png",
+      "why": "щасливий шлях: читабельна сторінка (768×1000 → 1×2 плитки)",
+      "expect": {
+        "kind": "answer",
+        "must_contain": "47-К"
+      },
+      "status": 200,
+      "pass": false,
+      "note": "«» · стор. —",
+      "ms": 3092,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": 516,
+      "diff": null,
+      "body": {
+        "raw": "<!DOCTYPE html><html data-dpl-id=\"dpl_AGWqeQyg6fM67vE2aErq72bAuxpU\" class=\"VEU71W_className ac0vwq_className VEU71W_variable ac0vwq_variable dash\" lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name="
+      }
+    },
+    {
+      "id": "mm-02",
+      "file": "spec-3p.pdf",
+      "why": "PDF, відповідь на першій сторінці; 3 сторінки × 258",
+      "expect": {
+        "kind": "answer",
+        "must_contain": "22.13",
+        "page": 1
+      },
+      "status": 200,
+      "pass": false,
+      "note": "«» · стор. —",
+      "ms": 1812,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": 774,
+      "diff": null,
+      "body": {
+        "raw": "<!DOCTYPE html><html data-dpl-id=\"dpl_AGWqeQyg6fM67vE2aErq72bAuxpU\" class=\"VEU71W_className ac0vwq_className VEU71W_variable ac0vwq_variable dash\" lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name="
+      }
+    },
+    {
+      "id": "mm-03",
+      "file": "spec-3p.pdf",
+      "why": "НЕ ТА СТОРІНКА: перевіряється саме номер сторінки (3)",
+      "expect": {
+        "kind": "answer",
+        "must_contain": "45",
+        "page": 3
+      },
+      "status": 200,
+      "pass": false,
+      "note": "«» · стор. —",
+      "ms": 1338,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": null,
+      "diff": null,
+      "body": {
+        "raw": "<!DOCTYPE html><html data-dpl-id=\"dpl_AGWqeQyg6fM67vE2aErq72bAuxpU\" class=\"VEU71W_className ac0vwq_className VEU71W_variable ac0vwq_variable dash\" lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name="
+      }
+    },
+    {
+      "id": "mm-04",
+      "file": "spec-3p.pdf",
+      "why": "відповіді у файлі немає — очікуємо «не знаю»",
+      "expect": {
+        "kind": "unknown"
+      },
+      "status": 200,
+      "pass": false,
+      "note": "«»",
+      "ms": 1412,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": null,
+      "diff": null,
+      "body": {
+        "raw": "<!DOCTYPE html><html data-dpl-id=\"dpl_AGWqeQyg6fM67vE2aErq72bAuxpU\" class=\"VEU71W_className ac0vwq_className VEU71W_variable ac0vwq_variable dash\" lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name="
+      }
+    },
+    {
+      "id": "mm-05",
+      "file": "scan-blurred.jpg",
+      "why": "НЕЧИТАБЕЛЬНИЙ СКАН (розмиття 9 px + шум 45 % + поворот): вгадування = провал",
+      "expect": {
+        "kind": "unknown"
+      },
+      "status": 200,
+      "pass": false,
+      "note": "«»",
+      "ms": 1559,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": null,
+      "diff": null,
+      "body": {
+        "raw": "<!DOCTYPE html><html data-dpl-id=\"dpl_AGWqeQyg6fM67vE2aErq72bAuxpU\" class=\"VEU71W_className ac0vwq_className VEU71W_variable ac0vwq_variable dash\" lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name="
+      }
+    },
+    {
+      "id": "mm-06",
+      "file": "tiny-320x200.png",
+      "why": "обидві сторони ≤ 384 px — прогноз 258 проти РІЗНИЦІ з текстовою базою",
+      "expect": {
+        "kind": "answer",
+        "must_contain": "LAB-4"
+      },
+      "status": 200,
+      "pass": false,
+      "note": "«» · стор. —",
+      "ms": 1290,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": 258,
+      "diff": null,
+      "body": {
+        "raw": "<!DOCTYPE html><html data-dpl-id=\"dpl_AGWqeQyg6fM67vE2aErq72bAuxpU\" class=\"VEU71W_className ac0vwq_className VEU71W_variable ac0vwq_variable dash\" lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name="
+      }
+    },
+    {
+      "id": "mm-07",
+      "file": "big-1600x1200.png",
+      "why": "плитки: 3×2 по 258 = 1548; порівнюється з різницею, не з inputTokens",
+      "expect": {
+        "kind": "answer",
+        "must_contain": "ЗВІТ"
+      },
+      "status": 200,
+      "pass": false,
+      "note": "«» · стор. —",
+      "ms": 1385,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": 1548,
+      "diff": null,
+      "body": {
+        "raw": "<!DOCTYPE html><html data-dpl-id=\"dpl_AGWqeQyg6fM67vE2aErq72bAuxpU\" class=\"VEU71W_className ac0vwq_className VEU71W_variable ac0vwq_variable dash\" lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name="
+      }
+    },
+    {
+      "id": "mm-08",
+      "file": "photo.tiff",
+      "why": "тип поза білим списком — відмова ДО моделі",
+      "expect": {
+        "kind": "rejected",
+        "reason": "mediaType",
+        "status": 415
+      },
+      "status": 200,
+      "pass": false,
+      "note": "200 undefined: ",
+      "ms": 1042,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": null,
+      "diff": null,
+      "body": {
+        "raw": "<!DOCTYPE html><html data-dpl-id=\"dpl_AGWqeQyg6fM67vE2aErq72bAuxpU\" class=\"VEU71W_className ac0vwq_className VEU71W_variable ac0vwq_variable dash\" lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name="
+      }
+    },
+    {
+      "id": "mm-09",
+      "file": "scan-4mb.pdf",
+      "why": "4,0 MB: понад МІЙ ліміт 3 MB, але менше за 4,5 MB — відмова мого коду на сервері (браузер відмовив би ще раніше)",
+      "expect": {
+        "kind": "rejected",
+        "reason": "size",
+        "status": 413
+      },
+      "status": 200,
+      "pass": false,
+      "note": "200 undefined: ",
+      "ms": 2027,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": null,
+      "diff": null,
+      "body": {
+        "raw": "<!DOCTYPE html><html data-dpl-id=\"dpl_AGWqeQyg6fM67vE2aErq72bAuxpU\" class=\"VEU71W_className ac0vwq_className VEU71W_variable ac0vwq_variable dash\" lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name="
+      }
+    },
+    {
+      "id": "mm-10",
+      "file": "scan-6mb.pdf",
+      "why": "6,7 MB > 4,5 MB тіла функції: 413 FUNCTION_PAYLOAD_TOO_LARGE від ПЛАТФОРМИ, мій код не виконується; лише на задеплоєному",
+      "expect": {
+        "kind": "platform413"
+      },
+      "status": 200,
+      "pass": false,
+      "note": "200  <!DOCTYPE html><html data-dpl-id=\"dpl_AGWqeQyg6fM67vE2aErq72",
+      "ms": 2624,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": null,
+      "diff": null,
+      "body": {
+        "raw": "<!DOCTYPE html><html data-dpl-id=\"dpl_AGWqeQyg6fM67vE2aErq72bAuxpU\" class=\"VEU71W_className ac0vwq_className VEU71W_variable ac0vwq_variable dash\" lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name="
+      }
+    },
+    {
+      "id": "mm-11",
+      "file": "page-clear.png",
+      "why": "заявлено PDF, а за вмістом PNG — detectMediaType, не довіра клієнту",
+      "expect": {
+        "kind": "rejected",
+        "reason": "mismatch",
+        "status": 415
+      },
+      "status": 200,
+      "pass": false,
+      "note": "200 undefined: ",
+      "ms": 1587,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": null,
+      "diff": null,
+      "body": {
+        "raw": "<!DOCTYPE html><html data-dpl-id=\"dpl_AGWqeQyg6fM67vE2aErq72bAuxpU\" class=\"VEU71W_className ac0vwq_className VEU71W_variable ac0vwq_variable dash\" lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name="
+      }
+    },
+    {
+      "id": "mm-12",
+      "file": "tts-roundtrip.txt",
+      "why": "текст → generateSpeech → transcribe → частка слів оригіналу в транскрипті",
+      "expect": {
+        "kind": "roundtrip",
+        "min_recall": 0.8
+      },
+      "status": 200,
+      "pass": false,
+      "note": "recall — · «»",
+      "ms": 1253,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": null,
+      "diff": null,
+      "body": {
+        "raw": "<!DOCTYPE html><html data-dpl-id=\"dpl_AGWqeQyg6fM67vE2aErq72bAuxpU\" class=\"VEU71W_className ac0vwq_className VEU71W_variable ac0vwq_variable dash\" lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name="
+      }
+    },
+    {
+      "id": "mm-13",
+      "file": "ua-text.txt",
+      "why": "УКРАЇНСЬКА: перевіряється, а не обіцяється — результат записую як є",
+      "expect": {
+        "kind": "roundtrip",
+        "min_recall": 0.8
+      },
+      "status": 200,
+      "pass": false,
+      "note": "recall — · «»",
+      "ms": 1366,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": null,
+      "diff": null,
+      "body": {
+        "raw": "<!DOCTYPE html><html data-dpl-id=\"dpl_AGWqeQyg6fM67vE2aErq72bAuxpU\" class=\"VEU71W_className ac0vwq_className VEU71W_variable ac0vwq_variable dash\" lang=\"en-US\"><head><meta charSet=\"utf-8\"/><meta name="
+      }
+    }
+  ]
+}

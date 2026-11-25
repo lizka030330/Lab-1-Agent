@@ -1,0 +1,383 @@
+{
+  "summary": {
+    "at": "2026-11-25T20:26:25.130Z",
+    "base": "https://lab-1-agent-git-lab4-step-00-efremka.vercel.app",
+    "total": 13,
+    "passed": 13,
+    "unknownExpected": 2,
+    "unknownOk": 2,
+    "latency_median_ms": 4315,
+    "latency_max_ms": 5391
+  },
+  "rows": [
+    {
+      "id": "mm-01",
+      "file": "page-clear.png",
+      "why": "щасливий шлях: читабельна сторінка (768×1000 → 1×2 плитки)",
+      "expect": {
+        "kind": "answer",
+        "must_contain": "47-К"
+      },
+      "status": 200,
+      "pass": true,
+      "note": "«47-К/2026» · стор. 1",
+      "ms": 5278,
+      "input_tokens": 1240,
+      "output_tokens": 361,
+      "base_tokens": 138,
+      "predicted": 516,
+      "diff": 1102,
+      "body": {
+        "ok": true,
+        "text": "Відповідь: 47-К/2026\nСторінка: 1",
+        "answer": "47-К/2026",
+        "page": 1,
+        "unknown": false,
+        "mediaType": "image/png",
+        "inputTokens": 1240,
+        "outputTokens": 361,
+        "ms": 3818
+      }
+    },
+    {
+      "id": "mm-02",
+      "file": "spec-3p.pdf",
+      "why": "PDF, відповідь на першій сторінці; 3 сторінки × 258",
+      "expect": {
+        "kind": "answer",
+        "must_contain": "22.13",
+        "page": 1
+      },
+      "status": 200,
+      "pass": true,
+      "note": "«22.13 або новіша» · стор. 1",
+      "ms": 4048,
+      "input_tokens": 1739,
+      "output_tokens": 350,
+      "base_tokens": 143,
+      "predicted": 774,
+      "diff": 1596,
+      "body": {
+        "ok": true,
+        "text": "Відповідь: 22.13 або новіша\nСторінка: 1",
+        "answer": "22.13 або новіша",
+        "page": 1,
+        "unknown": false,
+        "mediaType": "application/pdf",
+        "inputTokens": 1739,
+        "outputTokens": 350,
+        "ms": 3685
+      }
+    },
+    {
+      "id": "mm-03",
+      "file": "spec-3p.pdf",
+      "why": "НЕ ТА СТОРІНКА: перевіряється саме номер сторінки (3)",
+      "expect": {
+        "kind": "answer",
+        "must_contain": "45",
+        "page": 3
+      },
+      "status": 200,
+      "pass": true,
+      "note": "«45 секунд» · стор. 3",
+      "ms": 4315,
+      "input_tokens": 1742,
+      "output_tokens": 341,
+      "base_tokens": null,
+      "predicted": null,
+      "diff": null,
+      "body": {
+        "ok": true,
+        "text": "Відповідь: 45 секунд\nСторінка: 3",
+        "answer": "45 секунд",
+        "page": 3,
+        "unknown": false,
+        "mediaType": "application/pdf",
+        "inputTokens": 1742,
+        "outputTokens": 341,
+        "ms": 3788
+      }
+    },
+    {
+      "id": "mm-04",
+      "file": "spec-3p.pdf",
+      "why": "відповіді у файлі немає — очікуємо «не знаю»",
+      "expect": {
+        "kind": "unknown"
+      },
+      "status": 200,
+      "pass": true,
+      "note": "«не знаю»",
+      "ms": 4322,
+      "input_tokens": 1737,
+      "output_tokens": 336,
+      "base_tokens": null,
+      "predicted": null,
+      "diff": null,
+      "body": {
+        "ok": true,
+        "text": "Відповідь: не знаю\nСторінка: —",
+        "answer": "не знаю",
+        "page": null,
+        "unknown": true,
+        "mediaType": "application/pdf",
+        "inputTokens": 1737,
+        "outputTokens": 336,
+        "ms": 3881
+      }
+    },
+    {
+      "id": "mm-05",
+      "file": "scan-blurred.jpg",
+      "why": "НЕЧИТАБЕЛЬНИЙ СКАН (розмиття 9 px + шум 45 % + поворот): вгадування = провал",
+      "expect": {
+        "kind": "unknown"
+      },
+      "status": 200,
+      "pass": true,
+      "note": "«не знаю»",
+      "ms": 3494,
+      "input_tokens": 1240,
+      "output_tokens": 180,
+      "base_tokens": null,
+      "predicted": null,
+      "diff": null,
+      "body": {
+        "ok": true,
+        "text": "Відповідь: не знаю\nСторінка: —",
+        "answer": "не знаю",
+        "page": null,
+        "unknown": true,
+        "mediaType": "image/jpeg",
+        "inputTokens": 1240,
+        "outputTokens": 180,
+        "ms": 2948
+      }
+    },
+    {
+      "id": "mm-06",
+      "file": "tiny-320x200.png",
+      "why": "обидві сторони ≤ 384 px — прогноз 258 проти РІЗНИЦІ з текстовою базою",
+      "expect": {
+        "kind": "answer",
+        "must_contain": "LAB-4"
+      },
+      "status": 200,
+      "pass": true,
+      "note": "«LAB-4 КРОК 05» · стор. 1",
+      "ms": 4198,
+      "input_tokens": 1232,
+      "output_tokens": 260,
+      "base_tokens": 140,
+      "predicted": 258,
+      "diff": 1092,
+      "body": {
+        "ok": true,
+        "text": "Відповідь: LAB-4 КРОК 05\nСторінка: 1",
+        "answer": "LAB-4 КРОК 05",
+        "page": 1,
+        "unknown": false,
+        "mediaType": "image/png",
+        "inputTokens": 1232,
+        "outputTokens": 260,
+        "ms": 3959
+      }
+    },
+    {
+      "id": "mm-07",
+      "file": "big-1600x1200.png",
+      "why": "плитки: 3×2 по 258 = 1548; порівнюється з різницею, не з inputTokens",
+      "expect": {
+        "kind": "answer",
+        "must_contain": "ЗВІТ"
+      },
+      "status": 200,
+      "pass": true,
+      "note": "«ЗВІТ КРОКУ 05: МУЛЬТИМОДАЛЬНІСТЬ» · стор. 1",
+      "ms": 4204,
+      "input_tokens": 1205,
+      "output_tokens": 350,
+      "base_tokens": 141,
+      "predicted": 1548,
+      "diff": 1064,
+      "body": {
+        "ok": true,
+        "text": "Відповідь: ЗВІТ КРОКУ 05: МУЛЬТИМОДАЛЬНІСТЬ\nСторінка: 1",
+        "answer": "ЗВІТ КРОКУ 05: МУЛЬТИМОДАЛЬНІСТЬ",
+        "page": 1,
+        "unknown": false,
+        "mediaType": "image/png",
+        "inputTokens": 1205,
+        "outputTokens": 350,
+        "ms": 3844
+      }
+    },
+    {
+      "id": "mm-08",
+      "file": "photo.tiff",
+      "why": "тип поза білим списком — відмова ДО моделі",
+      "expect": {
+        "kind": "rejected",
+        "reason": "mediaType",
+        "status": 415
+      },
+      "status": 415,
+      "pass": true,
+      "note": "415 mediaType: Тип «image/tiff» не підтримується. Можна: PNG, JPEG, WEBP, HEIC/HEIF або PDF.",
+      "ms": 778,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": null,
+      "diff": null,
+      "body": {
+        "ok": false,
+        "reason": "mediaType",
+        "message": "Тип «image/tiff» не підтримується. Можна: PNG, JPEG, WEBP, HEIC/HEIF або PDF."
+      }
+    },
+    {
+      "id": "mm-09",
+      "file": "scan-4mb.pdf",
+      "why": "4,0 MB: понад МІЙ ліміт 3 MB, але менше за 4,5 MB — відмова мого коду на сервері (браузер відмовив би ще раніше)",
+      "expect": {
+        "kind": "rejected",
+        "reason": "size",
+        "status": 413
+      },
+      "status": 413,
+      "pass": true,
+      "note": "413 size: Запит 4.0 МБ — більше за ліміт 3.0 МБ (перевірка на сервері).",
+      "ms": 2361,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": null,
+      "diff": null,
+      "body": {
+        "ok": false,
+        "reason": "size",
+        "message": "Запит 4.0 МБ — більше за ліміт 3.0 МБ (перевірка на сервері)."
+      }
+    },
+    {
+      "id": "mm-10",
+      "file": "scan-6mb.pdf",
+      "why": "6,7 MB > 4,5 MB тіла функції: 413 FUNCTION_PAYLOAD_TOO_LARGE від ПЛАТФОРМИ, мій код не виконується; лише на задеплоєному",
+      "expect": {
+        "kind": "platform413"
+      },
+      "status": 413,
+      "pass": true,
+      "note": "413 FUNCTION_PAYLOAD_TOO_LARGE Request Entity Too Large\n\nFUNCTION_PAYLOAD_TOO_LARGE\n\narn1::",
+      "ms": 1136,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": null,
+      "diff": null,
+      "body": {
+        "raw": "Request Entity Too Large\n\nFUNCTION_PAYLOAD_TOO_LARGE\n\narn1::79m6x-1795638373562-5b72f78a19bb\n"
+      }
+    },
+    {
+      "id": "mm-11",
+      "file": "page-clear.png",
+      "why": "заявлено PDF, а за вмістом PNG — detectMediaType, не довіра клієнту",
+      "expect": {
+        "kind": "rejected",
+        "reason": "mismatch",
+        "status": 415
+      },
+      "status": 415,
+      "pass": true,
+      "note": "415 mismatch: Файл заявлено як application/pdf, а за вмістом це image/png. Надішліть файл із п",
+      "ms": 344,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": null,
+      "diff": null,
+      "body": {
+        "ok": false,
+        "reason": "mismatch",
+        "message": "Файл заявлено як application/pdf, а за вмістом це image/png. Надішліть файл із правильним типом."
+      }
+    },
+    {
+      "id": "mm-12",
+      "file": "tts-roundtrip.txt",
+      "why": "текст → generateSpeech → transcribe → частка слів оригіналу в транскрипті",
+      "expect": {
+        "kind": "roundtrip",
+        "min_recall": 0.8
+      },
+      "status": 200,
+      "pass": true,
+      "note": "recall 1.00 · «The harness answers questions about the forked repository with verified citation»",
+      "ms": 5391,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": null,
+      "diff": null,
+      "body": {
+        "ok": true,
+        "mode": "roundtrip",
+        "original": "The harness answers questions about the forked repository with verified citations.",
+        "transcript": "The harness answers questions about the forked repository with verified citations.",
+        "recall": 1,
+        "tts": {
+          "mediaType": "audio/wav",
+          "format": "wav",
+          "bytes": 256828,
+          "ms": 3426
+        },
+        "stt": {
+          "language": null,
+          "durationSec": null,
+          "ms": 1583
+        },
+        "ms": 5011
+      }
+    },
+    {
+      "id": "mm-13",
+      "file": "ua-text.txt",
+      "why": "УКРАЇНСЬКА: перевіряється, а не обіцяється — результат записую як є",
+      "expect": {
+        "kind": "roundtrip",
+        "min_recall": 0.8
+      },
+      "status": 200,
+      "pass": true,
+      "note": "recall 0.91 · «Harness відповідає на питання про чужий репозиторій і перевіряє кожну цитату.»",
+      "ms": 4845,
+      "input_tokens": null,
+      "output_tokens": null,
+      "base_tokens": null,
+      "predicted": null,
+      "diff": null,
+      "body": {
+        "ok": true,
+        "mode": "roundtrip",
+        "original": "Харнес відповідає на питання про чужий репозиторій і перевіряє кожну цитату.",
+        "transcript": "Harness відповідає на питання про чужий репозиторій і перевіряє кожну цитату.",
+        "recall": 0.9090909090909091,
+        "tts": {
+          "mediaType": "audio/wav",
+          "format": "wav",
+          "bytes": 252028,
+          "ms": 3248
+        },
+        "stt": {
+          "language": null,
+          "durationSec": null,
+          "ms": 1384
+        },
+        "ms": 4633
+      }
+    }
+  ]
+}

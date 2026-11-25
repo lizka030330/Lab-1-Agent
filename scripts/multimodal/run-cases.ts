@@ -27,7 +27,18 @@ function form(q: string, file?: { bytes: Buffer; type: string; name: string }) {
   return fd;
 }
 
+/** Перед прогоном: чи пускає нас захист preview до НАШОГО коду. Сторінка входу Vercel — це 200 з HTML, а не відмова. */
+async function assertReachable() {
+  const r = await fetch(`${BASE}/api/health`, { headers });
+  const type = r.headers.get('content-type') ?? '';
+  if (!type.includes('application/json')) {
+    const hint = process.env.VERCEL_AUTOMATION_BYPASS_SECRET ? `секрет довжиною ${process.env.VERCEL_AUTOMATION_BYPASS_SECRET.length} символів не прийнято` : 'секрет обходу не задано';
+    throw new Error(`захист preview не пропустив: /api/health → ${r.status} ${type} (${hint}). Прогін НЕ запущено.`);
+  }
+}
+
 async function main() {
+  await assertReachable();
   const cases = readFileSync('docs/lab4/multimodal-cases.jsonl', 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l) as Case);
   const rows: Record<string, unknown>[] = [];
   const bases = new Map<string, number | undefined>();
