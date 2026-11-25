@@ -1,0 +1,13 @@
+# Перевірка кроку 06 — baseline
+# час (UTC): 2026-11-25T21:10:19Z · URL: https://lab-1-agent-git-lab4-step-00-efremka.vercel.app · локальний HEAD: a04f069
+
+## GET /api/health
+HTTP 200 · status="ok"  commit="a04f069ac8f77e9957d1a46300dd5f8b60644c09"
+
+## GET /api/ready
+HTTP 200 · ok=true  checks={"modelKey":true,"flagStore":true,"agentEnabled":true,"budgetStore":true,"budget":true}
+
+## POST /api/multimodal #1 (текстове питання, без файлу)
+HTTP 200 · ok=true  error=undefined  reason=undefined  answer="не знаю"  inputTokens=149  outputTokens=317  task_id="mm-mwwmawhd-rxhduk"  trace_id="e2aa22b1cb1f3a0d5bbf2ec60504a987"
+## POST /api/multimodal #2 (текстове питання, без файлу)
+HTTP 200 · ok=true  error=undefined  reason=undefined  answer="не знаю"  inputTokens=149  outputTokens=341  task_id="mm-mwwmazpt-e94ny7"  trace_id="8b57d088184d107bcd88c97f1ed9a932"

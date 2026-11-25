@@ -1,0 +1,15 @@
+# Перевірка кроку 06 — cap
+# час (UTC): 2026-11-25T21:18:17Z · URL: https://lab-1-agent-git-lab4-step-00-efremka.vercel.app · локальний HEAD: a04f069
+
+## GET /api/health
+HTTP 200 · status="ok"  commit="a04f069ac8f77e9957d1a46300dd5f8b60644c09"
+
+## GET /api/ready
+HTTP 200 · ok=true  checks={"modelKey":true,"flagStore":true,"agentEnabled":true,"budgetStore":true,"budget":true}
+
+## POST /api/multimodal #1 (текстове питання, без файлу)
+HTTP 200 · ok=true  error=undefined  reason=undefined  answer="не знаю"  inputTokens=149  outputTokens=348  task_id="mm-mwwml5fm-o30s28"  trace_id="db68d9acd428a960e0c437efed17bfc2"
+## POST /api/multimodal #2 (текстове питання, без файлу)
+HTTP 429 · Retry-After: 9695 · ok=false  error="budget_exhausted"  reason="output_tokens_per_day"  answer=undefined  inputTokens=undefined  outputTokens=undefined  task_id=undefined  trace_id=undefined
+## POST /api/multimodal #3 (текстове питання, без файлу)
+HTTP 429 · Retry-After: 9694 · ok=false  error="budget_exhausted"  reason="output_tokens_per_day"  answer=undefined  inputTokens=undefined  outputTokens=undefined  task_id=undefined  trace_id=undefined

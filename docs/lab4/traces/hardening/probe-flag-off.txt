@@ -1,0 +1,11 @@
+# Перевірка кроку 06 — flag-off
+# час (UTC): 2026-11-25T21:16:59Z · URL: https://lab-1-agent-git-lab4-step-00-efremka.vercel.app · локальний HEAD: a04f069
+
+## GET /api/health
+HTTP 200 · status="ok"  commit="a04f069ac8f77e9957d1a46300dd5f8b60644c09"
+
+## GET /api/ready
+HTTP 503 · ok=false  checks={"modelKey":true,"flagStore":true,"agentEnabled":false,"budgetStore":true,"budget":true}
+
+## POST /api/multimodal #1 (текстове питання, без файлу)
+HTTP 503 · ok=false  error="agent_disabled"  reason="flag_off_or_store_unreachable"  answer=undefined  inputTokens=undefined  outputTokens=undefined  task_id=undefined  trace_id=undefined
