@@ -7,18 +7,20 @@
 import { google } from '@ai-sdk/google';
 import { generateSpeech, transcribe } from 'ai';
 
+import { aiTelemetry } from '../telemetry';
+
 export const TTS_MODEL = 'gemini-3.8-flash-tts';
 export const STT_MODEL = 'gemini-3.5-transcribe';
 
-export async function speak(text: string) {
+export async function speak(text: string, taskId?: string) {
   const t0 = performance.now();
-  const res = await generateSpeech({ model: google.speech(TTS_MODEL), text });
+  const res = await generateSpeech({ model: google.speech(TTS_MODEL), text, telemetry: taskId ? aiTelemetry(taskId) : { isEnabled: false } });
   return { base64: res.audio.base64, mediaType: res.audio.mediaType, format: res.audio.format, bytes: res.audio.uint8Array.byteLength, warnings: res.warnings.length, ms: Math.round(performance.now() - t0) };
 }
 
-export async function listen(audio: Uint8Array) {
+export async function listen(audio: Uint8Array, taskId?: string) {
   const t0 = performance.now();
-  const res = await transcribe({ model: google.transcription(STT_MODEL), audio });
+  const res = await transcribe({ model: google.transcription(STT_MODEL), audio, telemetry: taskId ? aiTelemetry(taskId) : { isEnabled: false } });
   return { text: res.text, language: res.language ?? null, durationSec: res.durationInSeconds ?? null, ms: Math.round(performance.now() - t0) };
 }
 

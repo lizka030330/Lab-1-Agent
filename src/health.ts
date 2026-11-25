@@ -4,6 +4,8 @@ import { z } from 'zod';
 export const HealthResponse = z.object({
   status: z.literal('ok'),
   timestamp: z.iso.datetime(),
+  /** Версія застосунку (Лаб. 4, крок 06): SHA комміту деплою; локально — 'unknown'. */
+  commit: z.string().optional(),
 });
 
 export type HealthResponse = z.infer<typeof HealthResponse>;

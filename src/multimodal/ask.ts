@@ -8,6 +8,7 @@ import { detectMediaType } from '@ai-sdk/provider-utils';
 import { generateText } from 'ai';
 
 import { CATALOG } from '../models';
+import { aiTelemetry } from '../telemetry';
 import { precheck, type Rejection } from './limits';
 
 export const MM_MODEL = CATALOG['gemini-3.8-flash'].id;
@@ -39,7 +40,7 @@ export function parseAnswer(text: string): { answer: string; page: number | null
   return { answer, page: p ? Number(p) : null, unknown: /не\s+знаю/i.test(answer) };
 }
 
-export async function askAboutFile(args: { bytes: Uint8Array | null; declared: string; question: string; filename?: string }): Promise<AskOk | Rejection> {
+export async function askAboutFile(args: { bytes: Uint8Array | null; declared: string; question: string; filename?: string; taskId?: string }): Promise<AskOk | Rejection> {
   const pre = precheck(args.bytes ? { size: args.bytes.byteLength, type: args.declared } : null, args.question);
   if (pre) return pre;
   if (args.bytes) {
@@ -63,7 +64,8 @@ export async function askAboutFile(args: { bytes: Uint8Array | null; declared: s
         ],
       },
     ],
-    telemetry: { isEnabled: false, functionId: `multimodal/${args.declared || 'text'}`, recordInputs: false, recordOutputs: false },
+    // крок 06: спани з functionId = task-<id>; вміст (файл, питання, відповідь) у трасу НЕ йде
+    telemetry: args.taskId ? aiTelemetry(args.taskId) : { isEnabled: false },
   });
   return {
     ok: true,
