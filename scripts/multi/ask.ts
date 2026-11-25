@@ -16,6 +16,7 @@ import { google } from '@ai-sdk/google';
 import type { Telemetry } from 'ai';
 
 import { chatCompletionsModel } from '../../src/agent/adapters';
+import { assertJudgeUp } from '../../src/multi/preflight';
 import { defaultRoots, fromProposal, recall, remember, type Recall } from '../../src/memory/store';
 import { priceUsd } from '../../src/cost';
 import { CATALOG } from '../../src/models';
@@ -84,6 +85,7 @@ async function main(): Promise<void> {
   const judgeModelId = process.env.VERIFY_HARNESS_MODEL || 'qwen3-8b-16k';
   const judge = chatCompletionsModel({ url: `${process.env.OLLAMA_BASE_URL || 'http://localhost:11434'}/v1/chat/completions`, model: judgeModelId });
   const tools = readerTools(root);
+  await assertJudgeUp(process.env.OLLAMA_BASE_URL || 'http://localhost:11434', judgeModelId);
 
   const qs = readFileSync('docs/lab4/questions.jsonl', 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l) as Q).filter((q) => !only || q.id === only);
   let anyBlocked = false;

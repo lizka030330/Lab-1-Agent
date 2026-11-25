@@ -1,0 +1,29 @@
+{
+  "at": "2026-11-25T15:24:12.315Z",
+  "fork_head": "ae3e0a0dc982e5bf1f1f9d018b12516289c8f3f5",
+  "cites": [
+    {
+      "sha": "22a9679"
+    },
+    {
+      "file": "src/index.ts",
+      "line": 460,
+      "sha": "ae3e0a0dc982e5bf1f1f9d018b12516289c8f3f5"
+    },
+    {
+      "file": "src/index.ts",
+      "line": 461,
+      "sha": "ae3e0a0dc982e5bf1f1f9d018b12516289c8f3f5"
+    },
+    {
+      "file": "src/redos.spec.ts",
+      "line": 14,
+      "sha": "ae3e0a0dc982e5bf1f1f9d018b12516289c8f3f5"
+    },
+    {
+      "file": "src/index.spec.ts",
+      "line": 216,
+      "sha": "ae3e0a0dc982e5bf1f1f9d018b12516289c8f3f5"
+    }
+  ]
+}

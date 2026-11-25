@@ -1,0 +1,217 @@
+{
+  "taskId": "q3-mem-off",
+  "question_id": "q3",
+  "mode": "single",
+  "label": "mem-off",
+  "at": "2026-11-25T15:10:36.177Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 24,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": false,
+  "wall_ms": 212990,
+  "fanout_wall_ms": 61466,
+  "compute_ms": 212980,
+  "verifier_ms": 128881,
+  "calls": 8,
+  "steps": 16,
+  "input_tokens": 95831,
+  "output_tokens": 6399,
+  "cache_read_tokens": 60579,
+  "unreported_calls": 0,
+  "usd_estimate": 0.0958695,
+  "quality_facts": 0.6666666666666666,
+  "claims_total": 6,
+  "claims_pass": 6,
+  "memory": null,
+  "commit_evidence": 0,
+  "commit_evidence_not_pass": 0,
+  "memory_proposals": {
+    "offered": 1,
+    "accepted": 0,
+    "rejected": []
+  },
+  "lanes": [
+    {
+      "lane": "all",
+      "ok": true,
+      "ms": 61466,
+      "steps": 15,
+      "inputTokens": 94552,
+      "outputTokens": 3782,
+      "textChars": 2830,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "stop",
+          "text": 2830,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "pass",
+      "reason": "Клас PathError визначений як наслідник TypeError",
+      "evidence": "export class PathError extends TypeError { ... }"
+    },
+    {
+      "id": "c2",
+      "verdict": "pass",
+      "reason": "Умова перевіряє символи }()[]+?! та кидає помилку для неекранованих символів",
+      "evidence": "if (\"}()[]+?!\").includes(char)) { throw new PathError(...)"
+    },
+    {
+      "id": "c3",
+      "verdict": "pass",
+      "reason": "Код викидає помилку, коли '\\'' є останнім символом без наступного для екранування",
+      "evidence": "throw new PathError(`Unexpected end after \\ at index ${index}`, str);"
+    },
+    {
+      "id": "c4",
+      "verdict": "pass",
+      "reason": "Код перевіряє відсутність імені параметра та генерує помилку, що відповідає твердженню про помилку парсингу без коректного імені.",
+      "evidence": "212: throw new PathError(`Missing parameter name at index ${index}`, str);"
+    },
+    {
+      "id": "c5",
+      "verdict": "pass",
+      "reason": "Тестовий код використовує it.each для перевірки кожного з перерахованих символів.",
+      "evidence": "it.each([\"}\", \"(\", \")\", \"[\", \"]\", \"+\", \"?\",$ \"!\"])"
+    },
+    {
+      "id": "c6",
+      "verdict": "pass",
+      "reason": "Тести перевіряють помилку висячого зворотного слеша на кінці рядка",
+      "evidence": "Тести вимушують виняток з повідомленням \"Unexpected end after \\\" для різних сценаріїв"
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Для синтаксичних помилок розбору parse() кидає власний клас PathError, що розширює TypeError.",
+      "evidence": "src/index.ts#L128-L139"
+    },
+    {
+      "id": "c2",
+      "text": "У тілі parse() за умови if (\"}()[]+?!\".includes(char)) кидається помилка на неекрановані символи }, (, ), [, ], +, ?, !.",
+      "evidence": "src/index.ts#L229-L231"
+    },
+    {
+      "id": "c3",
+      "text": "Символ зворотного слеша \\ заборонено залишати останнім у рядку або групі без наступного символу для екранування.",
+      "evidence": "src/index.ts#L170-L176"
+    },
+    {
+      "id": "c4",
+      "text": "Символи : та * без коректного імені параметра або закритих лапок призводять до помилки парсингу.",
+      "evidence": "src/index.ts#L211-L213"
+    },
+    {
+      "id": "c5",
+      "text": "Символи }, (, ), [, ], +, ?, ! перевіряються параметризованим тестом it.each у тестовому наборі.",
+      "evidence": "src/index.spec.ts#L111-L118"
+    },
+    {
+      "id": "c6",
+      "text": "Помилка висячого зворотного слеша наприкінці рядка перевіряється в тестах блоку eol backslash.",
+      "evidence": "src/index.spec.ts#L81-L109"
+    }
+  ]
+}

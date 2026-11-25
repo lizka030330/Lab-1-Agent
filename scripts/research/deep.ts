@@ -15,6 +15,7 @@ import { performance } from 'node:perf_hooks';
 import { google } from '@ai-sdk/google';
 
 import { chatCompletionsModel } from '../../src/agent/adapters';
+import { assertJudgeUp } from '../../src/multi/preflight';
 import { headSha } from '../../src/memory/store';
 import { priceUsd } from '../../src/cost';
 import { CATALOG } from '../../src/models';
@@ -65,6 +66,7 @@ async function main(): Promise<void> {
   const judgeId = process.env.VERIFY_HARNESS_MODEL || 'qwen3-8b-16k';
   const judge = chatCompletionsModel({ url: `${process.env.OLLAMA_BASE_URL || 'http://localhost:11434'}/v1/chat/completions`, model: judgeId });
   const tools = researchTools(fork);
+  await assertJudgeUp(process.env.OLLAMA_BASE_URL || 'http://localhost:11434', judgeId);
   const wall0 = performance.now();
 
   let spent: Spent = { calls: 0, steps: 0, input: 0, output: 0, cacheRead: 0, unreported: 0, ms: 0 };

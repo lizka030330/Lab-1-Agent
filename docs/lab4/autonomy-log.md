@@ -54,3 +54,15 @@
 - **Що я перевірила і чим:** `npx vitest run tests/multi` → 12 passed; `npm test` → 218 passed (до останніх правок); прогони `fanout-v3`, `single-v3`, `stop-demo`; зупинка бюджетом — рядок у `budget-stop.jsonl`, 0 викликів моделі.
 - **Вартість прогонів кроку (оцінка `src/cost.ts`, без знижки за кеш):** fanout-v3 $0,42, single-v3 $0,67; невдалі й діагностичні прогони — у своїх трасах (`usd_estimate`).
 - **Докази:** `docs/lab4/multiagent.md`, `docs/lab4/traces/` (траси, логи, `budget-stop.jsonl`), `docs/lab4/answers/`.
+
+## Сесія 5 — 2026-11-25 · крок 04 · памʼять харнеса і глибоке дослідження
+
+- **Репозиторій, у якому працював агент:** код — у **курсовому** (`src/memory/`, `src/research/`, `src/multi/preflight.ts`, `scripts/memory/`, `scripts/research/`, `scripts/cite-check.ts`); продукт під час прогонів лише **читав форк** `path-to-regexp` (основний checkout, `master` `ae3e0a0`); `git status` форка після прогонів — 0 змін.
+- **Інструмент для написання коду:** Claude Opus 5.5 у claude.ai з доступом до тек через Claude desktop app; `tsc` і `eslint` — сам агент; `vitest`, прогони з мережею, `seed.ts` і коміти — я.
+- **Моделі продукту:** гілки, звід, дослідник — `gemini-3.8-flash` (платний Tier 1); верифікатор — `ollama/qwen3-8b-16k`.
+- **Режим дозволів продукту:** дослідник отримує рівно `researchTools(root)` — 8 читальних інструментів, перелік звірено тестом із файлом `docs/lab4/research-agent.json`; `safePath` + `realpath`; запису в гілках немає. Памʼять пише лише `remember()`; пропозиції моделі — лише в `proposed.jsonl`.
+- **Що агент зробив сам:** `store.ts` (схема, відмови, застарілість, дві межі), `cite.ts`, `cite-check.ts`, `deep.ts`, `seed.ts`, `add.ts`, `preflight.ts`, інструменти `git_blame`/`git_log_search`, 13 тестів, `memory.md`.
+- **Що робила я:** переглянула 8 початкових записів памʼяті перед `seed.ts`; запускала тести, прогони `mem-off`/`mem-on`, дослідження й `cite-check`; відкрила кожну з 5 цитат дослідження.
+- **Втручання й помилки:** (1) 25.11 16:56 чотири прогони впали з `ECONNREFUSED 127.0.0.1:11434` — Ollama була вимкнена, а Gemini вже відпрацював (токени витрачено); додано `assertJudgeUp` — тепер падаємо ДО першого виклику Gemini; (2) блок `q2-mem-on` виявився непостійністю верифікатора (той самий доказ: `pass` без памʼяті, `unknown` з памʼяттю), а не помилкою агента — записано в `memory.md`; (3) звідник дослідження додав у текст інтерпретацію без цитати — позначено в `memory.md` як «не підтверджено цитатою».
+- **Числа:** памʼять — 6 з 8 записів у промпт, 2 застарілі відкинуто, 0 обрізано, 2 відмови в журналі; дослідження — 1 раунд, 5 цитат, 0 не підтверджено, верифікатор 5/5 pass, 156 с, ≈ $0,079.
+- **Докази:** `docs/lab4/memory.md`, `docs/lab4/memory/{store,rejected,proposed}.jsonl`, `docs/lab4/research-cites.json`, `docs/lab4/research-answer.md`, `docs/lab4/traces/{run-memory,run-research}.txt`, `docs/lab4/traces/research/`, `docs/lab4/traces/multi/q{2,3}-mem-*.json`.

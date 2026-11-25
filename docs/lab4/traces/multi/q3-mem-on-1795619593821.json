@@ -1,0 +1,209 @@
+{
+  "taskId": "q3-mem-on",
+  "question_id": "q3",
+  "mode": "single",
+  "label": "mem-on",
+  "at": "2026-11-25T15:13:13.821Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 24,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": false,
+  "wall_ms": 156538,
+  "fanout_wall_ms": 57159,
+  "compute_ms": 156355,
+  "verifier_ms": 81567,
+  "calls": 8,
+  "steps": 13,
+  "input_tokens": 94841,
+  "output_tokens": 5857,
+  "cache_read_tokens": 62997,
+  "unreported_calls": 0,
+  "usd_estimate": 0.0930945,
+  "quality_facts": 0.6666666666666666,
+  "claims_total": 6,
+  "claims_pass": 6,
+  "memory": {
+    "used": 6,
+    "total": 8,
+    "stale_dropped": 2,
+    "stale": [
+      "2026-11-25T14:47:50.383Z constraint",
+      "2026-11-25T14:47:50.383Z decision"
+    ],
+    "cut_entries": 0,
+    "cut_bytes": 0
+  },
+  "commit_evidence": 0,
+  "commit_evidence_not_pass": 0,
+  "memory_proposals": {
+    "offered": 0,
+    "accepted": 0,
+    "rejected": []
+  },
+  "lanes": [
+    {
+      "lane": "all",
+      "ok": true,
+      "ms": 57159,
+      "steps": 12,
+      "inputTokens": 93127,
+      "outputTokens": 4218,
+      "textChars": 2229,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 3,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "stop",
+          "text": 2229,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "pass",
+      "reason": "Код прямо перевіряє наявність заборонених символів }( )[]+?!",
+      "evidence": "229: if \"}()[]+?!\".includes(char) {"
+    },
+    {
+      "id": "c2",
+      "verdict": "pass",
+      "reason": "Повідомлення містить неочікуваний символ та його індекс у тексті",
+      "evidence": "throw new PathError(`Unexpected ${char} at index ${index - 1}`, str);"
+    },
+    {
+      "id": "c3",
+      "verdict": "pass",
+      "reason": "Клас PathError явно визначено як нащадок TypeError у коді",
+      "evidence": "src/index.ts#L128: export class PathError extends TypeError {"
+    },
+    {
+      "id": "c4",
+      "verdict": "pass",
+      "reason": "Тест перевіряє заборонені символи через параметризований тест у блоці 'parse errors'",
+      "evidence": "it.each([...])('should throw on unexpected character %s', ...)"
+    },
+    {
+      "id": "c5",
+      "verdict": "pass",
+      "reason": "Тест перевіряє викидання PathError з конкретним текстом та збереженням вихідного шляху",
+      "evidence": "new PathError(`Unexpected ${char} at index 5`, `/foo/${char}`)"
+    },
+    {
+      "id": "c6",
+      "verdict": "pass",
+      "reason": "Тести в блоці describe('PathError') перевіряють наслідування від TypeError та поведінку класу.",
+      "evidence": "error).toBeInstanceOf(TypeError) (рядок 29)"
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Без екранування функція parse() забороняє символи }, (, ), [, ], +, ? та !",
+      "evidence": "src/index.ts#L229"
+    },
+    {
+      "id": "c2",
+      "text": "При зустрічі забороненого символу генерується повідомлення з неочікуваним символом та його індексом",
+      "evidence": "src/index.ts#L230"
+    },
+    {
+      "id": "c3",
+      "text": "Класом помилки, що кидається парсером, є PathError, який наслідує TypeError",
+      "evidence": "src/index.ts#L128"
+    },
+    {
+      "id": "c4",
+      "text": "Заборонені символи перевіряються параметризованим тестом у блоці describe(\"parse errors\")",
+      "evidence": "src/index.spec.ts#L111-L118"
+    },
+    {
+      "id": "c5",
+      "text": "Тест перевіряє викидання PathError із відповідним текстом та збереженням вихідного шляху",
+      "evidence": "src/index.spec.ts#L114-L116"
+    },
+    {
+      "id": "c6",
+      "text": "Поведінка та наслідування самого класу PathError від TypeError покриті в блоці describe(\"PathError\")",
+      "evidence": "src/index.spec.ts#L22-L48"
+    }
+  ]
+}

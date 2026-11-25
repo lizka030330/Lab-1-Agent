@@ -1,0 +1,245 @@
+{
+  "taskId": "q2-mem-on",
+  "question_id": "q2",
+  "mode": "single",
+  "label": "mem-on",
+  "at": "2026-11-25T15:07:02.072Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 24,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": true,
+  "wall_ms": 194313,
+  "fanout_wall_ms": 74421,
+  "compute_ms": 194035,
+  "verifier_ms": 97352,
+  "calls": 8,
+  "steps": 19,
+  "input_tokens": 108840,
+  "output_tokens": 6943,
+  "cache_read_tokens": 64364,
+  "unreported_calls": 0,
+  "usd_estimate": 0.10766625,
+  "quality_facts": 1,
+  "claims_total": 6,
+  "claims_pass": 5,
+  "memory": {
+    "used": 6,
+    "total": 8,
+    "stale_dropped": 2,
+    "stale": [
+      "2026-11-25T14:47:50.383Z constraint",
+      "2026-11-25T14:47:50.383Z decision"
+    ],
+    "cut_entries": 0,
+    "cut_bytes": 0
+  },
+  "commit_evidence": 1,
+  "commit_evidence_not_pass": 1,
+  "memory_proposals": {
+    "offered": 1,
+    "accepted": 1,
+    "rejected": []
+  },
+  "lanes": [
+    {
+      "lane": "all",
+      "ok": true,
+      "ms": 74421,
+      "steps": 18,
+      "inputTokens": 107027,
+      "outputTokens": 4206,
+      "textChars": 2423,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "stop",
+          "text": 2423,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "unknown",
+      "reason": "Доказ не містить конкретного коду або опису ліміту, лише інформацію про зміни файлів та повідомлення про ішю.",
+      "evidence": "Commit message: 'Reject large optional route combinations (#424)'"
+    },
+    {
+      "id": "c2",
+      "verdict": "pass",
+      "reason": "Умова перевіряє ліміт комбінацій, коли combinations >= 256.",
+      "evidence": "460: if (combinations >= 256) {"
+    },
+    {
+      "id": "c3",
+      "verdict": "pass",
+      "reason": "Функція кидає виняток PathError з точним повідомленням 'Too many path combinations'.",
+      "evidence": "throw new PathError(\"Too many path combinations\", data.originalPath);"
+    },
+    {
+      "id": "c4",
+      "verdict": "pass",
+      "reason": "Клас PathError явно успадковує TypeError через ключове слово extends",
+      "evidence": "export class PathError extends TypeError {"
+    },
+    {
+      "id": "c5",
+      "verdict": "pass",
+      "reason": "Лічильник combinations інкрементується в коді",
+      "evidence": "combinations++;"
+    },
+    {
+      "id": "c6",
+      "verdict": "pass",
+      "reason": "Тест перевіряє викидання PathError при 10 необов’язкових сегментах, що викликає перевірку ліміту альтернативних маршрутів.",
+      "evidence": "const segments = new Array(10).fill(\"{/x}\").join(\"\")"
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Ліміт комбінацій необовʼязкових груп зʼявився у коміті 22a9679 з повідомленням Reject large optional route combinations (#424).",
+      "evidence": "commit:22a9679"
+    },
+    {
+      "id": "c2",
+      "text": "Функція pathToRegexp перевіряє ліміт комбінацій за умовою combinations >= 256.",
+      "evidence": "src/index.ts#L460"
+    },
+    {
+      "id": "c3",
+      "text": "При досягненні ліміту комбінацій функція кидає виняток PathError з повідомленням Too many path combinations.",
+      "evidence": "src/index.ts#L461"
+    },
+    {
+      "id": "c4",
+      "text": "Клас PathError успадковує стандартний TypeError.",
+      "evidence": "src/index.ts#L128-L139"
+    },
+    {
+      "id": "c5",
+      "text": "Лічильник combinations інкрементується під час обходу варіантів токенів у колбеку flatten.",
+      "evidence": "src/index.ts#L472"
+    },
+    {
+      "id": "c6",
+      "text": "Тест перевіряє викидання PathError при перевищенні ліміту альтернативних маршрутів на прикладі 10 необовʼязкових сегментів.",
+      "evidence": "src/index.spec.ts#L215-L221"
+    }
+  ]
+}

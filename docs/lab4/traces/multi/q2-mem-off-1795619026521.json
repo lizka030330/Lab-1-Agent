@@ -1,0 +1,224 @@
+{
+  "taskId": "q2-mem-off",
+  "question_id": "q2",
+  "mode": "single",
+  "label": "mem-off",
+  "at": "2026-11-25T15:03:46.521Z",
+  "fork": "/Users/lizaefremenko/Desktop/IT STEP/AI/path-to-regexp",
+  "model": "gemini-3.8-flash",
+  "judge": "ollama/qwen3-8b-16k",
+  "budget": {
+    "maxBranches": 4,
+    "maxTurns": 12,
+    "stepsPerBranch": 24,
+    "tokenCeiling": 400000,
+    "wallClockMs": 180000
+  },
+  "stop": "none",
+  "stop_stage": null,
+  "incomplete": false,
+  "missing_lanes": [],
+  "blocked": false,
+  "wall_ms": 152504,
+  "fanout_wall_ms": 60979,
+  "compute_ms": 152465,
+  "verifier_ms": 75838,
+  "calls": 7,
+  "steps": 19,
+  "input_tokens": 94109,
+  "output_tokens": 5260,
+  "cache_read_tokens": 52621,
+  "unreported_calls": 0,
+  "usd_estimate": 0.09030674999999999,
+  "quality_facts": 1,
+  "claims_total": 5,
+  "claims_pass": 5,
+  "memory": null,
+  "commit_evidence": 1,
+  "commit_evidence_not_pass": 0,
+  "memory_proposals": {
+    "offered": 0,
+    "accepted": 0,
+    "rejected": []
+  },
+  "lanes": [
+    {
+      "lane": "all",
+      "ok": true,
+      "ms": 60979,
+      "steps": 18,
+      "inputTokens": 92917,
+      "outputTokens": 3729,
+      "textChars": 2529,
+      "stepLog": [
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "tool-calls",
+          "text": 0,
+          "calls": 1,
+          "reasoning": 0
+        },
+        {
+          "finish": "stop",
+          "text": 2529,
+          "calls": 0,
+          "reasoning": 0
+        }
+      ]
+    }
+  ],
+  "verdicts": [
+    {
+      "id": "c1",
+      "verdict": "pass",
+      "reason": "Коміт впроваджує обмеження на велику кількість опційних комбінацій маршрутів за темою змін",
+      "evidence": "22a9679 2026-03-26 Blake Embrey Reject large optional route combinations (#424)"
+    },
+    {
+      "id": "c2",
+      "verdict": "pass",
+      "reason": "Доказ показує ініціалізацію змінної combinations значенням 0.",
+      "evidence": "src/index.ts#L450: let combinations = 0;"
+    },
+    {
+      "id": "c3",
+      "verdict": "pass",
+      "reason": "Код прямо перевіряє умову combinations >= 256 і кидає PathError з вказаним текстом.",
+      "evidence": "if (combinations >= 256) { throw new PathError(\"Too many path combinations\", data.originalPath); }"
+    },
+    {
+      "id": "c4",
+      "verdict": "pass",
+      "reason": "Доказ показує, що combinations інкрементується за допомогою оператора ++.",
+      "evidence": "combinations++;"
+    },
+    {
+      "id": "c5",
+      "verdict": "pass",
+      "reason": "Клас PathError явно розширює TypeError у коді",
+      "evidence": "export class PathError extends TypeError { ... }"
+    }
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "text": "Ліміт на кількість комбінацій маршруту було впроваджено в коміті 22a9679 («Reject large optional route combinations (#424)»).",
+      "evidence": "commit:22a9679"
+    },
+    {
+      "id": "c2",
+      "text": "Перед розгортанням маршруту pathToRegexp() ініціалізує лічильник combinations зі значенням 0.",
+      "evidence": "src/index.ts#L450"
+    },
+    {
+      "id": "c3",
+      "text": "Коли combinations >= 256, pathToRegexp() викидає помилку PathError з текстом 'Too many path combinations'.",
+      "evidence": "src/index.ts#L460-L462"
+    },
+    {
+      "id": "c4",
+      "text": "Після генерації чергової альтернативи шляху значення combinations інкрементується.",
+      "evidence": "src/index.ts#L472"
+    },
+    {
+      "id": "c5",
+      "text": "Клас помилки PathError розширює стандартний TypeError.",
+      "evidence": "src/index.ts#L128-L139"
+    }
+  ]
+}

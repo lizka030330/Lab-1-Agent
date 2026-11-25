@@ -1,0 +1,1 @@
+{"at":"2026-11-25T15:07:02.024Z","kind":"outcome","text":"Ліміт 256 комбінацій та помилка PathError у pathToRegexp знаходяться в src/index.ts#L460-L461 та додані комітом 22a9679.","sha":"ae3e0a0dc982e5bf1f1f9d018b12516289c8f3f5","repo":"fork","paths":["src/index.ts","src/index.spec.ts"],"source":"запропоновано звідником у прогоні q2-mem-on; не переглянуто"}
