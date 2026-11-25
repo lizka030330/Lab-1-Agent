@@ -1,0 +1,13 @@
+{
+  "role": "дослідник (крок 04) — паралельні читальні смуги глибокого дослідження",
+  "root": "тека форка path-to-regexp (LAB4_FORK_DIR, типово ../path-to-regexp); шлях кожного читання — safePath(): без .., без абсолютних, без .env*/.git/node_modules, канонічний через realpath",
+  "allowed_tools": ["list_files", "read_file", "grep", "git_log", "git_show_stat", "git_rank", "git_blame", "git_log_search"],
+  "denied": {
+    "write": "інструмента запису немає в наборі",
+    "shell": "оболонки немає; git — лише фіксовані читальні форми через execFile: log --follow -M30%, show --stat, blame -w -C --ignore-rev, log -S",
+    "network": "інструментів мережі немає",
+    "outside_fork": "safePath відмовляє"
+  },
+  "limits": { "K_lanes": 4, "max_rounds": 2, "steps_per_lane": 6, "wall_clock_ms_per_round": 180000 },
+  "enforced_by": ["src/multi/tools.ts (researchTools, safePath)", "tests/multi/tools.test.ts (перелік == цей файл)"]
+}

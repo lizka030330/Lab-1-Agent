@@ -7,7 +7,7 @@
  * читальні форми через execFile (без оболонки), аргументи валідуються; вивід обрізається.
  */
 import { execFile } from 'node:child_process';
-import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, realpathSync, statSync } from 'node:fs';
 import { isAbsolute, relative, resolve, sep } from 'node:path';
 import { promisify } from 'node:util';
 
@@ -31,6 +31,11 @@ export function safePath(root: string, p: string): string {
   const parts = rel.split(sep);
   if (parts.some((x) => x === '.git' || x === 'node_modules') || parts.some((x) => x.startsWith('.env'))) {
     throw new Error(`шлях недоступний читачеві: ${p}`);
+  }
+  // канонічність: символьне посилання всередині форка не має вивести назовні (крок 04)
+  if (existsSync(full)) {
+    const real = relative(realpathSync(root), realpathSync(full));
+    if (real.startsWith('..') || isAbsolute(real)) throw new Error(`шлях веде поза форк через посилання: ${p}`);
   }
   return full;
 }
@@ -135,4 +140,33 @@ export async function fetchEvidence(root: string, ev: string): Promise<string> {
   } catch (e) {
     return `(файл недоступний: ${e instanceof Error ? e.message : String(e)})`;
   }
+}
+
+/** Масові коміти форматування, які blame пропускає (знайдено на кроці 00, context.md §3). */
+export const IGNORE_REVS = ['1c265a1', 'b45871b'];
+
+export const RESEARCH_TOOL_NAMES = [...READER_TOOL_NAMES, 'git_blame', 'git_log_search'] as const;
+
+/** Інструменти ДОСЛІДНИКА (крок 04): усе з читача + blame і пошук по історії. Лише читання. */
+export function researchTools(root: string) {
+  return {
+    ...readerTools(root),
+    git_blame: tool({
+      description: 'Хто й у якому коміті написав рядки from..to файлу: git blame -w -C з ігноруванням масового форматування. До 60 рядків. Лише читання.',
+      inputSchema: z.object({ path: z.string(), from: z.number().int().min(1), to: z.number().int().min(1) }),
+      execute: async ({ path, from, to }) => {
+        safePath(root, path);
+        const end = Math.min(to, from + 59);
+        return git(root, ['blame', '-w', '-C', ...IGNORE_REVS.flatMap((r) => ['--ignore-rev', r]), '--date=short', '-L', `${from},${end}`, '--', path]);
+      },
+    }),
+    git_log_search: tool({
+      description: 'Коміти, що додали або прибрали рядок (git log -S <text>), формат «sha дата тема», до 20. Лише читання.',
+      inputSchema: z.object({ text: z.string().min(2).max(120), path: z.string().default('.') }),
+      execute: async ({ text, path }) => {
+        safePath(root, path);
+        return git(root, ['log', `-S${text}`, '-n20', '--format=%h %as %s', '--', path]);
+      },
+    }),
+  };
 }
