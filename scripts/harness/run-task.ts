@@ -121,14 +121,17 @@ export function spawnAgent(bin: string, args: readonly string[], cwd: string, ti
  * --print-logs --log-level INFO (журнал OpenCode у stderr → agent.log: видно, на чому агент завис).
  * `--auto` НЕ передаємо: він автоматично схвалює все незаборонене — це обхід дозволів.
  */
-export const opencodeRunner: AgentRunner = (task, cwd) =>
+export const opencodeRunnerFor = (model: string): AgentRunner => (task, cwd) =>
   spawnAgent(
     'opencode',
-    ['run', task.input, '-m', OPENCODE_MODEL, '--format', 'json', '--agent', 'harness', '--dir', resolve(cwd), '--print-logs', '--log-level', 'INFO'],
+    ['run', task.input, '-m', model, '--format', 'json', '--agent', 'harness', '--dir', resolve(cwd), '--print-logs', '--log-level', 'INFO'],
     cwd,
     // HARNESS_MAX_TIMEOUT_S — лише щоб СКОРОТИТИ таймаут задачі (діагностика); збільшити бюджет ним не можна
     Math.min(task.budget.timeout_s, Number(process.env.HARNESS_MAX_TIMEOUT_S) || Infinity),
   );
+
+/** Модель за замовчуванням (Лаб. 3). Крок 07 Лаб. 4 вибирає модель через opencodeRunnerFor. */
+export const opencodeRunner: AgentRunner = opencodeRunnerFor(OPENCODE_MODEL);
 
 /** Вивід OpenCode з --format json — рядки JSON-подій. Рядки, що не парсяться, пропускаємо. */
 export function parseEvents(stdout: string): unknown[] {
