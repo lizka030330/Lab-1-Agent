@@ -245,7 +245,9 @@ export async function runTask(
   let patch = '';
   const quiet = { cwd: opts.worktree, stdio: ['ignore', 'pipe', 'ignore'] as ['ignore', 'pipe', 'ignore'] };
   try {
-    execFileSync('git', ['add', '-A', '--', '.', ':(exclude).agent-log'], quiet);
+    // node_modules — символьне посилання харнеса на залежності основного дерева: у курсовому репозиторії його
+    // ловить рядок «node_modules» у .gitignore, а в чужому (Лаб. 4) — ні; перший прогін f-01 приніс його в patch.diff
+    execFileSync('git', ['add', '-A', '--', '.', ':(exclude).agent-log', ':(exclude)node_modules'], quiet);
     patch = execFileSync('git', ['diff', '--cached'], { ...quiet, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
   } catch {
     patch = '';
