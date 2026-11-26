@@ -5,6 +5,8 @@
  *
  *   npm run verify:harness -- docs/lab3/runs/t-07-1794670085832              брама: лише після зелених брам
  *   npm run verify:harness -- --calibrate docs/lab3/runs/<…> docs/lab3/runs/<…>   калібрування: без умови
+ *   … -- --tasks docs/lab4/foreign-tasks.jsonl --criteria docs/lab4/foreign-criteria.jsonl --out docs/lab4/traces/foreign/verdicts <тека>
+ *      (Лаб. 4: прогін по чужому коду — свої задачі, критерії й тека вердиктів; теки Лаб. 3 не чіпаються)
  *
  * Один суддя — один критерій: окремий запит на кожен критерій з docs/lab3/criteria.jsonl.
  * Вердикт — за строгою схемою; невалідну відповідь перепитує рівно раз, потім — ненульовий код.
@@ -104,14 +106,18 @@ function readJsonl<T>(path: string): T[] {
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
   const calibrate = args.includes('--calibrate');
-  const dirs = args.filter((a) => !a.startsWith('--'));
+  const opt = (name: string, def: string) => (args.includes(name) ? (args[args.indexOf(name) + 1] ?? def) : def);
+  const tasksFile = opt('--tasks', 'docs/lab3/tasks.jsonl');
+  const criteriaFile = opt('--criteria', 'docs/lab3/criteria.jsonl');
+  const optValues = new Set(['--tasks', '--criteria', '--out'].filter((n) => args.includes(n)).map((n) => args[args.indexOf(n) + 1]));
+  const dirs = args.filter((a) => !a.startsWith('--') && !optValues.has(a));
   if (dirs.length === 0) throw new Error('вкажіть теку прогону: docs/lab3/runs/<id>-<мітка>');
 
-  const tasks = new Map(readJsonl<{ id: string; input: string }>('docs/lab3/tasks.jsonl').map((t) => [t.id, t]));
-  const criteria = new Map(readJsonl<{ task_id: string; criteria: HarnessCriterion[] }>('docs/lab3/criteria.jsonl').map((c) => [c.task_id, c.criteria]));
+  const tasks = new Map(readJsonl<{ id: string; input: string }>(tasksFile).map((t) => [t.id, t]));
+  const criteria = new Map(readJsonl<{ task_id: string; criteria: HarnessCriterion[] }>(criteriaFile).map((c) => [c.task_id, c.criteria]));
   const base = process.env.OLLAMA_BASE_URL || 'http://localhost:11434';
   const model = chatCompletionsModel({ url: `${base}/v1/chat/completions`, model: JUDGE_MODEL });
-  const outDir = calibrate ? 'docs/lab3/verdicts/calibration' : 'docs/lab3/verdicts';
+  const outDir = opt('--out', calibrate ? 'docs/lab3/verdicts/calibration' : 'docs/lab3/verdicts');
   mkdirSync(outDir, { recursive: true });
 
   let blockedAny = false;

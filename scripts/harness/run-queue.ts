@@ -13,6 +13,7 @@ import { join, resolve } from 'node:path';
 import { mayRun, record } from '../../src/harness/breaker';
 import { logStop } from '../../src/harness/stop';
 import { runCostQueue } from './cost-queue';
+import { runForeignQueue } from './foreign-queue';
 import { opencodeRunner, OPENCODE_MODEL, runTask, type Task } from './run-task';
 import { trace } from '@opentelemetry/api';
 import './otel';
@@ -23,6 +24,7 @@ const onlyId = args.includes('--id') ? (args[args.indexOf('--id') + 1] ?? null) 
 const push = !args.includes('--no-push');
 // Лаб. 4, крок 07: аудит вартості — конфігурація моделей і (необовʼязково) підмножина банку
 const config = args.includes('--config') ? (args[args.indexOf('--config') + 1] ?? null) : null;
+const repo = args.includes('--repo') ? (args[args.indexOf('--repo') + 1] ?? null) : null;
 const ids = args.includes('--ids') ? new Set((args[args.indexOf('--ids') + 1] ?? '').split(',').filter(Boolean)) : null;
 
 const tasks: Task[] = readFileSync(file, 'utf8')
@@ -39,11 +41,19 @@ const ROOT = resolve('.');
 const git = (a: string[], cwd = ROOT) => execFileSync('git', a, { cwd, encoding: 'utf8' });
 // Нові теки docs/lab3/runs/, стан брейкера й журнал зупинень пише сама черга — вони не заважають:
 // дерево береться від HEAD, а вони в нього не потрапляють.
-const OWN = ['docs/lab3/runs/', '.harness/', 'docs/lab3/stop-log.jsonl', 'docs/lab4/traces/cost-', 'docs/lab4/traces/run-cost-'];
+const OWN = ['docs/lab3/runs/', '.harness/', 'docs/lab3/stop-log.jsonl', 'docs/lab4/traces/cost-', 'docs/lab4/traces/run-cost-', 'docs/lab4/traces/foreign', 'docs/lab4/traces/run-foreign'];
 const dirtyOf = () => git(['status', '--porcelain']).split('\n').filter((l) => l.trim() !== '' && !OWN.some((o) => l.includes(o)));
 const dirtyBefore = dirtyOf();
 if (dirtyBefore.length > 0) {
   throw new Error(`основний checkout не чистий: закомітьте зміни, інакше дерево прогону не побачить їх\n${dirtyBefore.join('\n')}`);
+}
+
+if (repo !== null) {
+  // Лаб. 4, брама: той самий виконавець по ЧУЖОМУ коду — див. foreign-queue.ts
+  await runForeignQueue(tasks, repo, ROOT);
+  const after = dirtyOf();
+  console.log(after.length === 0 ? 'основний checkout курсового репозиторію: чистий' : `основний checkout курсового репозиторію змінено:\n${after.join('\n')}`);
+  process.exit(0);
 }
 
 if (config !== null) {

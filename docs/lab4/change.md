@@ -53,7 +53,7 @@
 - Заборона на тестову теку дослівно: `"src/*.spec.ts": "deny"`, `"src/**/*.spec.ts": "deny"` (тести проєкту лежать у `src/` поруч із кодом), а також `package.json`, `package-lock.json`, `stryker.config.mjs` — `deny`.
 - Взірець шляху: відносний `"src/index.ts": "allow"` **дав збіг** — агент змінив саме цей файл (обидва прогони), інших змін немає (`git status --short` після прогонів: лише ` M src/index.ts`).
 - Ізоляція: `git worktree add -b lab4/change ../path-to-regexp-change ae3e0a0` · `git status` основного checkout після прогону: див. `rollback.md` §2 (чистий).
-- Прогони: 19:48:52–19:49:40 (зміна) і 19:51:03–19:51:19 (виправлення за зауваженням перегляду). Логи: `gate-record/agent-change-run.txt`, `agent-change-run-2.txt` на моєму ноутбуці.
+- Прогони: 19:48:52–19:49:40 (зміна) і 19:51:03–19:51:19 (виправлення за зауваженням перегляду). Логи (повні, у ФОРКУ — там фрагменти чужого коду; закомічено 2026-11-26 окремим `chore:`-комітом `903a4df`): [agent-change-run.txt](https://github.com/lizka030330/path-to-regexp/blob/903a4df/reports/lab4/agent-change-run.txt), [agent-change-run-2.txt](https://github.com/lizka030330/path-to-regexp/blob/903a4df/reports/lab4/agent-change-run-2.txt). До цього дня вони лежали лише на моєму ноутбуці — прогалину знайдено під час перевірки кроків 00–07.
 
 ## 5. Перегляд дифа
 Хто і чим: я очима рядок за рядком **до першого запуску тестів** + Claude (Opus 5.5) як друга думка: запуск версій «до» і «після» `src/index.ts` на тих самих 6 входах (таблиця в §3). `claude ultrareview`/Codex `/review` не використовувались.
