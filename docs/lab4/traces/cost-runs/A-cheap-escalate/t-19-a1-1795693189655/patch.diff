@@ -1,0 +1,12 @@
+diff --git a/src/cost.ts b/src/cost.ts
+index 7f5d3ae..9d0d7f3 100644
+--- a/src/cost.ts
++++ b/src/cost.ts
+@@ -129,6 +129,7 @@ export const COST_TABLE_HEADER = [
+   '|---|---|---|---|---|---|---|---|---|---|---|---|',
+ ].join('\n');
+ 
++/** Рядок Markdown-таблиці. */
+ export function costTableRow(r: CostRow): string {
+   const est = r.estimatedInput;
+   const cells = [

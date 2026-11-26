@@ -14,12 +14,12 @@ const load = (f: string) =>
 
 console.log('<!-- згенеровано: npx tsx scripts/harness/cost-report.ts ' + dir + ' -->');
 console.log('\n### Зведення конфігурацій\n');
-console.log('| Конфігурація | Задач | Пройдено | Частка | Підняттів | Вхід (повідомл.) | Кеш-читання (повідомл.) | Кеш-запис (повідомл.) | Вихід | Reasoning | Кроків | Інстр. | Повторів | Час, с | $ OpenCode | Токенів на пройдену | $ на пройдену |');
-console.log('|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|');
+console.log('| Конфігурація | Задач | Пройдено | Частка | Підняттів | Вхід (повідомл.) | Кеш-читання (повідомл.) | Кеш-запис (повідомл.) | Вихід | Reasoning | Усього токенів | Кроків | Інстр. | Повторів | Час, с | $ OpenCode | Токенів на пройдену | $ на пройдену |');
+console.log('|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|');
 for (const f of files) {
   const s = summarise(load(f));
   const name = f.replace(/^cost-|\.jsonl$/g, '');
-  console.log(`| ${name} | ${s.tasks} | ${s.passed} | ${(s.pass_share * 100).toFixed(0)}% | ${s.escalations} | ${s.input_tokens} (${s.input_reported}) | ${s.cache_read} (${s.cache_read_reported}) | ${s.cache_write} (${s.cache_write_reported}) | ${s.output_tokens} (${s.output_reported}) | ${s.reasoning_tokens} (${s.reasoning_reported}) | ${s.steps} | ${s.tool_calls} | ${s.retries} | ${s.duration_s} | ${s.cost_usd} (${s.cost_reported}) | ${s.tokens_per_passed ?? 'немає пройдених'} | ${s.usd_per_passed ?? '—'} |`);
+  console.log(`| ${name} | ${s.tasks} | ${s.passed} | ${(s.pass_share * 100).toFixed(0)}% | ${s.escalations} | ${s.input_tokens} (${s.input_reported}) | ${s.cache_read} (${s.cache_read_reported}) | ${s.cache_write} (${s.cache_write_reported}) | ${s.output_tokens} (${s.output_reported}) | ${s.reasoning_tokens} (${s.reasoning_reported}) | ${s.all_tokens} | ${s.steps} | ${s.tool_calls} | ${s.retries} | ${s.duration_s} | ${s.cost_usd} (${s.cost_reported}) | ${s.tokens_per_passed ?? 'немає пройдених'} | ${s.usd_per_passed ?? '—'} |`);
 }
 for (const f of files) {
   const rows = load(f);

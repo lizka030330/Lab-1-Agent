@@ -1,0 +1,28 @@
+diff --git a/tests/error-pct.test.ts b/tests/error-pct.test.ts
+new file mode 100644
+index 0000000..57159ef
+--- /dev/null
++++ b/tests/error-pct.test.ts
+@@ -0,0 +1,22 @@
++import { describe, expect, it } from 'vitest';
++import { errorPct } from '../src/cost';
++
++describe('errorPct', () => {
++  it('точна оцінка дає 0', () => {
++    expect(errorPct(100, 100)).toBe(0);
++    expect(errorPct(42, 42)).toBe(0);
++  });
++
++  it('оцінка 110 при фактичних 100 дає 10', () => {
++    expect(errorPct(110, 100)).toBe(10);
++  });
++
++  it('оцінка 90 при фактичних 100 дає 10', () => {
++    expect(errorPct(90, 100)).toBe(10);
++  });
++
++  it('кидає помилку, якщо фактична кількість менша або дорівнює нулю', () => {
++    expect(() => errorPct(100, 0)).toThrow(RangeError);
++    expect(() => errorPct(100, -10)).toThrow(RangeError);
++  });
++});

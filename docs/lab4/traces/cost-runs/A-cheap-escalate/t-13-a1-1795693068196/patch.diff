@@ -1,0 +1,51 @@
+diff --git a/src/rag/chunk.ts b/src/rag/chunk.ts
+index 1fc7368..017c619 100644
+--- a/src/rag/chunk.ts
++++ b/src/rag/chunk.ts
+@@ -167,3 +167,23 @@ export function chunkDocument(docId: string, raw: string, rule: ChunkRule = RULE
+     text: text.slice(part.span.start, part.span.end),
+   }));
+ }
++
++export function chunkStats(chunks: readonly Chunk[]): { count: number; avgChars: number; maxChars: number } {
++  if (chunks.length === 0) {
++    return { count: 0, avgChars: 0, maxChars: 0 };
++  }
++  let totalChars = 0;
++  let maxChars = 0;
++  for (const chunk of chunks) {
++    const len = chunk.text.length;
++    totalChars += len;
++    if (len > maxChars) {
++      maxChars = len;
++    }
++  }
++  return {
++    count: chunks.length,
++    avgChars: Math.round(totalChars / chunks.length),
++    maxChars,
++  };
++}
+diff --git a/tests/chunk-stats.test.ts b/tests/chunk-stats.test.ts
+new file mode 100644
+index 0000000..956d9be
+--- /dev/null
++++ b/tests/chunk-stats.test.ts
+@@ -0,0 +1,17 @@
++import { describe, expect, it } from 'vitest';
++import { chunkStats, Chunk } from '../src/rag/chunk';
++
++describe('chunkStats', () => {
++  it('повертає нулі для порожнього масиву', () => {
++    expect(chunkStats([])).toEqual({ count: 0, avgChars: 0, maxChars: 0 });
++  });
++
++  it('обраховує статистику для трьох фрагментів довжиною 10, 20 і 25 символів', () => {
++    const chunks: Chunk[] = [
++      { id: '1', docId: 'd', heading: '', start: 0, end: 10, text: '1234567890' },
++      { id: '2', docId: 'd', heading: '', start: 10, end: 30, text: '12345678901234567890' },
++      { id: '3', docId: 'd', heading: '', start: 30, end: 55, text: '1234567890123456789012345' },
++    ];
++    expect(chunkStats(chunks)).toEqual({ count: 3, avgChars: 18, maxChars: 25 });
++  });
++});

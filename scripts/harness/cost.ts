@@ -84,18 +84,22 @@ export function readUsage(stdout: string): { usage: Usage; steps: number; tool_c
 
 /**
  * Лічильник повторів і службових викликів — з журналу OpenCode (--print-logs), бо в подіях і трасі повторів не видно.
- * Формат рядків зчитано з agent.log прогонів Лаб. 3:
+ * Формат рядків зчитано з agent.log прогонів Лаб. 3 (`input` у step_finish — НЕКЕШОВАНИЙ вхід: кеш-читання окремо;
+ * перевірено арифметикою — сума за прайсом збігається з `cost`, який повідомив OpenCode, див. cost.md):
  *   `message=stream … agent=harness`        — виклик моделі агента;
  *   `message="stream error" … agent=harness` — невдалий виклик (OpenCode повторює; `AI_RetryError: Failed after 3 attempts`);
  *   `message=stream … small=true agent=title` — службова модель заголовка сесії: її токенів у step_finish НЕМАЄ.
  */
+const STEP_LIMIT = /Requests ending with a model turn are not supported/i;
+
 export function readLog(stderr: string): { model_calls: number; retries: number; title_calls: number } {
   let model_calls = 0;
   let retries = 0;
   let title_calls = 0;
   for (const line of stderr.split(/\r?\n/)) {
     const isStream = /\bmessage=stream\b/.test(line);
-    if (/message="stream error"/.test(line) && /\bagent=harness\b/.test(line)) retries += 1;
+    // «Requests ending with a model turn» — це сигнал межі кроків (Лаб. 3, крок 06), а не повтор
+    if (/message="stream error"/.test(line) && /\bagent=harness\b/.test(line) && !STEP_LIMIT.test(line)) retries += 1;
     if (isStream && /\bagent=harness\b/.test(line)) model_calls += 1;
     if (isStream && /\bagent=title\b/.test(line)) title_calls += 1;
   }
@@ -172,6 +176,8 @@ export function summarise(rows: readonly TaskCost[]) {
   const inputs = sum((r) => r.input_tokens);
   const outputs = sum((r) => r.output_tokens);
   const reasoning = sum((r) => r.reasoning_tokens);
+  const cacheRead = sum((r) => r.cache_read);
+  const cacheWrite = sum((r) => r.cache_write);
   return {
     tasks: rows.length,
     passed,
@@ -179,9 +185,9 @@ export function summarise(rows: readonly TaskCost[]) {
     escalations: rows.filter((r) => r.escalated).length,
     input_tokens: inputs,
     input_reported: reported((r) => r.input_tokens),
-    cache_read: sum((r) => r.cache_read),
+    cache_read: cacheRead,
     cache_read_reported: reported((r) => r.cache_read),
-    cache_write: sum((r) => r.cache_write),
+    cache_write: cacheWrite,
     cache_write_reported: reported((r) => r.cache_write),
     output_tokens: outputs,
     output_reported: reported((r) => r.output_tokens),
@@ -193,8 +199,11 @@ export function summarise(rows: readonly TaskCost[]) {
     tool_calls: rows.reduce((a, r) => a + r.tool_calls, 0),
     retries: rows.reduce((a, r) => a + r.retries, 0),
     duration_s: Math.round(rows.reduce((a, r) => a + r.duration_s, 0)),
-    // головне число порівняння: ціна ОДНІЄЇ пройденої задачі (вхід + вихід + reasoning)
-    tokens_per_passed: passed === 0 ? null : Math.round((inputs + outputs + reasoning) / passed),
+    // У OpenCode `input` — лише НЕКЕШОВАНИЙ вхід; кеш-читання — окремий кошик і найбільший за обсягом.
+    // Тому «усього токенів» = некешований вхід + кеш-читання + кеш-запис + вихід + reasoning.
+    all_tokens: inputs + cacheRead + cacheWrite + outputs + reasoning,
+    // головне число порівняння: ціна ОДНІЄЇ пройденої задачі — усі кошики
+    tokens_per_passed: passed === 0 ? null : Math.round((inputs + cacheRead + cacheWrite + outputs + reasoning) / passed),
     usd_per_passed: passed === 0 ? null : Math.round((sum((r) => r.cost_usd_reported) / passed) * 1e4) / 1e4,
   };
 }

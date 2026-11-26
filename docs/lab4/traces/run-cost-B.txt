@@ -1,0 +1,19 @@
+конфігурація B-strong: google/gemini-3.8-flash; задач 8; HEAD be64049
+Preparing worktree (new branch 'harness/B-strong/t-01-1795693463886')
+t-01 [B-strong] спроба 1 google/gemini-3.8-flash: ok, 98.5 с, acceptance pass, кроків 9, вхід 28146, вихід 2149
+Preparing worktree (new branch 'harness/B-strong/t-03-1795693562925')
+t-03 [B-strong] спроба 1 google/gemini-3.8-flash: budget_or_turns, 101.1 с, acceptance pass, кроків 19, вхід 64570, вихід 2020
+Preparing worktree (new branch 'harness/B-strong/t-07-1795693664665')
+t-07 [B-strong] спроба 1 google/gemini-3.8-flash: ok, 49.4 с, acceptance pass, кроків 10, вхід 29387, вихід 1164
+Preparing worktree (new branch 'harness/B-strong/t-10-1795693714605')
+t-10 [B-strong] спроба 1 google/gemini-3.8-flash: budget_or_turns, 722.6 с, acceptance pass, кроків 19, вхід 117194, вихід 2342
+Preparing worktree (new branch 'harness/B-strong/t-13-1795694437810')
+t-13 [B-strong] спроба 1 google/gemini-3.8-flash: ok, 69.4 с, acceptance pass, кроків 10, вхід 32282, вихід 1551
+Preparing worktree (new branch 'harness/B-strong/t-16-1795694507774')
+t-16 [B-strong] спроба 1 google/gemini-3.8-flash: ok, 74.8 с, acceptance pass, кроків 8, вхід 32450, вихід 926
+Preparing worktree (new branch 'harness/B-strong/t-19-1795694583149')
+t-19 [B-strong] спроба 1 google/gemini-3.8-flash: ok, 75.9 с, acceptance pass, кроків 12, вхід 45758, вихід 1045
+Preparing worktree (new branch 'harness/B-strong/t-20-1795694659627')
+t-20 [B-strong] спроба 1 google/gemini-3.8-flash: ok, 84.5 с, acceptance pass, кроків 13, вхід 40155, вихід 2399
+записи: docs/lab4/traces/cost-B-strong.jsonl
+основний checkout: чистий (крім docs/lab4/traces/cost-* і run-cost-*)

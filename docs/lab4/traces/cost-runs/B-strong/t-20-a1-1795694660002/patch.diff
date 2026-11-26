@@ -1,0 +1,46 @@
+diff --git a/src/metrics.ts b/src/metrics.ts
+index 746dcdf..2d581a1 100644
+--- a/src/metrics.ts
++++ b/src/metrics.ts
+@@ -47,6 +47,15 @@ export function mean(values: readonly number[]): number {
+   return values.reduce((sum, v) => sum + v, 0) / values.length;
+ }
+ 
++/** Дисперсія генеральної сукупності (середнє квадратів відхилень від mean). */
++export function variance(values: readonly number[]): number {
++  if (values.length === 0) {
++    throw new RangeError('дисперсія порожнього переліку не визначена');
++  }
++  const m = mean(values);
++  return mean(values.map((v) => (v - m) ** 2));
++}
++
+ /**
+  * nDCG@k для НЕбінарної релевантності: `gains` — оцінка кожного документа (0, 1, 2…).
+  * Беріть лише тоді, коли ці оцінки у вас справді розставлені рукою.
+diff --git a/tests/metrics.test.ts b/tests/metrics.test.ts
+index 95383c5..8054119 100644
+--- a/tests/metrics.test.ts
++++ b/tests/metrics.test.ts
+@@ -8,6 +8,7 @@ import {
+   recallAtK,
+   reciprocalRank,
+   transitions,
++  variance,
+   type Hit,
+ } from '../src/metrics';
+ 
+@@ -96,3 +97,13 @@ describe('переходи вердиктів', () => {
+     expect(rows).toContainEqual({ from: 'correct', to: 'wrong', ids: ['q-03'] });
+   });
+ });
++
++describe('variance', () => {
++  it('[2, 4, 4, 4, 5, 5, 7, 9] дає 4', () => {
++    expect(variance([2, 4, 4, 4, 5, 5, 7, 9])).toBe(4);
++  });
++
++  it('порожній перелік кидає RangeError', () => {
++    expect(() => variance([])).toThrow(RangeError);
++  });
++});

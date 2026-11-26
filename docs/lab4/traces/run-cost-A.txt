@@ -1,0 +1,21 @@
+конфігурація A-cheap-escalate: google/gemini-3.5-flash-lite → google/gemini-3.8-flash; задач 8; HEAD be64049
+Preparing worktree (new branch 'harness/A-cheap-escalate/t-01-1795692939657')
+t-01 [A-cheap-escalate] спроба 1 google/gemini-3.5-flash-lite: ok, 32.7 с, acceptance pass, кроків 10, вхід 34307, вихід 1737
+Preparing worktree (new branch 'harness/A-cheap-escalate/t-03-1795692973029')
+t-03 [A-cheap-escalate] спроба 1 google/gemini-3.5-flash-lite: ok, 28.4 с, acceptance pass, кроків 10, вхід 36108, вихід 1610
+Preparing worktree (new branch 'harness/A-cheap-escalate/t-07-1795693001980')
+t-07 [A-cheap-escalate] спроба 1 google/gemini-3.5-flash-lite: ok, 20.9 с, acceptance pass, кроків 7, вхід 26365, вихід 805
+Preparing worktree (new branch 'harness/A-cheap-escalate/t-10-1795693023510')
+t-10 [A-cheap-escalate] спроба 1 google/gemini-3.5-flash-lite: ok, 43.9 с, acceptance pass, кроків 15, вхід 84147, вихід 2794
+Preparing worktree (new branch 'harness/A-cheap-escalate/t-13-1795693067953')
+t-13 [A-cheap-escalate] спроба 1 google/gemini-3.5-flash-lite: ok, 27.2 с, acceptance pass, кроків 9, вхід 33555, вихід 1437
+Preparing worktree (new branch 'harness/A-cheap-escalate/t-16-1795693095757')
+t-16 [A-cheap-escalate] спроба 1 google/gemini-3.5-flash-lite: ok, 36.8 с, acceptance fail, кроків 13, вхід 44521, вихід 701
+Preparing worktree (new branch 'harness/A-cheap-escalate/t-16-1795693133072')
+t-16 [A-cheap-escalate] спроба 2 google/gemini-3.8-flash: ok, 55.8 с, acceptance pass, кроків 12, вхід 41405, вихід 740
+Preparing worktree (new branch 'harness/A-cheap-escalate/t-19-1795693189415')
+t-19 [A-cheap-escalate] спроба 1 google/gemini-3.5-flash-lite: ok, 27.9 с, acceptance pass, кроків 10, вхід 38436, вихід 614
+Preparing worktree (new branch 'harness/A-cheap-escalate/t-20-1795693217836')
+t-20 [A-cheap-escalate] спроба 1 google/gemini-3.5-flash-lite: ok, 26 с, acceptance pass, кроків 7, вхід 26786, вихід 1681
+записи: docs/lab4/traces/cost-A-cheap-escalate.jsonl
+основний checkout: чистий (крім docs/lab4/traces/cost-* і run-cost-*)

@@ -1,0 +1,81 @@
+diff --git a/src/rag/bm25.ts b/src/rag/bm25.ts
+index aae4e68..ddc8380 100644
+--- a/src/rag/bm25.ts
++++ b/src/rag/bm25.ts
+@@ -19,7 +19,11 @@ export const BM25: Bm25Options = { k1: 1.2, b: 0.75 };
+  * на кроці 06 вона зʼявиться серед причин помилок. Списку стоп-слів теж немає.
+  */
+ export function tokenize(text: string): string[] {
+-  return (text.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? []).filter((t) => t.length > 1);
++  const normalized = text
++    .toLowerCase()
++    .replace(/[\u2019\u02bc]/g, "'")
++    .replace(/(?<=\p{L})'(?=\p{L})/gu, '\u02bc');
++  return (normalized.match(/[\p{L}\p{N}]+/gu) ?? []).filter((t) => t.length > 1);
+ }
+ 
+ export interface Bm25Index {
+diff --git a/tests/tokenize-apostrophe.test.ts b/tests/tokenize-apostrophe.test.ts
+new file mode 100644
+index 0000000..5c2b61b
+--- /dev/null
++++ b/tests/tokenize-apostrophe.test.ts
+@@ -0,0 +1,58 @@
++import { describe, expect, it } from 'vitest';
++
++import { tokenize } from '../src/rag/bm25';
++
++describe('tokenize — обробка апострофа', () => {
++  it('підтримує всі три форми апострофа (U+0027, U+2019, U+02BC) між літерами та зводить їх до ʼ (U+02BC)', () => {
++    expect(tokenize("пам'ять")).toEqual(['памʼять']);
++    expect(tokenize('пам’ять')).toEqual(['памʼять']);
++    expect(tokenize('памʼять')).toEqual(['памʼять']);
++    expect(tokenize("Пам'ять")).toEqual(['памʼять']);
++
++    const res1 = tokenize("Пам'ять");
++    const res2 = tokenize('пам’ять');
++    const res3 = tokenize('памʼять');
++    expect(res1).toEqual(res2);
++    expect(res2).toEqual(res3);
++
++    expect(tokenize("з'їзд")).toEqual(['зʼїзд']);
++    expect(tokenize('об’єкт')).toEqual(['обʼєкт']);
++    expect(tokenize('пʼять')).toEqual(['пʼять']);
++    expect(tokenize("м'яч")).toEqual(['мʼяч']);
++  });
++
++  it('не включає апостроф на початку або в кінці слова до токена', () => {
++    // На початку слова
++    expect(tokenize("'слово")).toEqual(['слово']);
++    expect(tokenize('’слово')).toEqual(['слово']);
++    expect(tokenize('ʼслово')).toEqual(['слово']);
++
++    // В кінці слова
++    expect(tokenize("слово'")).toEqual(['слово']);
++    expect(tokenize('слово’')).toEqual(['слово']);
++    expect(tokenize('словоʼ')).toEqual(['слово']);
++
++    // З обох боків
++    expect(tokenize("'слово'")).toEqual(['слово']);
++    expect(tokenize('’слово’')).toEqual(['слово']);
++    expect(tokenize('ʼсловоʼ')).toEqual(['слово']);
++
++    // Апострофи на краях слова з внутрішнім апострофом
++    expect(tokenize("'пам'ять'")).toEqual(['памʼять']);
++    expect(tokenize('’пам’ять’')).toEqual(['памʼять']);
++    expect(tokenize('ʼпамʼятьʼ')).toEqual(['памʼять']);
++    expect(tokenize('ʼпам’ятьʼ')).toEqual(['памʼять']);
++  });
++
++  it('не змінює решту правил (регістр, цифри, відкидання однобуквених токенів)', () => {
++    expect(tokenize("ОБ'ЄМ 123 і E-418")).toEqual(['обʼєм', '123', '418']);
++    expect(tokenize("123'456")).toEqual(['123', '456']);
++    expect(tokenize('123’456')).toEqual(['123', '456']);
++    expect(tokenize('123ʼ456')).toEqual(['123', '456']);
++    expect(tokenize("'a'")).toEqual([]);
++    expect(tokenize("a'")).toEqual([]);
++    expect(tokenize("'a")).toEqual([]);
++    expect(tokenize("''")).toEqual([]);
++    expect(tokenize("'")).toEqual([]);
++  });
++});

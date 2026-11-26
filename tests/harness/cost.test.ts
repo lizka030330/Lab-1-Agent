@@ -31,6 +31,10 @@ describe('readLog — повтори з журналу, бо в трасі їх 
     ].join('\n');
     expect(readLog(log)).toEqual({ model_calls: 1, retries: 1, title_calls: 1 });
   });
+  it('сигнал межі кроків — не повтор', () => {
+    const log = 'level=ERROR message="stream error" small=false agent=harness error.error="AI_APICallError: Requests ending with a model turn are not supported."';
+    expect(readLog(log).retries).toBe(0);
+  });
 });
 
 const att = (model: string, passed: boolean, input: number | null, output: number | null): Attempt => ({
@@ -51,6 +55,11 @@ describe('toTaskCost і summarise', () => {
     const s = summarise(rows);
     expect(s).toMatchObject({ tasks: 2, passed: 1, pass_share: 0.5, input_tokens: 100, input_reported: '1/2', tokens_per_passed: 110, cache_read_reported: '0/2' });
     expect(summarise([rows[1]!]).tokens_per_passed).toBeNull();
+  });
+  it('кеш-читання входить у «усього» і в токени на пройдену', () => {
+    const a = { ...att('s', true, 100, 10), usage: { input: 100, output: 10, reasoning: 5, cache_read: 1000, cache_write: 0, cost_usd: null } };
+    const s = summarise([toTaskCost({ task_id: 'c', config: 'B', trace_id: null }, [a])]);
+    expect(s).toMatchObject({ all_tokens: 1115, tokens_per_passed: 1115 });
   });
   it('у таблиці не повідомлене — словами, не нулем', () => {
     const r = toTaskCost({ task_id: 'b', config: 'B', trace_id: null }, [att('google/m', false, null, 5)]);
