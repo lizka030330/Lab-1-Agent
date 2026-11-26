@@ -39,7 +39,7 @@ const ROOT = resolve('.');
 const git = (a: string[], cwd = ROOT) => execFileSync('git', a, { cwd, encoding: 'utf8' });
 // Нові теки docs/lab3/runs/, стан брейкера й журнал зупинень пише сама черга — вони не заважають:
 // дерево береться від HEAD, а вони в нього не потрапляють.
-const OWN = ['docs/lab3/runs/', '.harness/', 'docs/lab3/stop-log.jsonl', 'docs/lab4/traces/cost-'];
+const OWN = ['docs/lab3/runs/', '.harness/', 'docs/lab3/stop-log.jsonl', 'docs/lab4/traces/cost-', 'docs/lab4/traces/run-cost-'];
 const dirtyOf = () => git(['status', '--porcelain']).split('\n').filter((l) => l.trim() !== '' && !OWN.some((o) => l.includes(o)));
 const dirtyBefore = dirtyOf();
 if (dirtyBefore.length > 0) {
@@ -50,7 +50,7 @@ if (config !== null) {
   // окремий режим: інша модель на спробу, без брейкера, без комітів — див. cost-queue.ts
   await runCostQueue(tasks, config, ROOT);
   const after = dirtyOf();
-  console.log(after.length === 0 ? 'основний checkout: чистий (крім docs/lab4/traces/cost-*)' : `УВАГА, основний checkout змінено:\n${after.join('\n')}`);
+  console.log(after.length === 0 ? 'основний checkout: чистий (крім docs/lab4/traces/cost-* і run-cost-*)' : `УВАГА, основний checkout змінено:\n${after.join('\n')}`);
   process.exit(0);
 }
 
