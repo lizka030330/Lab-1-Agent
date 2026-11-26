@@ -1,0 +1,28 @@
+{
+  "run": "../path-to-regexp/reports/lab4/harness/f-01-1795696588975",
+  "task_id": "f-01",
+  "judge_model": "ollama/qwen3-8b-16k",
+  "judged_at": "2026-11-26T12:44:47.327Z",
+  "ms": 58017,
+  "blocked": false,
+  "results": [
+    {
+      "id": "C1",
+      "verdict": "pass",
+      "reason": "Додано JSDoc-коментар над функцією tokensToFunction, який описує повертаємою функцією поведінку",
+      "evidence": "src/index.ts: /** Returns a function that executes token encoders and concatenates their results. */"
+    },
+    {
+      "id": "C2",
+      "verdict": "pass",
+      "reason": "Доданий JSDoc-коментар не змінював існуючий код функції tokensToFunction або інших функцій. У diff відсутні зміни або видалення рядків коду.",
+      "evidence": "src/index.ts\n+/** Returns a function that executes token encoders and concatenates their results. */"
+    },
+    {
+      "id": "C3",
+      "verdict": "pass",
+      "reason": "Зміна відбулась лише в src/index.ts, тестові файли та package.json/lock не торкалися.",
+      "evidence": "diff --git a/src/index.ts b/src/index.ts\n@@ -282,6 +282,7 @@ export type PathFunction<P extends ParamData> = (data?: P) => string;\n  */\ntype TokenEncoder = (data: ParamData, missing: string[]) => string;\n\n+/** Returns a function that executes token encoders and concatenates their results. */\nfunction tokensToFunction("
+    }
+  ]
+}

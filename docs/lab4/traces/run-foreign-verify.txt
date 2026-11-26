@@ -1,0 +1,11 @@
+
+> agentic-course-starter@0.1.0 verify:harness
+> tsx scripts/harness/verify-run.ts --tasks docs/lab4/foreign-tasks.jsonl --criteria docs/lab4/foreign-criteria.jsonl --out docs/lab4/traces/foreign/verdicts ../path-to-regexp/reports/lab4/harness/f-01-1795696588975
+
+
+f-01-1795696588975 (f-01) → pass  [docs/lab4/traces/foreign/verdicts/f-01-1795696588975.json]
+  C1 pass    Додано JSDoc-коментар над функцією tokensToFunction, який описує повертаємою функцією поведінку  | src/index.ts: /** Returns a function that executes token encoders and concatenates their results. */
+  C2 pass    Доданий JSDoc-коментар не змінював існуючий код функції tokensToFunction або інших функцій. У diff відсутні зміни або видалення рядків коду.  | src/index.ts
++/** Returns a function that executes token encoders and concatenates their results. */
+  C3 pass    Зміна відбулась лише в src/index.ts, тестові файли та package.json/lock не торкалися.  | diff --git a/src/index.ts b/src/index.ts
+@@ -282,6 +282,7 @@ export type PathFunction<P extends Para
